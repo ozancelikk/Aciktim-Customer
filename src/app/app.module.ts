@@ -16,6 +16,9 @@ import { FormsModule } from '@angular/forms';
 import { RestaurantBannerComponent } from './components/restaurant/restaurant-banner/restaurant-banner.component';
 import { RestaurantComponent } from './components/restaurant/restaurant.component';
 import { HomeComponent } from './components/home/home.component';
+import { RestaurantDetailComponent } from './components/restaurant/restaurant-detail/restaurant-detail.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 
 
 @NgModule({
@@ -30,6 +33,9 @@ import { HomeComponent } from './components/home/home.component';
     RestaurantBannerComponent,
     RestaurantComponent,
     HomeComponent,
+    RestaurantDetailComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
