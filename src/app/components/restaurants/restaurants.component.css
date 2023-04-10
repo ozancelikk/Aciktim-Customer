@@ -1,0 +1,22 @@
+.filterText {
+    font-weight: bold;
+}
+.filter_list {
+    list-style: none;
+    padding: 0px;
+    margin-left: 0px;
+}
+.filter_list li {
+    list-style: none;
+}
+.filter {
+    background-color:#ffffff;
+    padding: 2rem;
+    margin-bottom: 0.2rem;
+    border-bottom: 0px solid gray;
+    border-left: 0px solid gray;
+    border-right: 0px solid gray;
+    border-radius: 10px;
+    box-shadow: rgba(93, 62, 188, 0.04) 0px 6px 24px;
+   
+}
