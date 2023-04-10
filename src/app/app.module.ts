@@ -13,6 +13,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRadioModule} from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { RestaurantBannerComponent } from './components/restaurant/restaurant-banner/restaurant-banner.component';
+import { RestaurantComponent } from './components/restaurant/restaurant.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 @NgModule({
@@ -24,6 +27,9 @@ import { FormsModule } from '@angular/forms';
     CategoriesComponent,
     FeaturedRestaurantsComponent,
     RestaurantsComponent,
+    RestaurantBannerComponent,
+    RestaurantComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
