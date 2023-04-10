@@ -20,3 +20,37 @@
     box-shadow: rgba(93, 62, 188, 0.04) 0px 6px 24px;
    
 }
+
+.review-stat{
+    font-weight:300;
+    font-size:15px;
+    margin-bottom:2px;
+}
+
+.small-ratings i{
+    color:#cecece;   
+  }
+  .rating-color{
+    color:rgb(212, 78, 212) !important;
+}
+
+.restaurant_name {
+    color:rgb(212, 78, 212) ;
+}
+
+.card {
+    position: relative;
+}
+.like_button {
+    position: absolute;
+    color: white;
+    bottom:290px;
+    left:270px;
+    font-size: 23px;
+}
+.like_button:hover {
+    z-index: 999999;
+    transition: .4s;
+    color: rgb(212, 78, 212);
+
+  }
