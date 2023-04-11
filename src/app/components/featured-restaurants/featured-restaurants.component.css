@@ -23,7 +23,7 @@
   }
 .see_all_a {
     text-decoration: none;
-    color:rgb(212, 78, 212);
+    color:#C9463D;
 }
 
   .see_all {
@@ -75,27 +75,28 @@
 }
 .category_name span {
     font-size: 13px;
-    color: rgb(216, 129, 216);
+    color: #C9463D;
 }
 
   .point i {
     font-size: 13px;
-    color: rgb(216, 129, 216);
+    color: #C9463D;
   }
    .point span {
     font-size: 13px;
-    color: rgb(216, 129, 216);
+    color: #C9463D;
   }
   .like_button:hover {
     z-index: 999999;
     transition: .4s;
-    color: rgb(212, 78, 212);
+    color: #C9463D;
 
   }
 
   .restaurant_name {
-    color: rgb(212, 78, 212);
+    color: #C9463D;
     font-size: 13px;
+    font-weight: 500;
   }
   
   .card-wrapper a {
@@ -112,7 +113,7 @@
   
   
   .card-wrapper .card-title {
-    color: rgb(212, 78, 212);
+    color: #C9463D;
     margin-top: 5px;
   }
   
