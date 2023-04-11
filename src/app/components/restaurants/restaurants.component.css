@@ -43,9 +43,9 @@
 }
 .like_button {
     position: absolute;
-    color: white;
-    bottom:290px;
-    left:270px;
+    color: white; 
+    bottom:310px;
+    left:210px;
     font-size: 23px;
 }
 .like_button:hover {
@@ -57,4 +57,57 @@
   .card_href {
     text-decoration: none;
     color: black;
+  }
+
+  @media (max-width: 1400px) {
+    .card {
+        width: 13rem !important;   
+    } 
+    .x {
+        margin-bottom: 20px;
+    }
+    .like_button {
+        top: 4px;
+        left:177px;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .card {
+        width: 20rem !important;
+    }
+    .x {
+        margin-bottom: 60px;
+    }
+    .like_button {
+        top: 4px;
+        left:290px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .card {
+        width: 16rem !important;
+    }
+    .x {
+        margin-bottom: 60px;
+    }
+    .like_button {
+        top: 4px;
+        left:225px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .card {
+        width: 30rem !important;
+        
+    }
+    .x {
+        margin-bottom: 60px;
+    }
+    .like_button {
+        top: 4px;
+        left:450px;
+    }
   }
