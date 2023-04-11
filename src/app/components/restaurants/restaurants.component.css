@@ -31,11 +31,11 @@
     color:#cecece;   
   }
   .rating-color{
-    color:rgb(212, 78, 212) !important;
+    color:#C9463D !important;
 }
 
 .restaurant_name {
-    color:rgb(212, 78, 212) ;
+    color:#C9463D ;
 }
 
 .card {
@@ -51,6 +51,10 @@
 .like_button:hover {
     z-index: 999999;
     transition: .4s;
-    color: rgb(212, 78, 212);
+    color: #C9463D;
 
+  }
+  .card_href {
+    text-decoration: none;
+    color: black;
   }
