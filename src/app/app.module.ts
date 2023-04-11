@@ -19,6 +19,7 @@ import { HomeComponent } from './components/home/home.component';
 import { RestaurantDetailComponent } from './components/restaurant/restaurant-detail/restaurant-detail.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { AccountComponent } from './components/account/account.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { RegisterComponent } from './components/auth/register/register.component
     RestaurantDetailComponent,
     LoginComponent,
     RegisterComponent,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,
