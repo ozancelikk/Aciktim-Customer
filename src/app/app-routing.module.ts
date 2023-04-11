@@ -11,6 +11,7 @@ import { RestaurantDetailComponent } from './components/restaurant/restaurant-de
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AccountComponent } from './components/account/account.component';
+import { OrdersComponent } from './components/orders/orders.component';
 
 const routes: Routes = [
   {path:"",pathMatch:"full",component:HomeComponent,children:[
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path:"auth/login",component:LoginComponent},
   {path:"auth/register",component:RegisterComponent},
   {path:"account",component:AccountComponent},
+  {path:"orders",component:OrdersComponent},
 ];
 
 @NgModule({
