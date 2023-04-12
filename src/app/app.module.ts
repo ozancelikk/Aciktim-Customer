@@ -21,6 +21,9 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AccountComponent } from './components/account/account.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { SupportComponent } from './components/support/support.component';
+import { CartComponent } from './components/cart/cart.component';
+import { FavoriteRestaurantsComponent } from './components/favorite-restaurants/favorite-restaurants.component';
 
 
 @NgModule({
@@ -40,6 +43,9 @@ import { OrdersComponent } from './components/orders/orders.component';
     RegisterComponent,
     AccountComponent,
     OrdersComponent,
+    SupportComponent,
+    CartComponent,
+    FavoriteRestaurantsComponent,
   ],
   imports: [
     BrowserModule,
