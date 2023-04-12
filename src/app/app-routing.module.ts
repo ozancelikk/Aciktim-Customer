@@ -12,6 +12,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AccountComponent } from './components/account/account.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { FoodComponent } from './components/food/food.component';
 
 const routes: Routes = [
   {path:"",pathMatch:"full",component:HomeComponent,children:[
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path:"auth/register",component:RegisterComponent},
   {path:"account",component:AccountComponent},
   {path:"orders",component:OrdersComponent},
+  {path:"foods",component:FoodComponent},
 ];
 
 @NgModule({

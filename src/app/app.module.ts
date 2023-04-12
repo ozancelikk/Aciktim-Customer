@@ -21,6 +21,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AccountComponent } from './components/account/account.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { FoodComponent } from './components/food/food.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { OrdersComponent } from './components/orders/orders.component';
     RegisterComponent,
     AccountComponent,
     OrdersComponent,
+    FoodComponent,
   ],
   imports: [
     BrowserModule,
