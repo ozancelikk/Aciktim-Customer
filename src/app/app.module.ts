@@ -9,10 +9,9 @@ import { SliderComponent } from './components/slider/slider.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { FeaturedRestaurantsComponent } from './components/featured-restaurants/featured-restaurants.component';
 import { RestaurantsComponent } from './components/restaurants/restaurants.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRadioModule} from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RestaurantBannerComponent } from './components/restaurant/restaurant-banner/restaurant-banner.component';
 import { RestaurantComponent } from './components/restaurant/restaurant.component';
 import { HomeComponent } from './components/home/home.component';
@@ -21,12 +20,14 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AccountComponent } from './components/account/account.component';
 import { OrdersComponent } from './components/orders/orders.component';
-
 import { SupportComponent } from './components/support/support.component';
 import { CartComponent } from './components/cart/cart.component';
 import { FavoriteRestaurantsComponent } from './components/favorite-restaurants/favorite-restaurants.component';
-
 import { FoodComponent } from './components/food/food.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { HttpClientModule } from '@angular/common/http'
+
 
 
 
@@ -47,11 +48,9 @@ import { FoodComponent } from './components/food/food.component';
     RegisterComponent,
     AccountComponent,
     OrdersComponent,
-
     SupportComponent,
     CartComponent,
     FavoriteRestaurantsComponent,
-
     FoodComponent,
 
   ],
@@ -61,7 +60,13 @@ import { FoodComponent } from './components/food/food.component';
     BrowserAnimationsModule,
     MatRadioModule,
     MatCheckboxModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    ToastrModule.forRoot({
+      positionClass:"toast-bottom-right"
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
