@@ -6,4 +6,5 @@ export interface Restaurant {
     closingTime:string;
     categoryId:string;
     restaurantImage:string;
+    phoneNumber:string;
 }

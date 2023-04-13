@@ -9,4 +9,5 @@ export interface RestaurantDto {
     minCartPrice:number;
     restaurantRate:number;
     imagePath:string;
+    phoneNumber:string;
 }
