@@ -12,7 +12,6 @@ import { RestaurantsComponent } from './components/restaurants/restaurants.compo
 import { MatRadioModule} from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RestaurantBannerComponent } from './components/restaurant/restaurant-banner/restaurant-banner.component';
 import { RestaurantComponent } from './components/restaurant/restaurant.component';
 import { HomeComponent } from './components/home/home.component';
 import { RestaurantDetailComponent } from './components/restaurant/restaurant-detail/restaurant-detail.component';
@@ -40,7 +39,6 @@ import { HttpClientModule } from '@angular/common/http'
     CategoriesComponent,
     FeaturedRestaurantsComponent,
     RestaurantsComponent,
-    RestaurantBannerComponent,
     RestaurantComponent,
     HomeComponent,
     RestaurantDetailComponent,

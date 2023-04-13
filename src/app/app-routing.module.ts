@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RestaurantComponent } from './components/restaurant/restaurant.component';
-import { RestaurantBannerComponent } from './components/restaurant/restaurant-banner/restaurant-banner.component';
 import { HomeComponent } from './components/home/home.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { FeaturedRestaurantsComponent } from './components/featured-restaurants/featured-restaurants.component';
@@ -27,8 +26,7 @@ const routes: Routes = [
     {path:"",component:CategoriesComponent},
     {path:"",component:RestaurantsComponent},
   ]},
-  {path:"restaurant/xx",component:RestaurantComponent,children:[
-    {path:"",component:RestaurantBannerComponent},
+  {path:"restaurant/:restaurantId",component:RestaurantComponent,children:[
     {path:"",component:RestaurantDetailComponent},
   ]},
   {path:"auth/login",component:LoginComponent},
