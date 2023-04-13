@@ -13,11 +13,10 @@
               <p><i class="fa-solid fa-house"></i> {{restaurant.restaurantAddress}}</p>
               <p><i class="fa-solid fa-clock"></i> 06.00 / 22.00</p>
 
-              <p>Restoran Puanı: <i class="fa-solid fa-star stars"></i>
-                <i class="fa-solid fa-star stars"></i>
-                <i class="fa-solid fa-star stars"></i>
-                <i class="fa-solid fa-star stars"></i>
-                <i class="fa-solid fa-star-half stars"></i>
+              <p>Restoran Puanı:
+                <i class="fa-solid fa-star stars" *ngFor="let x of rate"></i>
+                <i class="fa-solid fa-star remainderRateColor" *ngFor="let x of remainderRate"></i>
+               
               </p>
             </div>
             <div class="col-md-6">

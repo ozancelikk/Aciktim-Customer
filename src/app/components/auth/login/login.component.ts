@@ -26,10 +26,10 @@ export class LoginComponent implements OnInit  {
   login() {
     if(this.loginForm.valid) {
       let model = Object.assign({},this.loginForm.value);
-      console.log(model);
       this.authService.login(model).subscribe(response=>{
         if(response.success) {
-          localStorage.setItem("token",response.data.token)
+          localStorage.setItem("token",response.data.token);
+          localStorage.setItem("customerId",response.data.customerId)
           this.toastrService.success("Giriş Başarılı","Başarılı");
           setTimeout(() => {
             this.router.navigate(["/"])
@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit  {
         }
       },error=>{
         this.toastrService.error(error.error)
-        console.log("xx")
       })
     }
     else {

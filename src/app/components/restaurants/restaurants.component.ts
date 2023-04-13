@@ -20,7 +20,6 @@ export class RestaurantsComponent implements OnInit {
     this.restaurantService.getAllRestaurants().subscribe(response=>{
       if(response.success) {
         this.restaurants = response.data;
-        console.log(this.restaurants)
       }
     })
   }
