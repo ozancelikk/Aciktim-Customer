@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Restaurant } from 'src/app/models/restaurant/restaurant';
+import { RestaurantDto } from 'src/app/models/restaurant/restaurantDto';
 import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { RestaurantService } from 'src/app/services/restaurant/restaurant.servic
   styleUrls: ['./restaurants.component.css']
 })
 export class RestaurantsComponent implements OnInit {
-  restaurants:Restaurant[];
+  restaurants:RestaurantDto[];
   constructor(private restaurantService:RestaurantService,private toastrService:ToastrService){}
   ngOnInit(): void {
     this.getAllRestaurants();
@@ -22,5 +23,9 @@ export class RestaurantsComponent implements OnInit {
         console.log(this.restaurants)
       }
     })
+  }
+  getImagePath(restaurantDto:RestaurantDto):string{
+    let url="https://localhost:44398/Uploads/Images/"+restaurantDto.imagePath
+    return url;
   }
 }

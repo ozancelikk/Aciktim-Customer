@@ -3,363 +3,53 @@
     <div class="col-lg-9">
       <div class="row x">
         <h3 id="restaurants" style="font-weight: bold;">Restaurantlar</h3>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12" style="height: 22rem;">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12" style="height: 22rem;" *ngFor="let restaurant of restaurants">
           <a href="#" class="card_href">
-          <div class="card" style="width: 15rem;height: auto;">
-            <img src="https://images.deliveryhero.io/image/fd-tr/LH/rth5-hero.jpg" style="height: 180px;object-fit: cover;"
-              class="card-img-top" alt="...">
-            <div class="card-body">
-              <a href="">
-                <i class="fa-regular fa-heart like_button"></i>
-              </a>
-              <div class="header d-flex justify-content-between">
-                <div class="card-title restaurant_name" style="font-weight: bold;">
-                  Burger King
+            <div class="card" style="width: 15rem;height: auto;">
+              <img [src]="getImagePath(restaurant)"
+                style="height: 180px;object-fit: cover;" class="card-img-top" alt="...">
+              <div class="card-body">
+                <a href="">
+                  <i class="fa-regular fa-heart like_button"></i>
+                </a>
+                <div class="header d-flex justify-content-between">
+                  <div class="card-title restaurant_name" style="font-weight: bold;">
+                    {{restaurant.restaurantName}}
+                  </div>
+                  <div>
+                    <i class="fa fa-star rating-color"></i>
+                    <i class="fa fa-star rating-color"></i>
+                    <i class="fa fa-star rating-color"></i>
+                    <i class="fa fa-star rating-color"></i>
+                  </div>
                 </div>
-                <div>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
+                <div class="row">
+                  <div class="col-lg-6">{{restaurant.restaurantAddress}}</div>
+                  <div class="col-lg-6">
+                    <span style="font-size: 13px;">
+                      Min Sepet Tutarı : {{restaurant.minCartPrice}}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">Karadeniz Mah. No/4</div>
-                <div class="col-lg-6">
-                  <span style="font-size: 13px;">
-                    Min Sepet Tutarı :  25 TL
-                  </span>
-                </div>
-              </div>
-                  <br>
-              <div class="row">
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Açılış : 09.00
-                  </span> </div>
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Kapanış : 16.00
-                  </span>
+                <br>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <span>
+                      <i class="fa-solid fa-clock"></i> Açılış : {{restaurant.openingTime}}
+                    </span> </div>
+                  <div class="col-lg-6">
+                    <span>
+                      <i class="fa-solid fa-clock"></i> Kapanış : {{restaurant.closingTime}}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </a>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12" style="height: 22rem;">
-          <a href="#" class="card_href">
-          <div class="card" style="width: 15rem;height: auto;">
-            <img src="https://images.deliveryhero.io/image/fd-tr/LH/rth5-hero.jpg" style="height: 180px;object-fit: cover;"
-              class="card-img-top" alt="...">
-            <div class="card-body">
-              <a href="">
-                <i class="fa-regular fa-heart like_button"></i>
-              </a>
-              <div class="header d-flex justify-content-between">
-                <div class="card-title restaurant_name" style="font-weight: bold;">
-                  Burger King
-                </div>
-                <div>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">Karadeniz Mah. No/4</div>
-                <div class="col-lg-6">
-                  <span style="font-size: 13px;">
-                    Min Sepet Tutarı :  25 TL
-                  </span>
-                </div>
-              </div>
-                  <br>
-              <div class="row">
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Açılış : 09.00
-                  </span> </div>
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Kapanış : 16.00
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </a>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12" style="height: 22rem;">
-          <a href="#" class="card_href">
-          <div class="card" style="width: 15rem;height: auto;">
-            <img src="https://images.deliveryhero.io/image/fd-tr/LH/rth5-hero.jpg" style="height: 180px;object-fit: cover;"
-              class="card-img-top" alt="...">
-            <div class="card-body">
-              <a href="">
-                <i class="fa-regular fa-heart like_button"></i>
-              </a>
-              <div class="header d-flex justify-content-between">
-                <div class="card-title restaurant_name" style="font-weight: bold;">
-                  Burger King
-                </div>
-                <div>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">Karadeniz Mah. No/4</div>
-                <div class="col-lg-6">
-                  <span style="font-size: 13px;">
-                    Min Sepet Tutarı :  25 TL
-                  </span>
-                </div>
-              </div>
-                  <br>
-              <div class="row">
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Açılış : 09.00
-                  </span> </div>
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Kapanış : 16.00
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </a>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12" style="height: 22rem;">
-          <a href="#" class="card_href">
-          <div class="card" style="width: 15rem;height: auto;">
-            <img src="https://images.deliveryhero.io/image/fd-tr/LH/rth5-hero.jpg" style="height: 180px;"
-              class="card-img-top" alt="...">
-            <div class="card-body">
-              <a href="">
-                <i class="fa-regular fa-heart like_button"></i>
-              </a>
-              <div class="header d-flex justify-content-between">
-                <div class="card-title restaurant_name" style="font-weight: bold;">
-                  Burger King
-                </div>
-                <div>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">Karadeniz Mah. No/4</div>
-                <div class="col-lg-6">
-                  <span style="font-size: 13px;">
-                    Min Sepet Tutarı :  25 TL
-                  </span>
-                </div>
-              </div>
-                  <br>
-              <div class="row">
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Açılış : 09.00
-                  </span> </div>
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Kapanış : 16.00
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </a>
-        </div>
-      </div>
-      <div class="row x">
-        <div class="col-lg-3 col-md-6" style="height: 22rem;">
-          <a href="#" class="card_href">
-          <div class="card" style="width: 15rem;height: auto;">
-            <img src="https://images.deliveryhero.io/image/fd-tr/LH/rth5-hero.jpg" style="height: 180px;object-fit: cover;"
-              class="card-img-top" alt="...">
-            <div class="card-body">
-              <a href="">
-                <i class="fa-regular fa-heart like_button"></i>
-              </a>
-              <div class="header d-flex justify-content-between">
-                <div class="card-title restaurant_name" style="font-weight: bold;">
-                  Burger King
-                </div>
-                <div>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">Karadeniz Mah. No/4</div>
-                <div class="col-lg-6">
-                  <span style="font-size: 13px;">
-                    Min Sepet Tutarı :  25 TL
-                  </span>
-                </div>
-              </div>
-                  <br>
-              <div class="row">
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Açılış : 09.00
-                  </span> </div>
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Kapanış : 16.00
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </a>
-        </div>
-        <div class="col-lg-3 col-md-6" style="height: 22rem;">
-          <a href="#" class="card_href">
-          <div class="card" style="width: 15rem;height: auto;">
-            <img src="https://images.deliveryhero.io/image/fd-tr/LH/rth5-hero.jpg" style="height: 180px;object-fit: cover;"
-              class="card-img-top" alt="...">
-            <div class="card-body">
-              <a href="">
-                <i class="fa-regular fa-heart like_button"></i>
-              </a>
-              <div class="header d-flex justify-content-between">
-                <div class="card-title restaurant_name" style="font-weight: bold;">
-                  Burger King
-                </div>
-                <div>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">Karadeniz Mah. No/4</div>
-                <div class="col-lg-6">
-                  <span style="font-size: 13px;">
-                    Min Sepet Tutarı :  25 TL
-                  </span>
-                </div>
-              </div>
-                  <br>
-              <div class="row">
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Açılış : 09.00
-                  </span> </div>
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Kapanış : 16.00
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </a>
-        </div>
-        <div class="col-lg-3 col-md-6" style="height: 22rem;">
-          <a href="#" class="card_href">
-          <div class="card" style="width: 15rem;height: auto;">
-            <img src="https://images.deliveryhero.io/image/fd-tr/LH/rth5-hero.jpg" style="height: 180px;object-fit: cover;"
-              class="card-img-top" alt="...">
-            <div class="card-body">
-              <a href="">
-                <i class="fa-regular fa-heart like_button"></i>
-              </a>
-              <div class="header d-flex justify-content-between">
-                <div class="card-title restaurant_name" style="font-weight: bold;">
-                  Burger King
-                </div>
-                <div>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">Karadeniz Mah. No/4</div>
-                <div class="col-lg-6">
-                  <span style="font-size: 13px;">
-                    Min Sepet Tutarı :  25 TL
-                  </span>
-                </div>
-              </div>
-                  <br>
-              <div class="row">
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Açılış : 09.00
-                  </span> </div>
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Kapanış : 16.00
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </a>
-        </div>
-        <div class="col-lg-3 col-md-6" style="height: 22rem;">
-          <a href="#" class="card_href">
-          <div class="card" style="width: 15rem;height: auto;">
-            <img src="https://images.deliveryhero.io/image/fd-tr/LH/rth5-hero.jpg" style="height: 180px;"
-              class="card-img-top" alt="...">
-            <div class="card-body">
-              <a href="">
-                <i class="fa-regular fa-heart like_button"></i>
-              </a>
-              <div class="header d-flex justify-content-between">
-                <div class="card-title restaurant_name" style="font-weight: bold;">
-                  Burger King
-                </div>
-                <div>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">Karadeniz Mah. No/4</div>
-                <div class="col-lg-6">
-                  <span style="font-size: 13px;">
-                    Min Sepet Tutarı :  25 TL
-                  </span>
-                </div>
-              </div>
-                  <br>
-              <div class="row">
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Açılış : 09.00
-                  </span> </div>
-                <div class="col-lg-6">
-                  <span>
-                    <i class="fa-solid fa-clock"></i> Kapanış : 16.00
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </a>
+          </a>
         </div>
       </div>
 
-  </div>
+    </div>
     <div class="col-lg-3">
       <h4 class="filterText mb-3 p-2" style="border-radius: 5px;">Filtreler</h4>
       <div class="container filter">
