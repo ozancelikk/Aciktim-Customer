@@ -10,6 +10,9 @@ import { RestaurantService } from 'src/app/services/restaurant/restaurant.servic
 })
 export class RestaurantDetailComponent implements OnInit {
   restaurant: RestaurantDto;
+  star:number;
+  rate = new Array(0)
+  remainderRate = new Array(0)
   constructor(private restaurantService: RestaurantService, private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void 
   {
@@ -22,6 +25,9 @@ export class RestaurantDetailComponent implements OnInit {
     this.restaurantService.getRestaurantDetails(restaurantId).subscribe(response => {
       if (response.success) {
         this.restaurant = response.data;
+        this.star = response.data.restaurantRate;
+        this.rate = new Array(this.restaurant.restaurantRate)
+        this.remainderRate = new Array(5 - this.restaurant.restaurantRate)
         console.log(this.restaurant)
       }
     })
@@ -31,4 +37,6 @@ export class RestaurantDetailComponent implements OnInit {
     let url="https://localhost:44398/Uploads/Images/Restaurant/" + restaurantDto.id + "/" + restaurantDto.imagePath
     return url;
   }
+
+
 }
