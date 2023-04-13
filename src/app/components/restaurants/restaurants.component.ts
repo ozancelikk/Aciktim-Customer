@@ -25,7 +25,7 @@ export class RestaurantsComponent implements OnInit {
     })
   }
   getImagePath(restaurantDto:RestaurantDto):string{
-    let url="https://localhost:44398/Uploads/Images/"+restaurantDto.imagePath
+    let url="https://localhost:44398/Uploads/Images/Restaurant/" + restaurantDto.imagePath
     return url;
   }
 }
