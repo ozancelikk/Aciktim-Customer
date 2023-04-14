@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Login } from 'src/app/models/auth/login';
 import { SingleResponseModel } from 'src/app/models/singleResponseModel';
+import {ResponseModel} from 'src/app/models/responseModel'
 
 import { Observable } from 'rxjs';
 import { Register } from 'src/app/models/auth/register';
 import { Token } from 'src/app/models/auth/token';
-import { CustomerDto } from 'src/app/models/customer/customerDto';
 import { Customer } from 'src/app/models/customer/customer';
 
 @Injectable({
@@ -32,5 +32,9 @@ export class AuthService {
     localStorage.removeItem("token")
     localStorage.removeItem("customerId")
     localStorage.removeItem("expiration")
+  }
+
+  updateCustomer(customer:Customer):Observable<ResponseModel>{
+    return this.httpClient.post<ResponseModel>(this.apiURL2+"/Update" , customer);
   }
 }
