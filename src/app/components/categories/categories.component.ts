@@ -23,7 +23,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   getImagePath(categoryDto:CategoryDto) {
-    let url="https://localhost:44398/Uploads/Images/Category/" + categoryDto.id +"/" +  categoryDto.imagePath
+    let url="http://127.0.0.1:8887/Category/" + categoryDto.id +"/" +  categoryDto.imagePath
     return url;
   }
 
