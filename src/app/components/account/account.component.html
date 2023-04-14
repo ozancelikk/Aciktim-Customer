@@ -1,38 +1,66 @@
 <div class="container rounded bg-white mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Ozan</span><span class="text-black-50">ozancelikk0808@gmail.com</span><span> </span></div>
+  <div class="row">
+    <div class="col-md-5 border-right">
+      <div class="p-3 py-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="text-right" style="font-weight: bold;">Profil Ayarları</h4>
         </div>
-        <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Profile Settings</h4>
+        <div class="row mt-2">
+          <div class="col-md-6"><label class="labels">Ad</label><input type="text" class="form-control" placeholder="Ad"
+              value=""></div>
+          <div class="col-md-6"><label class="labels">Soyad</label><input type="text" class="form-control" value=""
+              placeholder="Soyad"></div>
+          <div class="col-md-12"><label class="labels">Email adres</label><input type="text" class="form-control"
+              value="" placeholder="Email adres"></div>
+        </div>
+        <div class="row mt-3">
+          <form [formGroup]="updateForm">
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                  <input type="text" id="form3Example1" formControlName="nationalityId" placeholder="örn:11111111111"
+                    class="form-control" />
+                  <label class="form-label" for="form3Example1">Tc Kimlik No</label>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Ad</label><input type="text" class="form-control" placeholder="Ad" value=""></div>
-                    <div class="col-md-6"><label class="labels">Soyad</label><input type="text" class="form-control" value="" placeholder="Soyad"></div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                  <input type="text" id="form3Example2" placeholder="örn:08.06.2020" formControlName="birthDay"
+                    class="form-control" />
+                  <label class="form-label" for="form3Example2">Doğum günü</label>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Telefon Numarası</label><input type="text" class="form-control" placeholder="Telefon Numarası" value=""></div>
-                    <div class="col-md-12"><label class="labels">TC Kimlik No</label><input type="text" class="form-control" placeholder="Tc Kimlik No" value=""></div>
-                    <div class="col-md-12"><label class="labels">Doğum Tarihi</label><input type="text" class="form-control" placeholder="Doğum Tarihi" value=""></div>
-                    <div class="col-md-12"><label class="labels">Mail Adresi</label><input type="text" class="form-control" placeholder="Mail Adresi" value=""></div><br>
-                    <div class="col-md-12"><button type="button" class="btn btn-primary profile-button" style="margin-top: 1rem;">Adres Eklemek için tıkalyın</button></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6"><label class="labels">Adreslerim</label><input type="submit" class="form-control" placeholder="country" value=""></div>
-                </div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+              </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="p-3 py-5">
-                <h3 style="font-weight:bold;">Change Password</h3>
-                <div class="col-md-12"><label class="labels">Eski Şifre</label><input type="text" class="form-control" placeholder="Eski Şifre" value=""></div> <br>
-                <div class="col-md-12"><label class="labels">Yeni Şifre</label><input type="text" class="form-control" placeholder="Yeni Şifre" value=""></div><br>
-                <div class="col-md-12"><label class="labels">Şifre Tekrarı</label><input type="text" class="form-control" placeholder="Yeni Şifre Tekrarı" value=""></div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Şifreyi Değiştir</button></div>
+
+            <div class="form-outline mb-4">
+              <input type="text" id="form3Example3" placeholder="örn:+905437725182" formControlName="phoneNumber"
+                class="form-control" />
+              <label class="form-label" for="form3Example3">Telefon Numarası</label>
             </div>
+            <div class="mt-1 text-center"><button class="btn btn-primary profile-button" type="button">Profili
+                Güncelle</button></div>
+          </form>
         </div>
+        <div class="row mt-3">
+          <div class="col-md-6"><label class="labels">Adreslerim</label><input type="submit" class="form-control"
+              placeholder="country" value=""></div>
+        </div>
+
+      </div>
     </div>
+    <div class="col-md-4">
+      <div class="p-3 py-5">
+        <h3 style="font-weight:bold;">Şifreni Değiştir</h3>
+        <div class="col-md-12"><label class="labels">Eski Şifre</label><input type="text" class="form-control"
+            placeholder="Eski Şifre" value=""></div> <br>
+        <div class="col-md-12"><label class="labels">Yeni Şifre</label><input type="text" class="form-control"
+            placeholder="Yeni Şifre" value=""></div><br>
+        <div class="col-md-12"><label class="labels">Şifre Tekrarı</label><input type="text" class="form-control"
+            placeholder="Yeni Şifre Tekrarı" value=""></div>
+        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Şifreyi
+            Değiştir</button></div>
+      </div>
+    </div>
+  </div>
 </div>

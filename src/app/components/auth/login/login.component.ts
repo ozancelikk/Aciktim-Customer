@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit  {
           setTimeout(() => {
             this.router.navigate(["/"])
           }
-          , 2000);
+          , 500);
         }
       },error=>{
         this.toastrService.error(error.error)
