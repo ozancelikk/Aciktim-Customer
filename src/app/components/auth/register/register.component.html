@@ -23,18 +23,18 @@
               ">
             <div class="card-body p-5 shadow-5 text-center">
               <h2 class="fw-bold mb-5">Giriş Yap</h2>
-              <form>
+              <form [formGroup]="registerForm">
                 <!-- 2 column grid layout with text inputs for the first and last names -->
                 <div class="row">
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
-                      <input type="text" id="form3Example1" class="form-control" />
+                      <input type="text" id="form3Example1" formControlName="firstName" class="form-control" />
                       <label class="form-label" for="form3Example1">İsim</label>
                     </div>
                   </div>
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
-                      <input type="text" id="form3Example2" class="form-control" />
+                      <input type="text" id="form3Example2" formControlName="lastName" class="form-control" />
                       <label class="form-label" for="form3Example2">Soyisim</label>
                     </div>
                   </div>
@@ -42,31 +42,31 @@
   
                 <!-- Email input -->
                 <div class="form-outline mb-4">
-                  <input type="email" id="form3Example3" class="form-control" />
+                  <input type="email" id="form3Example3" formControlName="email" class="form-control" />
                   <label class="form-label" for="form3Example3">Email adres</label>
                 </div>
   
                 <!-- Password input -->
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4" class="form-control" />
+                  <input type="password" id="form3Example5" formControlName="password" [(ngModel)]="password" class="form-control" />
                   <label class="form-label" for="form3Example4">Şifre</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                    <input type="password" id="form3Example4" class="form-control" />
+                    <input type="password" id="form3Example4" [(ngModel)]="verifyPassword" formControlName="password" class="form-control" />
                     <label class="form-label" for="form3Example4">Şifre Tekrarı</label>
                   </div>
   
                 <!-- Checkbox -->
                 <div class="form-check d-flex justify-content-center mb-4">
-                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                  <input class="form-check-input me-2" type="checkbox" id="form2Example33" checked />
                   <label class="form-check-label" for="form2Example33">
                     Kampanyaları Kaçırmamak İçin Tıklayın
                   </label>
                 </div>
   
                 <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-block mb-4">
+                <button type="submit" (click)="register()" class="btn btn-primary btn-block mb-4">
                   Kayıt ol
                 </button>
   
