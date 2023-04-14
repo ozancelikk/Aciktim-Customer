@@ -60,8 +60,11 @@
         <li class="nav-item" *ngIf="isAuthenticated()">
           <a class="nav-link mx-2 text-uppercase" routerLink="account"><i class="fa-solid fa-circle-user me-1"></i> hesabım</a>
         </li>
+        <li class="nav-item" *ngIf="isAuthenticated()" style="cursor: pointer;">
+          <a class="nav-link mx-2 text-uppercase" (click)="logout()"><i class="fa-solid fa-right-to-bracket"></i> Çıkış yap</a>
+        </li>
         <li class="nav-item" *ngIf="!isAuthenticated()">
-          <a class="nav-link mx-2 text-uppercase" routerLink="auth/login"><i class="fa-solid fa-cart-shopping me-1"></i>Giriş Yap</a>
+          <a class="nav-link mx-2 text-uppercase" routerLink="auth/login"><i class="fa-solid fa-right-to-bracket"></i> Giriş Yap</a>
         </li>
         <li class="nav-item" *ngIf="!isAuthenticated()">
           <a class="nav-link mx-2 text-uppercase" routerLink="auth/register"><i class="fa-solid fa-circle-user me-1"></i>Kayıt Ol</a>
