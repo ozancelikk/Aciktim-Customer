@@ -15,8 +15,9 @@
       <div class="col-lg-5">
         <div class="card mb-4">
           <div class="card-body text-center">
-            <img src="https://static.vecteezy.com/ti/vecteur-libre/p1/7409979-people-icon-design-avatar-icon-person-icons-people-icons-are-set-in-tendance-flat-style-user-icon-set-vectoriel.jpg" alt="avatar"
-              class="rounded-circle img-fluid" style="width: 150px;">
+            <img
+              src="https://static.vecteezy.com/ti/vecteur-libre/p1/7409979-people-icon-design-avatar-icon-person-icons-people-icons-are-set-in-tendance-flat-style-user-icon-set-vectoriel.jpg"
+              alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
             <h2 class="my-3">{{customer.firstName}} {{customer.lastName}}</h2>
             <p class="text-muted mb-1">Kayıt Tarihi : {{customer.registerDate}}</p>
             <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
@@ -26,51 +27,52 @@
           <div class="card-body p-3">
             <h3>Yeni Adres Ekle</h3>
             <hr>
-            <form>
+            <form [formGroup]="addAddressForm">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-outline">
                     <label class="labels" for="form6Example1">Şehir Adı</label>
-                    <input type="text" id="form6Example1" class="form-control" />
+                    <input type="text" id="form6Example1" formControlName="city" class="form-control" />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <label class="labels" for="form6Example1">İlçe Adı</label>
-                    <input type="text" id="form6Example1" class="form-control" />
+                  <input type="text" id="form6Example1" formControlName="county" class="form-control" />
+                </div>
+                <div class="col-lg-6" style="display: none;">
+                  <input type="text" id="form6Example1" formControlName="customerId" class="form-control" />
                 </div>
               </div>
               <div class="row mt-1">
                 <div class="col-lg-6">
                   <div class="form-outline">
                     <label class="labels" for="form6Example1">Mahalle Adı</label>
-                    <input type="text" id="form6Example1" class="form-control" />
+                    <input type="text" id="form6Example1" formControlName="neighbourHood" class="form-control" />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <label class="labels" for="form6Example1">Sokak Adı</label>
-                    <input type="text" id="form6Example1" class="form-control" />
+                  <input type="text" id="form6Example1" formControlName="street" class="form-control" />
                 </div>
               </div>
               <div class="row mt-1">
                 <div class="col-lg-6">
                   <div class="form-outline">
                     <label class="labels" for="form6Example1">Apartman Numarası</label>
-                    <input type="text" id="form6Example1" class="form-control" />
+                    <input type="text" id="form6Example1" formControlName="apartmentNumber" class="form-control" />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <label class="labels" for="form6Example1">Kapı Numarası</label>
-                    <input type="text" id="form6Example1" class="form-control" />
+                  <input type="text" id="form6Example1" formControlName="doorNumber" class="form-control" />
                 </div>
               </div>
-          
               <div class="form-outline mb-4">
                 <label class="labels" for="form6Example1">Adres Açıklaması</label>
-                <textarea class="form-control" id="form6Example7" rows="4"></textarea>
-               
+                <textarea class="form-control" formControlName="address" id="form6Example7" rows="4"></textarea>
               </div>
-          
-              <button type="submit" class="btn btn-block mb-4" style="background-color: rgb(99, 39, 120);color: white;">Adresi Kaydet</button>
+              <button type="submit" class="btn btn-block mb-4" (click)="addAddress()"
+                style="background-color: rgb(99, 39, 120);color: white;">Adresi Kaydet</button>
             </form>
           </div>
         </div>
@@ -92,8 +94,8 @@
             </div>
             <div class="row mt-1">
               <div class="col-lg-12">
-                <label class="labels">Email Adresi</label><input disabled value="{{mailAddress}}" type="text" class="form-control"
-               placeholder="Email adres">
+                <label class="labels">Email Adresi</label><input disabled value="{{mailAddress}}" type="text"
+                  class="form-control" placeholder="Email adres">
               </div>
             </div>
             <form [formGroup]="updateForm" class="mt-1">
@@ -125,7 +127,8 @@
                 <input type="text" id="form3Example3" placeholder="örn:+905437725182" formControlName="phoneNumber"
                   class="form-control" value="{{phoneNumber}}" />
               </div>
-              <div class="mt-1 text-center"><button class="btn btn-primary profile-button" (click)="updateUser()" type="button">Profili
+              <div class="mt-1 text-center"><button class="btn btn-primary profile-button" (click)="updateUser()"
+                  type="button">Profili
                   Güncelle</button></div>
             </form>
           </div>
@@ -140,8 +143,8 @@
                     placeholder="Eski Şifre" value=""></div> <br>
                 <div class="col-md-12"><label class="labels">Yeni Şifre</label><input type="text" class="form-control"
                     placeholder="Yeni Şifre" value=""></div><br>
-                <div class="col-md-12"><label class="labels">Şifre Tekrarı</label><input type="text" class="form-control"
-                    placeholder="Yeni Şifre Tekrarı" value=""></div>
+                <div class="col-md-12"><label class="labels">Şifre Tekrarı</label><input type="text"
+                    class="form-control" placeholder="Yeni Şifre Tekrarı" value=""></div>
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Şifreyi
                     Değiştir</button></div>
               </div>
@@ -150,10 +153,72 @@
           <div class="col-md-6">
             <div class="card mb-4 mb-md-0">
               <div class="card-body">
-                <h3>Aktif Adreslerim</h3>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <h3>Aktif Adreslerim</h3>
+                  </div>
+                  <div class="col-lg-6">
+                    <span style="font-size: 9px;color: red;">
+                      * Adresinizin üstüne tıklayarak daha fazla bilgi görebilirsiniz.
+                    </span>
+                  </div>
+                </div>
                 <hr>
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger" role="alert" *ngIf="customerAddresses.length == 0">
                   Herhangi bir adresiniz bulunmamaktadır.
+                </div>
+                <div *ngFor="let address of customerAddresses">
+                  <div class="alert alert-info mb-3" style="cursor: pointer;" role="alert" (click)="dialog.showModal()">
+                    {{address.address}}
+                  </div>
+                  <dialog #dialog>
+                    <div>
+                      <h2>Adres Detayı</h2>
+                      <hr>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Şehir</th>
+                            <th scope="col">İlçe</th>
+                            <th scope="col">Mahalle</th>
+                            <th scope="col">Sokak</th>
+                            <th scope="col">Kapı No</th>
+                            <th scope="col">Apartman No</th>
+                            <th scope="col">Düzenle</th>
+                            <th scope="col">Sil</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>#</td>
+                            <td>{{address.city}}</td>
+                            <td>{{address.county}}</td>
+                            <td>{{address.neighbourHood}}</td>
+                            <td>{{address.street}}</td>
+                            <td>{{address.doorNumber}}</td>
+                            <td>{{address.apartmentNumber}}</td>
+                            <td>
+                              <button style="background-color: white;border: none;">
+                                <i class="fa-solid fa-pen"></i>
+                              </button>
+                            </td>
+                            <td>
+                              <button style="background-color: white;border: none;">
+                                <i class="fa-solid fa-trash"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div>
+                      <button class="close_button" (click)="dialog.close()">Tamam</button>
+                    </div>
+                  </dialog>
+                </div>
+                <div class="card-footer">
+                  Toplam Kayıtlı Adres Sayınız  : {{customerAddresses.length}}
                 </div>
               </div>
             </div>
