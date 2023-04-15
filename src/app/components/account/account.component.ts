@@ -35,6 +35,7 @@ export class AccountComponent implements OnInit {
       lastName: [this.lastName, Validators.required],
       mailAddress: [this.mailAddress, Validators.required],
       id: ["", Validators.required],
+      registerDate:[new Date().toLocaleDateString(),Validators.required]
     })
   }
   getById(id: string) {
@@ -48,7 +49,6 @@ export class AccountComponent implements OnInit {
         this.phoneNumber = this.customer?.phoneNumber;
         this.birthDay = this.customer?.birthDay;
         this.nationalityId = this.customer?.nationalityId;
-        console.log(this.customer)
       }
     });
   }
@@ -58,18 +58,24 @@ export class AccountComponent implements OnInit {
   }
   updateUser() {
     let model = Object.assign({}, this.updateForm.value);
-    if(this.nationalityId!=null || this.birthDay!=null) {
-      alert("Bilgilerinizi daha önce zaten güncellemişsiniz!")
+    if(this.updateForm.valid) {
+      if(this.nationalityId!=null || this.birthDay!=null) {
+        alert("Bilgilerinizi daha önce zaten güncellemişsiniz!")
+      }
+      else {
+        this.authservice.updateCustomer(model).subscribe(response => {
+          if (response.success) {
+            this.toastrService.success("Bilgiler başarıyla Güncellendi", "BAŞARILI");
+          }
+        })
+      } 
     }
-    else {
-      this.authservice.updateCustomer(model).subscribe(response => {
-        if (response.success) {
-          this.toastrService.success("Bilgiler başarıyla Güncellendi", "BAŞARILI");
-        }
-      })
-    } 
+    else  {
+      this.toastrService.error("Lütfen ilgili alanları giriniz.","HATA")
+    }
+    
   }
 }
 
 
-//patch value not al
+

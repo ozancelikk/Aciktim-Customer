@@ -5,4 +5,5 @@ export interface CustomerDto{
     birthDay:string
     phoneNumber:string
     mailAddress:string
+    registerDate:string
 }

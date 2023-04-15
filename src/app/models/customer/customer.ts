@@ -6,4 +6,5 @@ export interface Customer{
     birthDay:string
     phoneNumber:string
     mailAddress:string
+    registerDate:string
 }

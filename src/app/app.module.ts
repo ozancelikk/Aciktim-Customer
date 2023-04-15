@@ -24,7 +24,9 @@ import { FavoriteRestaurantsComponent } from './components/favorite-restaurants/
 import { FoodComponent } from './components/food/food.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+
 
 
 
@@ -54,6 +56,7 @@ import { HttpClientModule } from '@angular/common/http'
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatDialogModule,
     BrowserAnimationsModule,
     MatRadioModule,
     MatCheckboxModule,
