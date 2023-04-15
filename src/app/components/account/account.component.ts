@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/models/customer/customer';
+import { CustomerAddress } from 'src/app/models/customer/customerAddress';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { CustomerService } from 'src/app/services/customer/customer.service';
 
 @Component({
   selector: 'app-account',
@@ -10,7 +12,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  updateForm: FormGroup
+  updateForm: FormGroup;
+  addAddressForm:FormGroup;
   customer: Customer
   customerId: any
   firstName:string;
@@ -19,10 +22,14 @@ export class AccountComponent implements OnInit {
   phoneNumber:string;
   nationalityId:string;
   birthDay:string;
+  customerAddresses:CustomerAddress[]
 
-  constructor(private formBuilder: FormBuilder, private toastrService: ToastrService, private authservice: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private toastrService: ToastrService,
+     private authservice: AuthService,private customerService:CustomerService) { }
   ngOnInit(): void {
     this.GetCustomerId();
+    this.getCustomerAddressesByCustomerId(this.customerId);
+    this.createAddAddressForm();
     this.CreateUpdateForm();
     this.getById(this.customerId)
   }
@@ -53,6 +60,42 @@ export class AccountComponent implements OnInit {
     });
   }
 
+  getCustomerAddressesByCustomerId(customerId:string) {
+    this.customerService.getAddressDetailsByCustomerId(customerId).subscribe(response=>{
+      if(response.success) {
+        this.customerAddresses = response.data;
+        console.log(this.customerAddresses)
+      }
+    })
+  }
+
+  createAddAddressForm() {
+    this.addAddressForm = this.formBuilder.group({
+      customerId:[this.customerId,Validators.required],
+      city:["",Validators.required],
+      county:["",Validators.required],
+      neighbourHood:["",Validators.required],
+      street:["",Validators.required],
+      apartmentNumber:["",Validators.required],
+      doorNumber:["",Validators.required],
+      address:["",Validators.required]
+    })
+  }
+
+  addAddress() {
+    let model = Object.assign({},this.addAddressForm.value)
+    if(this.addAddressForm.valid) {
+      this.customerService.addAddress(model).subscribe(response=>{
+        if(response.success) {
+          this.toastrService.success("Adres başarıyla eklendi","BAŞARILI");
+        }
+      })
+    }
+    else {
+      this.toastrService.error("Lütfen bilgileri eksiksiz olarak giriniz.","HATA");
+    }
+  }
+
   GetCustomerId() {
     this.customerId = localStorage.getItem("customerId")
   }
@@ -73,7 +116,6 @@ export class AccountComponent implements OnInit {
     else  {
       this.toastrService.error("Lütfen ilgili alanları giriniz.","HATA")
     }
-    
   }
 }
 
