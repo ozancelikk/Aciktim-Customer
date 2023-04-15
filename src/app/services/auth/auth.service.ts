@@ -37,4 +37,12 @@ export class AuthService {
   updateCustomer(customer:Customer):Observable<ResponseModel>{
     return this.httpClient.post<ResponseModel>(this.apiURL2+"/Update" , customer);
   }
+
+  isAuthenticated() {
+    if(localStorage.getItem('customerId')) {
+      return true;
+    }
+
+    return false;
+  }
 }

@@ -1,66 +1,165 @@
-<div class="container rounded bg-white mt-5 mb-5">
-  <div class="row">
-    <div class="col-md-5 border-right">
-      <div class="p-3 py-5">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h4 class="text-right" style="font-weight: bold;">Profil Ayarları</h4>
-        </div>
-        <div class="row mt-2">
-          <div class="col-md-6"><label class="labels">Ad</label><input type="text" class="form-control" disabled value="{{firstName}}"
-              value=""></div>
-          <div class="col-md-6"><label class="labels">Soyad</label><input type="text" class="form-control" disabled value="{{lastName}}"
-              placeholder="Soyad"></div>
-          <div class="col-md-12"><label class="labels">Email adres</label><input disabled value="{{mailAddress}}" type="text" class="form-control"
-              value="" placeholder="Email adres"></div>
-        </div>
-        <div class="row mt-3">
-          <form [formGroup]="updateForm">
-            <!-- 2 column grid layout with text inputs for the first and last names -->
-            <div class="row">
-              <div class="col-md-6 mb-4">
-                <div class="form-outline">
-                  <input type="text" id="form3Example1" formControlName="nationalityId" placeholder="örn:11111111111"
-                    class="form-control" />
-                  <label class="form-label" for="form3Example1">Tc Kimlik No</label>
-                </div>
-              </div>
-              <div class="col-md-6 mb-4">
-                <div class="form-outline">
-                  <input type="text" id="form3Example2" placeholder="örn:08.06.2020" formControlName="birthDay"
-                    class="form-control" />
-                  <label class="form-label" for="form3Example2">Doğum günü</label>
-                </div>
-              </div>
-            </div>
-            <div class="form-outline mb-4">
-              <input type="text" id="form3Example3" placeholder="örn:+905437725182" formControlName="phoneNumber"
-                class="form-control" value="{{phoneNumber}}" />
-                
-              <label class="form-label" for="form3Example3">Telefon Numarası</label>
-            </div>
-            <div class="mt-1 text-center"><button class="btn btn-primary profile-button" (click)="updateUser()" type="button">Profili
-                Güncelle</button></div>
-          </form>
-        </div>
-        <div class="row mt-3">
-          <div class="col-md-6"><label class="labels">Adreslerim</label><input type="submit" class="form-control"
-              placeholder="country" value=""></div>
-        </div>
-
+<section style="background-color: #eee;" *ngIf="customer">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a routerLink="/">Ana Sayfa</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Profilim</li>
+          </ol>
+        </nav>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="p-3 py-5">
-        <h3 style="font-weight:bold;">Şifreni Değiştir</h3>
-        <div class="col-md-12"><label class="labels">Eski Şifre</label><input type="text" class="form-control"
-            placeholder="Eski Şifre" value=""></div> <br>
-        <div class="col-md-12"><label class="labels">Yeni Şifre</label><input type="text" class="form-control"
-            placeholder="Yeni Şifre" value=""></div><br>
-        <div class="col-md-12"><label class="labels">Şifre Tekrarı</label><input type="text" class="form-control"
-            placeholder="Yeni Şifre Tekrarı" value=""></div>
-        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Şifreyi
-            Değiştir</button></div>
+
+    <div class="row">
+      <div class="col-lg-5">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="https://static.vecteezy.com/ti/vecteur-libre/p1/7409979-people-icon-design-avatar-icon-person-icons-people-icons-are-set-in-tendance-flat-style-user-icon-set-vectoriel.jpg" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h2 class="my-3">{{customer.firstName}} {{customer.lastName}}</h2>
+            <p class="text-muted mb-1">Kayıt Tarihi : {{customer.registerDate}}</p>
+            <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+          </div>
+        </div>
+        <div class="card mb-4 mb-lg-0">
+          <div class="card-body p-3">
+            <h3>Yeni Adres Ekle</h3>
+            <hr>
+            <form>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-outline">
+                    <label class="labels" for="form6Example1">Şehir Adı</label>
+                    <input type="text" id="form6Example1" class="form-control" />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <label class="labels" for="form6Example1">İlçe Adı</label>
+                    <input type="text" id="form6Example1" class="form-control" />
+                </div>
+              </div>
+              <div class="row mt-1">
+                <div class="col-lg-6">
+                  <div class="form-outline">
+                    <label class="labels" for="form6Example1">Mahalle Adı</label>
+                    <input type="text" id="form6Example1" class="form-control" />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <label class="labels" for="form6Example1">Sokak Adı</label>
+                    <input type="text" id="form6Example1" class="form-control" />
+                </div>
+              </div>
+              <div class="row mt-1">
+                <div class="col-lg-6">
+                  <div class="form-outline">
+                    <label class="labels" for="form6Example1">Apartman Numarası</label>
+                    <input type="text" id="form6Example1" class="form-control" />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <label class="labels" for="form6Example1">Kapı Numarası</label>
+                    <input type="text" id="form6Example1" class="form-control" />
+                </div>
+              </div>
+          
+              <div class="form-outline mb-4">
+                <label class="labels" for="form6Example1">Adres Açıklaması</label>
+                <textarea class="form-control" id="form6Example7" rows="4"></textarea>
+               
+              </div>
+          
+              <button type="submit" class="btn btn-block mb-4" style="background-color: rgb(99, 39, 120);color: white;">Adresi Kaydet</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h3>Bilgilerini Güncelle</h3>
+            <hr>
+            <div class="row">
+              <div class="col-lg-6">
+                <label class="labels">Ad</label><input type="text" class="form-control" disabled value="{{firstName}}"
+                  value="">
+              </div>
+              <div class="col-lg-6">
+                <label class="labels">Soyad</label><input type="text" class="form-control" disabled value="{{lastName}}"
+                  value="">
+              </div>
+            </div>
+            <div class="row mt-1">
+              <div class="col-lg-12">
+                <label class="labels">Email Adresi</label><input disabled value="{{mailAddress}}" type="text" class="form-control"
+               placeholder="Email adres">
+              </div>
+            </div>
+            <form [formGroup]="updateForm" class="mt-1">
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="labels" for="form3Example1">Tc Kimlik No</label>
+                    <input type="text" id="form3Example1" formControlName="nationalityId" placeholder="örn:11111111111"
+                      class="form-control" />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="labels" for="form3Example2">Doğum Tarihi</label>
+                    <input type="text" id="form3Example2" placeholder="örn:08.06.2020" formControlName="birthDay"
+                      class="form-control" />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4" style="display: none;">
+                  <div class="form-outline">
+                    <label class="labels" for="form3Example2">Doğum Tarihi</label>
+                    <input type="text" id="form3Example2" placeholder="örn:08.06.2020" formControlName="registerDate"
+                      class="form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="labels" for="form3Example3">Telefon Numarası</label>
+                <input type="text" id="form3Example3" placeholder="örn:+905437725182" formControlName="phoneNumber"
+                  class="form-control" value="{{phoneNumber}}" />
+              </div>
+              <div class="mt-1 text-center"><button class="btn btn-primary profile-button" (click)="updateUser()" type="button">Profili
+                  Güncelle</button></div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+                <h3 style="font-weight:bold;">Şifreni Değiştir</h3>
+                <hr>
+                <div class="col-md-12"><label class="labels">Eski Şifre</label><input type="text" class="form-control"
+                    placeholder="Eski Şifre" value=""></div> <br>
+                <div class="col-md-12"><label class="labels">Yeni Şifre</label><input type="text" class="form-control"
+                    placeholder="Yeni Şifre" value=""></div><br>
+                <div class="col-md-12"><label class="labels">Şifre Tekrarı</label><input type="text" class="form-control"
+                    placeholder="Yeni Şifre Tekrarı" value=""></div>
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Şifreyi
+                    Değiştir</button></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+                <h3>Aktif Adreslerim</h3>
+                <hr>
+                <div class="alert alert-danger" role="alert">
+                  Herhangi bir adresiniz bulunmamaktadır.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>

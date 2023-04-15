@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -7,7 +9,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  constructor(private authService:AuthService){}
+  constructor(private authService:AuthService,private router:Router,private toastrService:ToastrService){}
   ngOnInit(): void {}
 
   isAuthenticated() {
@@ -18,6 +20,9 @@ export class NavbarComponent implements OnInit {
   }
   logout(){
     this.authService.logout();
+    this.router.navigate(["/"]);
+    this.toastrService.success("Başarıyla Çıkış Yapıldı","BAŞARILI")
+    
   }
 
 }
