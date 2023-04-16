@@ -30,3 +30,24 @@
 .remainderRateColor{
     color: #cdc6c6;
 }
+
+.addCart {
+    position: absolute;
+    top: 50px;
+    font-size: 25px;
+    z-index: 1;
+    right: 20px;
+    padding: 0 .5rem;
+}
+.addCart:hover{
+    border: none;
+    background-color: #5D196A;
+    transition: .4s;
+    color: white;
+}
+.addCart:active {
+    border: none;
+}
+.addCart:focus{
+    border: none;
+}
