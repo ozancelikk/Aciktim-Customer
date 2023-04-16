@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ListResponseModel } from 'src/app/models/listResponseModel';
 import { Restaurant } from 'src/app/models/restaurant/restaurant';
 import { RestaurantDto } from 'src/app/models/restaurant/restaurantDto';
+import { RestaurantMenu } from 'src/app/models/restaurant/restaurantMenu';
 import { SingleResponseModel } from 'src/app/models/singleResponseModel';
 
 @Injectable({
@@ -11,6 +12,7 @@ import { SingleResponseModel } from 'src/app/models/singleResponseModel';
 })
 export class RestaurantService {
   apiURL:string = "https://localhost:44398/api/Restaurant";
+  apiURL2:string = "https://localhost:44398/api/Menu";
   constructor(private httpClient:HttpClient) { }
   
 
@@ -20,5 +22,9 @@ export class RestaurantService {
 
   getRestaurantDetails(restaurantId:string):Observable<SingleResponseModel<RestaurantDto>>{
     return this.httpClient.get<SingleResponseModel<RestaurantDto>>(this.apiURL +"/getdetailsdtobyid?id="+restaurantId);
+  }
+
+  getRestaurantMenusByRestaurantId(restaurantId:string):Observable<ListResponseModel<RestaurantMenu>>{
+    return this.httpClient.get<ListResponseModel<RestaurantMenu>>(this.apiURL2 +"/GetMenuDetailsByRestaurantId?restaurantId=" + restaurantId);
   }
 }
