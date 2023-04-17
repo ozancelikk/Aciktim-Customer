@@ -7,7 +7,7 @@
                 <div class="card-header py-3">
                   <h4 class="mb-0">Sepetim</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body" *ngIf="itemsInCart.length>0">
                   <!-- Single item -->
                   <div class="row mb-4" *ngFor="let item of itemsInCart">
                     <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
@@ -64,6 +64,11 @@
                     </div>
                   </div>
                 </div>
+                <div style="padding: 1rem;">
+                <div class="alert" style="background-color: #5D196A; color: white;" *ngIf="itemsInCart.length==0" role="alert">
+                  Sepetinizde Ürün Bulunmamaktadır!!!
+                </div>
+              </div>
               </div>
 
             </div>
