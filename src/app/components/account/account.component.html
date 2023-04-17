@@ -37,38 +37,38 @@
                 </div>
                 <div class="col-lg-6">
                   <label class="labels" for="form6Example1">İlçe Adı</label>
-                  <input type="text" id="form6Example1" formControlName="county" class="form-control" />
+                  <input type="text" id="form6Example8" formControlName="county" class="form-control" />
                 </div>
                 <div class="col-lg-6" style="display: none;">
-                  <input type="text" id="form6Example1" formControlName="customerId" class="form-control" />
+                  <input type="text" id="form6Example9" formControlName="customerId" class="form-control" />
                 </div>
               </div>
               <div class="row mt-1">
                 <div class="col-lg-6">
                   <div class="form-outline">
                     <label class="labels" for="form6Example1">Mahalle Adı</label>
-                    <input type="text" id="form6Example1" formControlName="neighbourHood" class="form-control" />
+                    <input type="text" id="form6Example10" formControlName="neighbourHood" class="form-control" />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <label class="labels" for="form6Example1">Sokak Adı</label>
-                  <input type="text" id="form6Example1" formControlName="street" class="form-control" />
+                  <input type="text" id="form6Example11" formControlName="street" class="form-control" />
                 </div>
               </div>
               <div class="row mt-1">
                 <div class="col-lg-6">
                   <div class="form-outline">
                     <label class="labels" for="form6Example1">Apartman Numarası</label>
-                    <input type="text" id="form6Example1" formControlName="apartmentNumber" class="form-control" />
+                    <input type="text" id="form6Example12" formControlName="apartmentNumber" class="form-control" />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <label class="labels" for="form6Example1">Kapı Numarası</label>
-                  <input type="text" id="form6Example1" formControlName="doorNumber" class="form-control" />
+                  <input type="text" id="form6Example13" formControlName="doorNumber" class="form-control" />
                 </div>
               </div>
               <div class="form-outline mb-4">
-                <label class="labels" for="form6Example1">Adres Açıklaması</label>
+                <label class="labels" for="form6Example14">Adres Açıklaması</label>
                 <textarea class="form-control" formControlName="address" id="form6Example7" rows="4"></textarea>
               </div>
               <button type="submit" class="btn btn-block mb-4" (click)="addAddress()"
@@ -110,7 +110,7 @@
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="labels" for="form3Example2">Doğum Tarihi</label>
-                    <input type="text" id="form3Example2" placeholder="örn:08.06.2020" formControlName="birthDay"
+                    <input type="text" id="form3Example7" placeholder="örn:08.06.2020" formControlName="birthDay"
                       class="form-control" />
                   </div>
                 </div>
@@ -139,14 +139,28 @@
               <div class="card-body">
                 <h3 style="font-weight:bold;">Şifreni Değiştir</h3>
                 <hr>
-                <div class="col-md-12"><label class="labels">Eski Şifre</label><input type="text" class="form-control"
-                    placeholder="Eski Şifre" value=""></div> <br>
-                <div class="col-md-12"><label class="labels">Yeni Şifre</label><input type="text" class="form-control"
-                    placeholder="Yeni Şifre" value=""></div><br>
-                <div class="col-md-12"><label class="labels">Şifre Tekrarı</label><input type="text"
-                    class="form-control" placeholder="Yeni Şifre Tekrarı" value=""></div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Şifreyi
-                    Değiştir</button></div>
+                <form [formGroup]="changePasswordForm">
+                  <div class="col-md-12">
+                    <label class="labels">Eski Şifre</label>
+                    <input formControlName="oldPassword" type="password" class="form-control" placeholder="Eski Şifre"
+                      >
+                  </div>
+                  <br>
+                  <div class="col-md-12">
+                    <label class="labels">Yeni Şifre</label>
+                    <input type="password" formControlName="newPassword" class="form-control"
+                      placeholder="Yeni Şifre" value="" [(ngModel)]="password">
+                  </div>
+                  <br>
+                  <div class="col-md-12">
+                    <label class="labels">Şifre Tekrarı</label>
+                    <input type="password"
+                      [(ngModel)]="verifyPassword" formControlName="newPassword" class="form-control" placeholder="Yeni Şifre Tekrarı">
+                    </div>
+                  <div class="mt-5 text-center"><button class="btn btn-primary profile-button"
+                      (click)="changePassword()" type="button">Şifreyi
+                      Değiştir</button></div>
+                </form>
               </div>
             </div>
           </div>
@@ -164,7 +178,7 @@
                   </div>
                 </div>
                 <hr>
-                <div class="alert alert-danger" role="alert" *ngIf="customerAddresses.length == 0">
+                <div class="alert alert-danger" role="alert" *ngIf="customerAddresses && customerAddresses.length == 0">
                   Herhangi bir adresiniz bulunmamaktadır.
                 </div>
                 <div *ngFor="let address of customerAddresses">
@@ -218,7 +232,7 @@
                   </dialog>
                 </div>
                 <div class="card-footer">
-                  Toplam Kayıtlı Adres Sayınız  : {{customerAddresses.length}}
+                  Toplam Kayıtlı Adres Sayınız : {{customerAddresses.length}}
                 </div>
               </div>
             </div>

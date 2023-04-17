@@ -42,16 +42,16 @@
       </div>
     </div>
     <div class="input-group mb-3 mt-3">
-      <input type="text" class="form-control" placeholder="Restoran İçi Arama" aria-label="Username"
+      <input type="text" class="form-control" [(ngModel)]="filtered" placeholder="Restoran İçi Menü Arama..." aria-label="Username"
         aria-describedby="basic-addon1">
     </div>
     <div class="row mb-3">
-      <div class="col-lg-4" *ngFor="let menu of restaurantMenuDetails" style="position: relative;">
-        <button class="btn addCart">
+      <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12 item" *ngFor="let menu of restaurantMenuDetails|menuPipe:filtered" style="position: relative;">
+        <button class="btn addCart" (click)="addCart(menu)">
           <i class="fa-solid fa-plus"></i>
         </button>
-        <div class="card" style="width: 25rem;">
-          <img class="card-img-top" [src]="getMenusImagePath(menu)" style="height:17rem;width: 100%;"
+        <div class="card">
+          <img class="card-img-top" [src]="getMenusImagePath(menu)" style="height:17rem;width: 100%; max-height: 17rem;"
             alt="Card image cap">
           <div class="card-body">
             <h4 class="card-title" style="font-weight: bold;">{{menu.menuTitle}}</h4>

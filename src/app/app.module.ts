@@ -26,6 +26,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MenuPipePipe } from './pipes/menu-pipe.pipe';
 
 
 
@@ -51,6 +52,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
     CartComponent,
     FavoriteRestaurantsComponent,
     FoodComponent,
+    MenuPipePipe,
 
   ],
   imports: [

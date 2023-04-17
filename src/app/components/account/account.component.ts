@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ChangePassword } from 'src/app/models/customer/changePassword';
 import { Customer } from 'src/app/models/customer/customer';
 import { CustomerAddress } from 'src/app/models/customer/customerAddress';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -22,16 +24,21 @@ export class AccountComponent implements OnInit {
   phoneNumber:string;
   nationalityId:string;
   birthDay:string;
-  customerAddresses:CustomerAddress[]
+  changePasswordForm:FormGroup;
+  customerAddresses:CustomerAddress[];
+  verifyPassword:string;
+  password:string;
 
   constructor(private formBuilder: FormBuilder, private toastrService: ToastrService,
-     private authservice: AuthService,private customerService:CustomerService) { }
+     private authservice: AuthService,private customerService:CustomerService,private router:Router) { }
   ngOnInit(): void {
     this.GetCustomerId();
     this.getCustomerAddressesByCustomerId(this.customerId);
+    this.getById(this.customerId)
     this.createAddAddressForm();
     this.CreateUpdateForm();
-    this.getById(this.customerId)
+    this.createChangePasswordForm();
+    
   }
   CreateUpdateForm() {
     this.updateForm = this.formBuilder.group({
@@ -60,11 +67,43 @@ export class AccountComponent implements OnInit {
     });
   }
 
+  
+  createChangePasswordForm() {
+    this.changePasswordForm = this.formBuilder.group({
+      oldPassword:["",Validators.required],
+      newPassword:["",Validators.required],
+    });
+  }
+
+  changePassword() {
+    let model =Object.assign({},this.changePasswordForm.value);
+    model["eMail"] = this.mailAddress;
+    if(this.changePasswordForm.valid) {
+      if(this.verifyPassword != this.password) {
+        this.toastrService.error("Şifreler Uyuşmuyor","HATA");
+      }
+      else {
+        this.authservice.changePassword(model).subscribe(response=>{
+          if(response.success) {
+            this.toastrService.success("Şifreniz Başarıyla Değiştirildi","BAŞARILI")
+            setTimeout(()=>{
+              window.location.reload();
+            },1000)
+          }
+        },error=>{
+          this.toastrService.error(error.error,"HATA");
+        })
+      }
+    }
+    else {
+      this.toastrService.error("Lütfen bilgileri eksiksiz giriniz","HATA");
+    }
+  }
+
   getCustomerAddressesByCustomerId(customerId:string) {
     this.customerService.getAddressDetailsByCustomerId(customerId).subscribe(response=>{
       if(response.success) {
         this.customerAddresses = response.data;
-        console.log(this.customerAddresses)
       }
     })
   }

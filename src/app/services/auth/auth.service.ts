@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Register } from 'src/app/models/auth/register';
 import { Token } from 'src/app/models/auth/token';
 import { Customer } from 'src/app/models/customer/customer';
+import { ChangePassword } from 'src/app/models/customer/changePassword';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +43,12 @@ export class AuthService {
     if(localStorage.getItem('customerId')) {
       return true;
     }
-
     return false;
   }
+
+  changePassword(changePassword:ChangePassword):Observable<ResponseModel>{
+    return this.httpClient.post<ResponseModel>(this.apiURL +"/ChangePassword",changePassword);
+  }
+
+  
 }
