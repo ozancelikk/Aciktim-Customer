@@ -20,4 +20,5 @@ export class CustomerService {
   getAddressDetailsByCustomerId(customerId:string):Observable<ListResponseModel<CustomerAddress>>{
     return this.httpClient.get<ListResponseModel<CustomerAddress>>(this.apiURL + "/getallbycustomerid?id=" + customerId);
   }
+  
 }

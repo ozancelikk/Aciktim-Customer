@@ -9,7 +9,7 @@
                 </div>
                 <div class="card-body">
                   <!-- Single item -->
-                  <div class="row">
+                  <div class="row mb-4" *ngFor="let item of itemsInCart">
                     <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
                       <!-- Image -->
                       <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
@@ -21,38 +21,36 @@
                       </div>
                       <!-- Image -->
                     </div>
-      
                     <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
                       <!-- Data -->
-                      <p><strong>Menü İsmi : Steak House</strong></p>
-                      <p>Restoran Adı : Burger King</p>
-                      <p>Menü Fiyatı : 110 TL </p>
+                      <p><strong>Menü İsmi : {{item.menuTitle}}</strong></p>
+                      <p>Restoran Adı : {{item.restaurantName}}</p>
+                      <p>Menü Fiyatı :{{item.menuPrice}} TL </p>
                       <button type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
                         title="Remove item">
                         <i class="fas fa-trash"></i>
                       </button>
-                      <button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
+                      <button (click)="calculatePrice(item)" type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
                         title="Move to the wish list">
                         <i class="fas fa-heart"></i>
                       </button>
-                      <!-- Data -->
+                      <!-- Data -->   
                     </div>
-      
                     <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                       <!-- Quantity -->
                       <div class="d-flex mb-4" style="max-width: 300px">
                         <button class="btn btn-primary px-3 me-2" style="height: 2.5rem;background-color: #5D196A;color: white;"
-                          onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                         (click)="decrease(item)" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                           <i class="fas fa-minus"></i>
                         </button>
       
                         <div class="form-outline">
-                          <input id="form1" min="0" name="quantity" value="1" type="number" class="form-control" />
+                          <input id="form1" min="0" name="quantity"  value="{{item.quantity}}" type="number" class="form-control" />
                           <label class="form-label" for="form1">Adet</label>
                         </div>
       
                         <button class="btn btn-primary px-3 ms-2"  style="height: 2.5rem;background-color: #5D196A;color: white;"
-                          onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                         (click)="increase(item)" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
                           <i class="fas fa-plus"></i>
                         </button>
                       </div>
@@ -60,122 +58,7 @@
       
                       <!-- Price -->
                       <p class="text-start text-md-center">
-                        <strong>220 TL </strong>
-                      </p>
-                      <!-- Price -->
-                    </div>
-                  </div>
-
-                  <hr class="my-4" />
-                  <div class="row">
-                    <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                      <!-- Image -->
-                      <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                        <img src="https://images.deliveryhero.io/image/fd-tr/LH/yitc-hero.jpg"
-                          class="w-100" alt="Blue Jeans Jacket" />
-                        <a href="#!">
-                          <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                        </a>
-                      </div>
-                      <!-- Image -->
-                    </div>
-      
-                    <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                      <!-- Data -->
-                      <p><strong>Menü İsmi : Steak House</strong></p>
-                      <p>Restoran Adı : Burger King</p>
-                      <p>Menü Fiyatı : 110 TL </p>
-                      <button type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
-                        title="Remove item">
-                        <i class="fas fa-trash"></i>
-                      </button>
-                      <button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
-                        title="Move to the wish list">
-                        <i class="fas fa-heart"></i>
-                      </button>
-                      <!-- Data -->
-                    </div>
-      
-                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                      <!-- Quantity -->
-                      <div class="d-flex mb-4" style="max-width: 300px">
-                        <button class="btn btn-primary px-3 me-2" style="height: 2.5rem;background-color: #5D196A;color: white;"
-                          onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                          <i class="fas fa-minus"></i>
-                        </button>
-      
-                        <div class="form-outline">
-                          <input id="form1" min="0" name="quantity" value="1" type="number" class="form-control" />
-                          <label class="form-label" for="form1">Adet</label>
-                        </div>
-      
-                        <button class="btn btn-primary px-3 ms-2" style="height: 2.5rem;background-color: #5D196A;color: white;"
-                          onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                          <i class="fas fa-plus"></i>
-                        </button>
-                      </div>
-                      <!-- Quantity -->
-      
-                      <!-- Price -->
-                      <p class="text-start text-md-center">
-                        <strong>220 TL </strong>
-                      </p>
-                      <!-- Price -->
-                    </div>
-                  </div>
-                  <hr class="my-4">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                      <!-- Image -->
-                      <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                        <img src="https://images.deliveryhero.io/image/fd-tr/LH/yitc-hero.jpg"
-                          class="w-100" alt="Blue Jeans Jacket" />
-                        <a href="#!">
-                          <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                        </a>
-                      </div>
-                      <!-- Image -->
-                    </div>
-      
-                    <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                      <!-- Data -->
-                      <p><strong>Menü İsmi : Steak House</strong></p>
-                      <p>Restoran Adı : Burger King</p>
-                      <p>Menü Fiyatı : 110 TL </p>
-                      <button type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
-                        title="Remove item">
-                        <i class="fas fa-trash"></i>
-                      </button>
-                      <button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
-                        title="Move to the wish list">
-                        <i class="fas fa-heart"></i>
-                      </button>
-                      <!-- Data -->
-                    </div>
-      
-                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                      <!-- Quantity -->
-                      <div class="d-flex mb-4" style="max-width: 300px">
-                        <button class="btn btn-primary px-3 me-2" style="height: 2.5rem;background-color: #5D196A;color: white;"
-                          onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                          <i class="fas fa-minus"></i>
-                        </button>
-      
-                        <div class="form-outline">
-                          <input id="form1" min="0" name="quantity" value="1" type="number" class="form-control" />
-                          <label class="form-label" for="form1">Adet</label>
-                        </div>
-      
-                        <button class="btn btn-primary px-3 ms-2"  style="height: 2.5rem;background-color: #5D196A;color: white;"
-                          onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                          <i class="fas fa-plus"></i>
-                        </button>
-                      </div>
-                      <!-- Quantity -->
-      
-                      <!-- Price -->
-                      <p class="text-start text-md-center">
-                        <strong>220 TL </strong>
+                        <strong *ngIf="calculatePrice(item)">{{calculatePrice(item)}}TL </strong>
                       </p>
                       <!-- Price -->
                     </div>
@@ -194,7 +77,7 @@
                     <li
                       class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                       Ürünler
-                      <span>335 TL</span>
+                      <span>{{calculateTotal()}} TL</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                       Gönderim Ücreti
@@ -205,12 +88,12 @@
                       <div>
                         <strong>Toplam Ücret</strong>
                       </div>
-                      <span><strong>335 TL</strong></span>
+                      <span><strong>{{calculateTotal()}} TL</strong></span>
                     </li>
                   </ul>
       
                   <button type="button" class="btn btn-lg btn-block" style="background-color: #5D196A;color: white;">
-                    Ödemeye Geç
+                    Sipariş Ver
                   </button>
                 </div>
               </div>
