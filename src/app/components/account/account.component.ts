@@ -127,6 +127,7 @@ export class AccountComponent implements OnInit {
       this.customerService.addAddress(model).subscribe(response=>{
         if(response.success) {
           this.toastrService.success("Adres başarıyla eklendi","BAŞARILI");
+          this.getCustomerAddressesByCustomerId(this.customerId);
         }
       })
     }
@@ -148,6 +149,7 @@ export class AccountComponent implements OnInit {
         this.authservice.updateCustomer(model).subscribe(response => {
           if (response.success) {
             this.toastrService.success("Bilgiler başarıyla Güncellendi", "BAŞARILI");
+            this.getById(this.customerId);
           }
         })
       } 
