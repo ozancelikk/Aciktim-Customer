@@ -16,7 +16,6 @@ import { SupportComponent } from './components/support/support.component';
 import { CartComponent } from './components/cart/cart.component';
 import { FavoriteRestaurantsComponent } from './components/favorite-restaurants/favorite-restaurants.component';
 
-import { FoodComponent } from './components/food/food.component';
 import { AuthGuardGuard } from './guards/auth-guard.guard';
 
 
@@ -38,8 +37,6 @@ const routes: Routes = [
   {path:"support",component:SupportComponent},
   {path:"cart",component:CartComponent ,canActivate:[AuthGuardGuard]},
   {path:"favoriteRestaurants",component:FavoriteRestaurantsComponent ,canActivate:[AuthGuardGuard]},
-
-  {path:"foods",component:FoodComponent},
 
 ];
 
