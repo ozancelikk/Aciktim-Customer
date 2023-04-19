@@ -62,7 +62,8 @@ export class RestaurantDetailComponent implements OnInit {
       'menuDescription': menu.menuDescription,
       'restaurantName':menu.restaurantName,
       'quantity': 1,
-      'customerId':localStorage.getItem('customerId')
+      'customerId':localStorage.getItem('customerId'),
+      'restaurantId':menu.restaurantId
     };
 
     var productAlreadyExists:boolean = false;
