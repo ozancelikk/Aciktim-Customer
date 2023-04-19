@@ -6,4 +6,6 @@ export interface RestaurantMenu {
     id:string;
     restaurantName:string;
     quantity:number;
+    restaurantId:string;
+
 }

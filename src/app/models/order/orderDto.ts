@@ -9,4 +9,5 @@ export interface OrderDto{
     orderDescription:string;
     orderStatus:string;
     estimatedTime:string;
+    restaurantName:string;
 }

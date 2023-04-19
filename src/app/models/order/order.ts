@@ -8,4 +8,5 @@ export interface Order{
     orderDescription:string;
     orderStatus:string;
     estimatedTime:string;
+    restaurantName:string;
 }

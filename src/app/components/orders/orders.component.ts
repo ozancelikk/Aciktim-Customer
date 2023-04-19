@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { Order } from 'src/app/models/order/order';
 import { OrderDto } from 'src/app/models/order/orderDto';
 import { RestaurantMenu } from 'src/app/models/restaurant/restaurantMenu';
+import { OrderService } from 'src/app/services/order/order.service';
 
 @Component({
   selector: 'app-orders',
@@ -9,9 +12,14 @@ import { RestaurantMenu } from 'src/app/models/restaurant/restaurantMenu';
 })
 export class OrdersComponent implements OnInit {
   itemsInCart: RestaurantMenu[] = []
-  constructor() { }
+  customerId: any;
+  orders: Order[]
+  constructor(private orderService: OrderService, private toastrService: ToastrService) { }
   ngOnInit(): void {
+    this.getCustomerId()
     this.getItemsInCart();
+    this.getOrderDetailsByCustomerId();
+
   }
 
   getItemsInCart() {
@@ -19,5 +27,19 @@ export class OrdersComponent implements OnInit {
     this.itemsInCart = productListString ? JSON.parse(productListString) : [];
   }
 
-  
+  getCustomerId() {
+    this.customerId = localStorage.getItem('customerId')
+  }
+
+  getOrderDetailsByCustomerId() {
+    this.orderService.getOrderDetailsByCustomerId(this.customerId).subscribe(response => {
+      if (response.success) {
+        this.orders = response.data;
+        console.log(this.orders)
+      }
+    })
+  }
+
+
+
 }

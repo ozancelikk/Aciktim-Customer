@@ -49,42 +49,42 @@ export class CartComponent implements OnInit {
 
 
 
-  createOrder(){
-    this.createOrderForm=this.formBuilder.group({
-      customerId:[this.customerId,Validators.required],
-      orderDescription:[this.description,Validators.required],
-      firstName:[this.customer.firstName,Validators.required],
-      lastName:[this.customer.firstName,Validators.required],
-      address:[this.selectedOption,Validators.required],
-      phoneNumber:[this.customer.phoneNumber,Validators.required],
-      orderStatus:["Sipariş alındı",Validators.required],
-      estimatedTime:["30 Dk",Validators.required],
-      menus: this.formBuilder.array([]), 
-    })
-    let model = Object.assign({},this.createOrderForm.value)
-    
+  createOrder() {
+    this.createOrderForm = this.formBuilder.group({
+      customerId: [this.customerId, Validators.required],
+      orderDescription: [this.description, Validators.required],
+      firstName: [this.customer.firstName, Validators.required],
+      lastName: [this.customer.firstName, Validators.required],
+      address: [this.selectedOption, Validators.required],
+      phoneNumber: [this.customer.phoneNumber, Validators.required],
+      orderStatus: ["Sipariş alındı", Validators.required],
+      estimatedTime: ["30 Dk", Validators.required],
+      menus: this.formBuilder.array([]),
+    });
     for (let i = 0; i < this.itemsInCart.length; i++) {
-      const creds = this.createOrderForm.controls.menu as FormArray;
-      creds.push(this.formBuilder.group({
-        "restaurantId":this.itemsInCart[i].restaurantName,
-        "orderPrice":this.itemsInCart[i].menuPrice,
-        "menuName":this.itemsInCart[i].menuTitle,
-        "quantity":this.itemsInCart[i].quantity,
-      }));
-
-      this.orderService.add(model).subscribe(response=>{
-      })
-      
+      const creds = this.createOrderForm.controls.menus as FormArray;
+      creds.push(
+        this.formBuilder.group({
+          orderPrice: this.itemsInCart[i].menuPrice,
+          restaurantId: this.itemsInCart[i].restaurantId,
+          restaurantName: this.itemsInCart[i].restaurantName,
+          menuName: this.itemsInCart[i].menuTitle,
+          quantity: this.itemsInCart[i].quantity,
+        })
+      );
     }
-
-
-    this.toastrService.success("Siparişiniz Başarıyla Alındı","BAŞARILI");
-    localStorage.removeItem("menus")
-    setTimeout(()=>{
-      this.router.navigate(["/orders"])
-    },1000)
-    
-    
+  
+    let model = Object.assign({}, this.createOrderForm.value);
+  
+    this.orderService.add(model).subscribe((response) => {
+      if(response.success) {
+        this.toastrService.success("Siparişiniz başarıyla alındı","BAŞARILI");
+        setTimeout(()=>{
+          localStorage.removeItem('menus');
+          this.router.navigate(["/orders"])
+        },1000)
+      }
+    });
   }
 
   getCustomerId(){
