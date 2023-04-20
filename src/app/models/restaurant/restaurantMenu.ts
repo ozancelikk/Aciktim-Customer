@@ -7,5 +7,5 @@ export interface RestaurantMenu {
     restaurantName:string;
     quantity:number;
     restaurantId:string;
-
+    restaurantImage:string;
 }

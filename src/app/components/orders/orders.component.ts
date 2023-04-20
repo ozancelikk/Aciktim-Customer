@@ -14,18 +14,13 @@ export class OrdersComponent implements OnInit {
   itemsInCart: RestaurantMenu[] = []
   customerId: any;
   orders: Order[]
+  menus: []
   constructor(private orderService: OrderService, private toastrService: ToastrService) { }
   ngOnInit(): void {
     this.getCustomerId()
-    this.getItemsInCart();
     this.getOrderDetailsByCustomerId();
-
   }
 
-  getItemsInCart() {
-    var productListString = localStorage.getItem("menus");
-    this.itemsInCart = productListString ? JSON.parse(productListString) : [];
-  }
 
   getCustomerId() {
     this.customerId = localStorage.getItem('customerId')
@@ -35,11 +30,8 @@ export class OrdersComponent implements OnInit {
     this.orderService.getOrderDetailsByCustomerId(this.customerId).subscribe(response => {
       if (response.success) {
         this.orders = response.data;
-        console.log(this.orders)
       }
     })
   }
-
-
 
 }
