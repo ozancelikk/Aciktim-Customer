@@ -1,7 +1,7 @@
 export interface Order{
     id:string;
     customerId:string;
-    menu:[];
+    menus:any[];
     restaurantId:string;
     firstName:string;
     lastName:string
@@ -9,4 +9,5 @@ export interface Order{
     orderStatus:string;
     estimatedTime:string;
     restaurantName:string;
+    address:string;
 }

@@ -112,6 +112,9 @@ body {
   background: linear-gradient(140deg, #fff, 50%, #BA68C8);
 
 }
+.x {
+  flex-direction: column;
+}
 
 .container-fluid {
   margin-top: 200px;
@@ -205,6 +208,21 @@ border-right: 2px solid #c3c4c5;
 }
 .display-3 {
   font-weight: 500 !important;
+}
+
+.dot {
+  height: 35px;
+  width: 35px;
+  background-color: #5D196A;
+  border-radius: 50%;
+  display: inline-block;
+  color: white;
+  text-align: center;
+  
+}
+
+.size {
+  font-size: 15px;
 }
 
 @media (max-width: 479px) {

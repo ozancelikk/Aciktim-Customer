@@ -3,11 +3,15 @@
   crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="container">
   <div class="row mt-3">
-    <div class="col-lg-6 border-right">
-      <h4 style="font-weight: bold;">Aktif Siparişlerim</h4>
+    <div class="col-lg-6 border-right" *ngIf="orders">    
+      <h4 style="font-weight: bold; color: red;">Aktif Siparişlerim</h4>
+      <div *ngIf="orders?.length == 0" class="alert alert-danger col-lg-12" role="alert">
+        Aktif siparişiniz bulunmamaktadır!
+      </div> 
       <hr>
-      <section class="vh-100">
-        <div class="container h-100" style="margin-top: 3rem;">
+      <div  *ngIf="orders"> 
+      <section class="mb-5" *ngFor="let order of orders">
+        <div class="container h-100">
           <div class="row d-flex justify-content-center  h-100">
             <div class="col-12">
               <div class="card card-stepper text-black activex" style="border-radius: 16px;">
@@ -17,33 +21,43 @@
                       <div class="card-body">
                         <div class="media">
                           <div class="d-flex justify-content-between">
-                            <div class="sq align-self-center "><img style="border-radius: 5px;"
-                                class="img-fluid  my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0"
-                                src="https://images.deliveryhero.io/image/fd-tr/LH/yitc-hero.jpg" width="165"
-                                height="135" />
+                            <div class="sq align-self-center ">
+                              <p style="font-weight: bold;">Restoran : {{order.restaurantName}}</p>
+                              <p style="font-weight: bold;">Sipariş No : {{order.id}}</p>
                             </div>
                             <div style="width: 200px;margin-top: auto;margin-bottom: auto;">
-                              <span style="font-weight: bold;">Teslim Edilen Adres: </span> Karadeniz Sokak No 4
-                              Küçükçekmece/İstanbul
+                              <span style="font-weight: bold;">Teslim Edilen Adres: </span>
+                              {{order.address}}
                             </div>
                           </div>
-    
+                          <br>
+                          <h3 style="font-weight: bold;">Sipariş İçeriği</h3>
+                          <hr>
                           <br>
                           <div class="media-body my-auto text-right">
-                            <div class="row  my-auto flex-column flex-md-row">
+                            <div class="row  my-auto flex-column flex-md-row" *ngFor="let menu of order.menus">
+
                               <div class="col my-auto">
-                                <h5 class="mb-0">Menü İsmi : Steak House</h5>
+                                <img [src]="menu.menuImage" alt="" width="70" height="70">
                               </div>
-                              <div class="col-auto my-auto"> <small>Restoran : Burger King </small></div>
-                              <div class="col my-auto"> <small>Durum : Teslim Edildi</small></div>
-                              <div class="col my-auto"> <small>Adet : 1</small></div>
-                              <div class="col my-auto">
-                                <h5 class="mb-0">Açıklama : Lorem ipsum dolor sit amet.</h5>
+                              <div class="col-auto my-auto size" style="margin-right: 15px;">Menü İsmi :
+                                {{menu.menuName}}</div>
+                              <div class="col-auto my-auto size">Menü Fiyatı :{{menu.orderPrice}} TL</div>
+                              <div class="col my-auto size">
+
+                                <span class="dot">
+                                  <div class="mt-2">
+                                    {{menu.quantity}}
+                                  </div>
+                                </span>
+                                Adet
                               </div>
                             </div>
                           </div>
                         </div>
                         <hr class="my-3 ">
+                        <div class="mb-3 d-flex" style="flex-direction: row-reverse;"> Sipariş Açıklaması :
+                          {{order.orderDescription}}</div>
                       </div>
                     </div>
                   </div>
@@ -93,8 +107,8 @@
           </div>
         </div>
       </section>
+      </div>
     </div>
-
     <!-- --------------------- -->
     <div class="col-lg-6">
       <div class="col-auto">
