@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from 'src/app/models/listResponseModel';
+import { ResponseModel } from 'src/app/models/responseModel';
+
+import { FavoriteRestaurantDto } from 'src/app/models/restaurant/favoriteRestaurantDto';
 import { Restaurant } from 'src/app/models/restaurant/restaurant';
 import { RestaurantDto } from 'src/app/models/restaurant/restaurantDto';
 import { RestaurantMenu } from 'src/app/models/restaurant/restaurantMenu';
@@ -13,6 +16,7 @@ import { SingleResponseModel } from 'src/app/models/singleResponseModel';
 export class RestaurantService {
   apiURL:string = "https://localhost:44398/api/Restaurant";
   apiURL2:string = "https://localhost:44398/api/Menu";
+  apiURL3:string = "https://localhost:44398/api/FavoriteRestaurant";
   constructor(private httpClient:HttpClient) { }
   
 
@@ -27,4 +31,16 @@ export class RestaurantService {
   getRestaurantMenusByRestaurantId(restaurantId:string):Observable<ListResponseModel<RestaurantMenu>>{
     return this.httpClient.get<ListResponseModel<RestaurantMenu>>(this.apiURL2 +"/GetMenuDetailsByRestaurantId?restaurantId=" + restaurantId);
   }
+
+  addFavoriteService(favoriteRestaurant:RestaurantDto):Observable<ResponseModel>{
+    return this.httpClient.post<ResponseModel>(this.apiURL3 +"/add",favoriteRestaurant);
+  }
+  getFavoriteRestaurantsByCustomerId(customerId:String):Observable<ListResponseModel<FavoriteRestaurantDto>>{
+    return this.httpClient.get<ListResponseModel<FavoriteRestaurantDto>>(this.apiURL3 +"/GetFavoriteRestaurantByCustomerID?id=" + customerId)
+  }
+
+  deleteFavoriteRestaurant(id:string):Observable<ResponseModel> {
+    return this.httpClient.get<ResponseModel>(this.apiURL3 +"/Delete?id=" + id)
+  }
+
 }

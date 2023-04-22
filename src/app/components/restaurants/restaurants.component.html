@@ -4,17 +4,16 @@
       <div class="row x">
         <h3 id="restaurants" style="font-weight: bold;">Restaurantlar</h3>
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12" style="height: 22rem;" *ngFor="let restaurant of restaurants">
-          <a routerLink="/restaurant/{{restaurant.id}}" class="card_href">
             <div class="card" style="width: 15rem;height: auto;">
               <img [src]="getImagePath(restaurant)"
                 style="height: 180px;object-fit: cover;" class="card-img-top" alt="...">
               <div class="card-body">
-                <a href="">
-                  <i class="fa-regular fa-heart like_button"></i>
-                </a>
+                <button class=" like_button" (click)="addFavoriteRestaurant(restaurant)" style="padding: 0px;border: none;background-color: transparent;">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
                 <div class="header d-flex justify-content-between">
                   <div class="card-title restaurant_name" style="font-weight: bold;">
-                    {{restaurant.restaurantName}}
+                    <span style="font-size: 13px;">{{restaurant.restaurantName}}</span>
                   </div>
                   <div>
                     <i class="fa fa-star rating-color"></i>
@@ -24,10 +23,10 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-lg-6">{{restaurant.restaurantAddress}}</div>
+                  <div class="col-lg-6"  style="font-size: 13px;">{{restaurant.restaurantAddress}}</div>
                   <div class="col-lg-6">
                     <span style="font-size: 13px;">
-                      Min Sepet Tutarı : {{restaurant.minCartPrice}}
+                      Min Sepet Tutarı : {{restaurant.minCartPrice}}TL
                     </span>
                   </div>
                 </div>
@@ -37,15 +36,17 @@
                     <span>
                       <i class="fa-solid fa-clock"></i> Açılış : {{restaurant.openingTime}}
                     </span> </div>
-                  <div class="col-lg-6">
+                  <div class="col-lg-6 mb-4">
                     <span>
                       <i class="fa-solid fa-clock"></i> Kapanış : {{restaurant.closingTime}}
                     </span>
                   </div>
+                  <div class="d-flex justify-content-center">
+                    <button routerLink="/restaurant/{{restaurant.id}}" class="btn" style="background-color: #5D196A;color: white;">Restoran Detayına Git</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </a>
         </div>
       </div>
 

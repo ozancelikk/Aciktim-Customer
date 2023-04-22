@@ -13,12 +13,15 @@ import { OrderService } from 'src/app/services/order/order.service';
 export class OrdersComponent implements OnInit {
   itemsInCart: RestaurantMenu[] = []
   customerId: any;
-  orders: Order[]
-  menus: []
+  competedOrders: Order[]
+  menus: [];
+  filter:string;
+  activeOrders : Order[]
   constructor(private orderService: OrderService, private toastrService: ToastrService) { }
   ngOnInit(): void {
     this.getCustomerId()
-    this.getOrderDetailsByCustomerId();
+    this.getCompletedOrderDetailsByCustomerId();
+    this.getActiveOrderDetailsByCustomerId();
   }
 
 
@@ -26,10 +29,17 @@ export class OrdersComponent implements OnInit {
     this.customerId = localStorage.getItem('customerId')
   }
 
-  getOrderDetailsByCustomerId() {
-    this.orderService.getOrderDetailsByCustomerId(this.customerId).subscribe(response => {
+  getCompletedOrderDetailsByCustomerId() {
+    this.orderService.getCompletedOrderDetailsByCustomerId(this.customerId).subscribe(response => {
       if (response.success) {
-        this.orders = response.data;
+        this.competedOrders = response.data;
+      }
+    })
+  }
+  getActiveOrderDetailsByCustomerId() {
+    this.orderService.getActiveOrderDetailsByCustomerId(this.customerId).subscribe(response=>{
+      if (response.success) {
+        this.activeOrders = response.data;
       }
     })
   }

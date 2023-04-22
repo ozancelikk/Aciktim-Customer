@@ -10,4 +10,5 @@ export interface OrderDto{
     orderStatus:string;
     estimatedTime:string;
     restaurantName:string;
+    orderDate:string;
 }

@@ -18,8 +18,13 @@ export class OrderService {
     return this.httpClient.post<ResponseModel>(this.apiUrl +"/add",dto);
   }
 
-  getOrderDetailsByCustomerId(customerId:string):Observable<ListResponseModel<Order>>{
-    return this.httpClient.get<ListResponseModel<Order>>(this.apiUrl +"/GetOrdersByCustomerId?customerId=" + customerId);
+  getCompletedOrderDetailsByCustomerId(customerId:string):Observable<ListResponseModel<Order>>{
+    return this.httpClient.get<ListResponseModel<Order>>(this.apiUrl +"/GetCompletedOrdersDetailsByCustomerId?customerId==" + customerId);
   }
+
+  getActiveOrderDetailsByCustomerId(customerId:string):Observable<ListResponseModel<Order>> {
+    return this.httpClient.get<ListResponseModel<Order>>(this.apiUrl + "/GetActiveOrderDetailsByCustomerId?customerId=" + customerId );
+  }
+
 
 }

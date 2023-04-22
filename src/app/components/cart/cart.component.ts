@@ -60,9 +60,10 @@ export class CartComponent implements OnInit {
       lastName: [this.customer.lastName, Validators.required],
       address: [this.selectedOption, Validators.required],
       phoneNumber: [this.customer.phoneNumber, Validators.required],
-      orderStatus: ["Sipariş alındı", Validators.required],
+      orderStatus: ["Aktif", Validators.required],
       estimatedTime: ["30 Dk", Validators.required],
       restaurantName: [restaurantName, Validators.required],
+      orderDate:[new Date().toLocaleString().replace(',',''),Validators.required],
       menus: this.formBuilder.array([]),
     });
     for (let i = 0; i < this.itemsInCart.length; i++) {

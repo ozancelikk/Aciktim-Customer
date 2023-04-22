@@ -95,7 +95,7 @@
             <div class="row mt-1">
               <div class="col-lg-12">
                 <label class="labels">Email Adresi</label><input disabled value="{{mailAddress}}" type="text"
-                  class="form-control" placeholder="Email adres">
+                  class="form-control" placeholder="Email adresi">
               </div>
             </div>
             <form [formGroup]="updateForm" class="mt-1">
@@ -142,21 +142,20 @@
                 <form [formGroup]="changePasswordForm">
                   <div class="col-md-12">
                     <label class="labels">Eski Şifre</label>
-                    <input formControlName="oldPassword" type="password" class="form-control" placeholder="Eski Şifre"
-                      >
+                    <input formControlName="oldPassword" type="password" class="form-control" placeholder="Eski Şifre">
                   </div>
                   <br>
                   <div class="col-md-12">
                     <label class="labels">Yeni Şifre</label>
-                    <input type="password" formControlName="newPassword" class="form-control"
-                      placeholder="Yeni Şifre" value="" [(ngModel)]="password">
+                    <input type="password" formControlName="newPassword" class="form-control" placeholder="Yeni Şifre"
+                      value="" [(ngModel)]="password">
                   </div>
                   <br>
                   <div class="col-md-12">
                     <label class="labels">Şifre Tekrarı</label>
-                    <input type="password"
-                      [(ngModel)]="verifyPassword" formControlName="newPassword" class="form-control" placeholder="Yeni Şifre Tekrarı">
-                    </div>
+                    <input type="password" [(ngModel)]="verifyPassword" formControlName="newPassword"
+                      class="form-control" placeholder="Yeni Şifre Tekrarı">
+                  </div>
                   <div class="mt-5 text-center"><button class="btn btn-primary profile-button"
                       (click)="changePassword()" type="button">Şifreyi
                       Değiştir</button></div>
@@ -181,6 +180,7 @@
                 <div class="alert alert-danger" role="alert" *ngIf="customerAddresses && customerAddresses.length == 0">
                   Herhangi bir adresiniz bulunmamaktadır.
                 </div>
+                <div *ngIf="customerAddresses">
                 <div *ngFor="let address of customerAddresses">
                   <div class="alert alert-info mb-3" style="cursor: pointer;" role="alert" (click)="dialog.showModal()">
                     {{address.address}}
@@ -189,7 +189,7 @@
                     <div>
                       <h2>Adres Detayı</h2>
                       <hr>
-                      <table class="table">
+                      <table class="table table-responsive">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
@@ -213,24 +213,89 @@
                             <td>{{address.doorNumber}}</td>
                             <td>{{address.apartmentNumber}}</td>
                             <td>
-                              <button style="background-color: white;border: none;">
+                              <button (click)="openEditArea()" style="background-color: white;border: none;">
                                 <i class="fa-solid fa-pen"></i>
                               </button>
                             </td>
                             <td>
-                              <button style="background-color: white;border: none;">
+                              <button (click)="deleteAddress(address.id)" style="background-color: white;border: none;">
                                 <i class="fa-solid fa-trash"></i>
                               </button>
                             </td>
                           </tr>
                         </tbody>
                       </table>
+                      <!-- q-QEWEQWEQWEWQEWQQEWQWEQEWQEWEQWEQWQEWQEQEW-->
+                      <div *ngIf="showEdit">
+                      <h2 class="mt-4">Adresi Düzenle</h2>
+                      <hr>
+                      <form [formGroup]="updateAddressForm">
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <div class="form-outline">
+                              <label class="labels" for="form6Example145">Şehir Adı</label>
+                              <input type="text" formControlName="city" 
+                                class="form-control" />
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <label class="labels" for="form6Example197">İlçe Adı</label>
+                            <input type="text"   formControlName="county" 
+                              class="form-control" />
+                          </div>
+                          <div class="col-lg-6" style="display: none;">
+                            <input type="text" formControlName="customerId" 
+                              class="form-control" />
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-lg-6">
+                            <div class="form-outline">
+                              <label class="labels" for="form6Example178">Mahalle Adı</label>
+                              <input type="text"  formControlName="neighbourHood"
+                                 class="form-control" />
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <label class="labels" for="form6Example167">Sokak Adı</label>
+                            <input type="text"  formControlName="street" 
+                              class="form-control" />
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-lg-6">
+                            <div class="form-outline">
+                              <label class="labels" for="form6Example165">Apartman Numarası</label>
+                              <input type="text"  formControlName="apartmentNumber"
+                                 class="form-control" />
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <label class="labels" for="form6Example100">Kapı Numarası</label>
+                            <input type="text" formControlName="doorNumber"
+                               class="form-control" />
+                          </div>
+                        </div>
+                        <div class="form-outline mb-4">
+                          <label class="labels" for="form6Example141">Adres Açıklaması</label>
+                          <textarea class="form-control" formControlName="address"
+                             rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-block mb-4" (click)="updateAddress(address.id)"
+                          style="background-color: rgb(99, 39, 120);color: white;">Adresi Kaydet</button>
+                      </form>
+                      <!-- q-QEWEQWEQWEWQEWQQEWQWEQEWQEWEQWEQWQEWQEQEW-->
                     </div>
+                    </div>
+
                     <div>
-                      <button class="close_button" (click)="dialog.close()">Tamam</button>
+                      <div class="d-flex" style="justify-content: center;">
+                        <button class="close_button" (click)="dialog.close()">Kapat</button>
+                      </div>
                     </div>
                   </dialog>
                 </div>
+              </div>
                 <div class="card-footer">
                   Toplam Kayıtlı Adres Sayınız : {{customerAddresses.length}}
                 </div>

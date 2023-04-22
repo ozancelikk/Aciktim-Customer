@@ -1,5 +1,6 @@
 export interface CustomerAddress {
-    customerId:string,
+      id:string;
+      customerId:string,
       city:string;
       county:string;
       neighbourHood:string;

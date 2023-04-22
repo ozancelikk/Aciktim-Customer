@@ -1,5 +1,5 @@
-export interface RestaurantDto {
-    id:string
+export interface FavoriteRestaurantDto {
+    restaurantId:string
     restaurantName:string;
     restaurantAddress:string;
     mailAddress:string;
@@ -10,5 +10,5 @@ export interface RestaurantDto {
     restaurantRate:number;
     imagePath:string;
     phoneNumber:string;
- 
+    customerId:string;
 }

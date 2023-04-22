@@ -222,7 +222,16 @@ border-right: 2px solid #c3c4c5;
 }
 
 .size {
-  font-size: 15px;
+  font-size: 12px;
+}
+
+.border_bottom_none {
+  border-bottom: none;
+}
+
+tr{
+  text-align: center;
+  vertical-align: middle;
 }
 
 @media (max-width: 479px) {

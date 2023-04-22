@@ -43,8 +43,8 @@
 }
 .like_button {
     position: absolute;
-    color: white; 
-    bottom:310px;
+    color: black; 
+    top:10px;
     left:210px;
     font-size: 23px;
 }

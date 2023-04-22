@@ -26,6 +26,7 @@ import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MenuPipePipe } from './pipes/menu-pipe.pipe';
+import { RestaurantPipePipe } from './pipes/restaurant-pipe.pipe';
 
 
 
@@ -51,6 +52,7 @@ import { MenuPipePipe } from './pipes/menu-pipe.pipe';
     CartComponent,
     FavoriteRestaurantsComponent,
     MenuPipePipe,
+    RestaurantPipePipe,
 
   ],
   imports: [
