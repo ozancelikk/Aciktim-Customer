@@ -20,5 +20,13 @@ export class CustomerService {
   getAddressDetailsByCustomerId(customerId:string):Observable<ListResponseModel<CustomerAddress>>{
     return this.httpClient.get<ListResponseModel<CustomerAddress>>(this.apiURL + "/getallbycustomerid?id=" + customerId);
   }
+
+  deleteAddress(customerAddressId:string):Observable<ResponseModel> {
+    return this.httpClient.get<ResponseModel>(this.apiURL +"/delete?id=" +customerAddressId)
+  }
+
+  updateAddress(customerAddress:CustomerAddress):Observable<ResponseModel> {
+    return this.httpClient.post<ResponseModel>(this.apiURL + "/update",customerAddress);   
+  }
   
 }

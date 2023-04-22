@@ -10,4 +10,5 @@ export interface Order{
     estimatedTime:string;
     restaurantName:string;
     address:string;
+    orderDate:string;
 }

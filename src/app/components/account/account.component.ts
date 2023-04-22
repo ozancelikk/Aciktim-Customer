@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -15,33 +15,44 @@ import { CustomerService } from 'src/app/services/customer/customer.service';
 })
 export class AccountComponent implements OnInit {
   updateForm: FormGroup;
-  addAddressForm:FormGroup;
+  addAddressForm: FormGroup;
   customer: Customer
   customerId: any
-  firstName:string;
-  lastName:string;
-  mailAddress:string;
-  phoneNumber:string;
-  nationalityId:string;
-  birthDay:string;
-  changePasswordForm:FormGroup;
-  customerAddresses:CustomerAddress[];
-  verifyPassword:string;
-  password:string;
+  firstName: string;
+  lastName: string;
+  mailAddress: string;
+  phoneNumber: string;
+  nationalityId: string;
+  birthDay: string;
+  changePasswordForm: FormGroup;
+  updateAddressForm: FormGroup;
+  customerAddresses: CustomerAddress[];
+  verifyPassword: string;
+  password: string;
+  showEdit:boolean = false;
+  
+
 
   constructor(private formBuilder: FormBuilder, private toastrService: ToastrService,
-     private authservice: AuthService,private customerService:CustomerService,private router:Router) { }
+    private authservice: AuthService, private customerService: CustomerService, private router: Router) { }
+
   ngOnInit(): void {
+
     this.GetCustomerId();
     this.getCustomerAddressesByCustomerId(this.customerId);
     this.getById(this.customerId)
     this.createAddAddressForm();
     this.CreateUpdateForm();
     this.createChangePasswordForm();
-    
+    this.createUpdateAddressForm();
   }
+
+  openEditArea() {
+    this.showEdit = !this.showEdit
+  }
+
   CreateUpdateForm() {
-    this.updateForm = this.formBuilder.group({
+      this.updateForm = this.formBuilder.group({
       phoneNumber: ["", Validators.required],
       nationalityId: ["", Validators.required],
       birthDay: ["", Validators.required],
@@ -49,9 +60,11 @@ export class AccountComponent implements OnInit {
       lastName: [this.lastName, Validators.required],
       mailAddress: [this.mailAddress, Validators.required],
       id: ["", Validators.required],
-      registerDate:[new Date().toLocaleDateString(),Validators.required]
+      registerDate: [new Date().toLocaleDateString(), Validators.required]
     })
   }
+
+  
   getById(id: string) {
     this.authservice.getById(id).subscribe(response => {
       if (response.success) {
@@ -67,73 +80,124 @@ export class AccountComponent implements OnInit {
     });
   }
 
-  
+
   createChangePasswordForm() {
     this.changePasswordForm = this.formBuilder.group({
-      oldPassword:["",Validators.required],
-      newPassword:["",Validators.required],
+      oldPassword: ["", Validators.required],
+      newPassword: ["", Validators.required],
     });
   }
 
   changePassword() {
-    let model =Object.assign({},this.changePasswordForm.value);
+    let model = Object.assign({}, this.changePasswordForm.value);
     model["eMail"] = this.mailAddress;
-    if(this.changePasswordForm.valid) {
-      if(this.verifyPassword != this.password) {
-        this.toastrService.error("Şifreler Uyuşmuyor","HATA");
+    if (this.changePasswordForm.valid) {
+      if (this.verifyPassword != this.password) {
+        this.toastrService.error("Şifreler Uyuşmuyor", "HATA");
       }
       else {
-        this.authservice.changePassword(model).subscribe(response=>{
-          if(response.success) {
-            this.toastrService.success("Şifreniz Başarıyla Değiştirildi","BAŞARILI")
-            setTimeout(()=>{
+        this.authservice.changePassword(model).subscribe(response => {
+          if (response.success) {
+            this.toastrService.success("Şifreniz Başarıyla Değiştirildi", "BAŞARILI")
+            setTimeout(() => {
               window.location.reload();
-            },1000)
+            }, 1000)
           }
-        },error=>{
-          this.toastrService.error(error.error,"HATA");
+        }, error => {
+          this.toastrService.error(error.error, "HATA");
         })
       }
     }
     else {
-      this.toastrService.error("Lütfen bilgileri eksiksiz giriniz","HATA");
+      this.toastrService.error("Lütfen bilgileri eksiksiz giriniz", "HATA");
     }
   }
 
-  getCustomerAddressesByCustomerId(customerId:string) {
-    this.customerService.getAddressDetailsByCustomerId(customerId).subscribe(response=>{
-      if(response.success) {
+  getCustomerAddressesByCustomerId(customerId: string) {
+    this.customerService.getAddressDetailsByCustomerId(customerId).subscribe(response => {
+      if (response.success) {
         this.customerAddresses = response.data;
+        this.updateAddressForm.patchValue({
+          //city:response.data[1].apartmentNumber
+        })
+
       }
     })
   }
-
   createAddAddressForm() {
-    this.addAddressForm = this.formBuilder.group({
-      customerId:[this.customerId,Validators.required],
-      city:["",Validators.required],
-      county:["",Validators.required],
-      neighbourHood:["",Validators.required],
-      street:["",Validators.required],
-      apartmentNumber:["",Validators.required],
-      doorNumber:["",Validators.required],
-      address:["",Validators.required]
+      this.addAddressForm = this.formBuilder.group({
+      customerId: [this.customerId, Validators.required],
+      city: ["", Validators.required],
+      county: ["", Validators.required],
+      neighbourHood: ["", Validators.required],
+      street: ["", Validators.required],
+      apartmentNumber: ["", Validators.required],
+      doorNumber: ["", Validators.required],
+      address: ["", Validators.required]
     })
+    this.addAddressForm.patchValue(this.customerAddresses);
   }
 
   addAddress() {
-    let model = Object.assign({},this.addAddressForm.value)
-    if(this.addAddressForm.valid) {
-      this.customerService.addAddress(model).subscribe(response=>{
-        if(response.success) {
-          this.toastrService.success("Adres başarıyla eklendi","BAŞARILI");
+    let model = Object.assign({}, this.addAddressForm.value)
+    if (this.addAddressForm.valid) {
+      this.customerService.addAddress(model).subscribe(response => {
+        if (response.success) {
+          this.toastrService.success("Adres başarıyla eklendi", "BAŞARILI");
           this.getCustomerAddressesByCustomerId(this.customerId);
         }
       })
     }
     else {
-      this.toastrService.error("Lütfen bilgileri eksiksiz olarak giriniz.","HATA");
+      this.toastrService.error("Lütfen bilgileri eksiksiz olarak giriniz.", "HATA");
     }
+  }
+
+
+  createUpdateAddressForm() {
+
+      this.updateAddressForm = this.formBuilder.group({
+      customerId: [this.customerId, Validators.required],
+      city: ["", Validators.required],
+      county: ["", Validators.required],
+      neighbourHood: ["", Validators.required],
+      street: ["", Validators.required],
+      apartmentNumber: ["", Validators.required],
+      doorNumber: ["", Validators.required],
+      address: ["", Validators.required],
+    });
+  }
+
+  updateAddress(id:string) {
+    let model = Object.assign({id:id}, this.updateAddressForm.value);
+    console.log(model)
+    if (this.updateAddressForm.valid) {
+
+      this.customerService.updateAddress(model).subscribe(response => {
+        if (response.success) {
+          this.toastrService.success("Adres Başarıyla Güncellendi!", "BAŞARILI")
+          setTimeout(()=>{
+            window.location.reload();
+          },500)
+        }
+      }, error => this.toastrService.error(error.error))
+    }
+    else {
+      this.toastrService.info("Lütfen bilgileri eksiksiz doldurunuz", "HATA");
+    }
+
+  }
+
+  deleteAddress(customerAddressId: string) {
+    if (confirm("Adresi silmek istediğinizden emin misiniz ? ")) {
+      this.customerService.deleteAddress(customerAddressId).subscribe(response => {
+        if (response.success) {
+          this.toastrService.success("Adres başarıyla silindi", "BAŞARILI");
+          this.getCustomerAddressesByCustomerId(this.customerId);
+        }
+      })
+    }
+
   }
 
   GetCustomerId() {
@@ -141,8 +205,8 @@ export class AccountComponent implements OnInit {
   }
   updateUser() {
     let model = Object.assign({}, this.updateForm.value);
-    if(this.updateForm.valid) {
-      if(this.nationalityId!=null || this.birthDay!=null) {
+    if (this.updateForm.valid) {
+      if (this.nationalityId != null || this.birthDay != null) {
         alert("Bilgilerinizi daha önce zaten güncellemişsiniz!")
       }
       else {
@@ -152,10 +216,10 @@ export class AccountComponent implements OnInit {
             this.getById(this.customerId);
           }
         })
-      } 
+      }
     }
-    else  {
-      this.toastrService.error("Lütfen ilgili alanları giriniz.","HATA")
+    else {
+      this.toastrService.error("Lütfen ilgili alanları giriniz.", "HATA")
     }
   }
 }
