@@ -20,7 +20,7 @@ export class CartComponent implements OnInit {
   totalPrice: number = 0;
   customer: Customer;
   customerId: string;
-  description: string;
+  description: string = "";
   selectedOption: string;
   createOrderForm: FormGroup;
   customerAddress: CustomerAddress[];
@@ -37,9 +37,6 @@ export class CartComponent implements OnInit {
   getItemsInCart() {
     var productListString = localStorage.getItem("menus");
     this.itemsInCart = productListString ? JSON.parse(productListString) : [];
-    if (this.itemsInCart.length > 0) {
-      this.restaurantName = this.itemsInCart[0].restaurantName
-    }
   }
   getCustomerAddress() {
     this.customerService.getAddressDetailsByCustomerId(this.customerId).subscribe(response => {
@@ -52,44 +49,54 @@ export class CartComponent implements OnInit {
 
 
   createOrder() {
-    let restaurantName = this.itemsInCart[0].restaurantName
-    this.createOrderForm = this.formBuilder.group({
-      customerId: [this.customerId, Validators.required],
-      orderDescription: [this.description, Validators.required],
-      firstName: [this.customer.firstName, Validators.required],
-      lastName: [this.customer.lastName, Validators.required],
-      address: [this.selectedOption, Validators.required],
-      phoneNumber: [this.customer.phoneNumber, Validators.required],
-      orderStatus: ["Aktif", Validators.required],
-      estimatedTime: ["30 Dk", Validators.required],
-      restaurantName: [restaurantName, Validators.required],
-      orderDate:[new Date().toLocaleString().replace(',',''),Validators.required],
-      menus: this.formBuilder.array([]),
-    });
-    for (let i = 0; i < this.itemsInCart.length; i++) {
-      const creds = this.createOrderForm.controls.menus as FormArray;
-      creds.push(
-        this.formBuilder.group({
-          orderPrice: this.itemsInCart[i].menuPrice,
-          restaurantId: this.itemsInCart[i].restaurantId,
-          menuName: this.itemsInCart[i].menuTitle,
-          quantity: this.itemsInCart[i].quantity,
-          menuImage: this.itemsInCart[i].menuImage
-        })
-      );
+    if (this.itemsInCart.length == 0) {
+      this.toastrService.info("Sepetinizde herhangi bir ürün bulunmamaktadır!", "HATA")
     }
-
-    let model = Object.assign({}, this.createOrderForm.value);
-
-    this.orderService.add(model).subscribe((response) => {
-      if (response.success) {
-        this.toastrService.success("Siparişiniz başarıyla alındı", "BAŞARILI");
-        setTimeout(() => {
-          localStorage.removeItem('menus');
-          this.router.navigate(["/orders"])
-        }, 1000)
+    else {
+      let restaurantName = this.itemsInCart[0].restaurantName
+      this.createOrderForm = this.formBuilder.group({
+        customerId: [this.customerId, Validators.required],
+        orderDescription: [this.description],
+        firstName: [this.customer.firstName, Validators.required],
+        lastName: [this.customer.lastName, Validators.required],
+        address: [this.selectedOption, Validators.required],
+        phoneNumber: [this.customer.phoneNumber, Validators.required],
+        orderStatus: ["Aktif", Validators.required],
+        estimatedTime: ["30 Dk", Validators.required],
+        restaurantName: [restaurantName, Validators.required],
+        orderDate: [new Date().toLocaleString().replace(',', ''), Validators.required],
+        menus: this.formBuilder.array([]),
+      });
+      for (let i = 0; i < this.itemsInCart.length; i++) {
+        const creds = this.createOrderForm.controls.menus as FormArray;
+        creds.push(
+          this.formBuilder.group({
+            orderPrice: this.itemsInCart[i].menuPrice,
+            restaurantId: this.itemsInCart[i].restaurantId,
+            menuName: this.itemsInCart[i].menuTitle,
+            quantity: this.itemsInCart[i].quantity,
+            menuImage: this.itemsInCart[i].menuImage
+          })
+        );
       }
-    });
+      let model = Object.assign({}, this.createOrderForm.value);
+      if (this.createOrderForm.valid) {
+        this.orderService.add(model).subscribe((response) => {
+          if (response.success) {
+            this.toastrService.success("Siparişiniz başarıyla alındı", "BAŞARILI");
+            setTimeout(() => {
+              localStorage.removeItem('menus');
+              this.router.navigate(["/orders"])
+            }, 1000)
+          }
+        });
+      }
+      else {
+        this.toastrService.info("Lütfen bilgileri eksiksiz şekilde doldurun", "HATA");
+
+      }
+
+    }
   }
 
   getCustomerId() {
