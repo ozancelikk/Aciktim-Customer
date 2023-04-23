@@ -18,7 +18,7 @@ export class RestaurantDetailComponent implements OnInit {
   restaurantMenuDetails: RestaurantMenu[]
   filtered: string;
   restaurantId: string;
-  restaurantImage:string;
+  restaurantImage: string;
   id: any; // parametreden gelen restoran id
   constructor(private restaurantService: RestaurantService, private activatedRoute: ActivatedRoute, private toastrService: ToastrService) { }
   ngOnInit(): void {
@@ -38,32 +38,36 @@ export class RestaurantDetailComponent implements OnInit {
         this.rate = new Array(this.restaurant.restaurantRate)
         this.remainderRate = new Array(5 - this.restaurant.restaurantRate)
         this.restaurantImage = response.data.imagePath
+        console.log(this.restaurant)
       }
     })
   }
 
   getImagePath(restaurantDto: RestaurantDto): string {
-    let url = "http://127.0.0.1:4200/Restaurant/" + restaurantDto.id + "/" + restaurantDto.imagePath
-    return url;
+    let url: string;
+    return restaurantDto.imagePath!=null ? "http://127.0.0.1:4200/Restaurant/" 
+    + restaurantDto.id + "/" + restaurantDto.imagePath: "http://127.0.0.1:4200/Restaurant/noImage.png";
   }
 
   getRestaurantMenusByRestaurantId(restaurantId: string) {
     this.restaurantService.getRestaurantMenusByRestaurantId(restaurantId).subscribe(response => {
       if (response.success) {
         this.restaurantMenuDetails = response.data;
+        console.log(this.restaurantMenuDetails)
       }
     })
   }
 
   getMenusImagePath(restaurantDto: RestaurantMenu): string {
-    let url = "http://127.0.0.1:4200/Menu/" + restaurantDto.id + "/" + restaurantDto.menuImage
-    return url;
+    return restaurantDto.menuImage == null ? "http://127.0.0.1:4200/Restaurant/noImage.png" 
+    : "http://127.0.0.1:4200/Menu/" + restaurantDto.id + "/" + restaurantDto.menuImage
+
   }
 
   addCart(menu: RestaurantMenu) {
     var newItem = {
       'menuTitle': menu.menuTitle,
-      'menuImage':"http://127.0.0.1:4200/Menu/" +menu.id + "/" +   menu.menuImage,
+      'menuImage': menu.menuImage == null ?"http://127.0.0.1:4200/Menu/noImage.png" :"http://127.0.0.1:4200/Menu/" + menu.id + "/" + menu.menuImage,
       'menuPrice': menu.menuPrice,
       'id': menu.id,
       'menuDescription': menu.menuDescription,
@@ -71,7 +75,7 @@ export class RestaurantDetailComponent implements OnInit {
       'quantity': 1,
       'customerId': localStorage.getItem('customerId'),
       'restaurantId': menu.restaurantId,
-      'restaurantImage':this.restaurantImage
+      'restaurantImage': this.restaurantImage
     };
     var productListString = localStorage.getItem("menus");
     var productList = productListString ? JSON.parse(productListString) : [];
@@ -98,7 +102,7 @@ export class RestaurantDetailComponent implements OnInit {
       localStorage.setItem("menus", JSON.stringify(productList));
     }
     else {
-      this.toastrService.info("Sepetinizde zaten başka bir restoranın ürünü var!","HATA")
+      this.toastrService.info("Sepetinizde zaten başka bir restoranın ürünü var!", "HATA")
     }
   }
 
