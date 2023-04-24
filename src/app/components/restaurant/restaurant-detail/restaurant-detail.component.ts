@@ -26,7 +26,6 @@ export class RestaurantDetailComponent implements OnInit {
       this.getRestaurantDetail(params["restaurantId"])
       this.getRestaurantMenusByRestaurantId(params["restaurantId"])
       this.id = this.activatedRoute.snapshot.paramMap.get('restaurantId');
-      console.log(this.id);
     })
   }
 
@@ -38,7 +37,6 @@ export class RestaurantDetailComponent implements OnInit {
         this.rate = new Array(this.restaurant.restaurantRate)
         this.remainderRate = new Array(5 - this.restaurant.restaurantRate)
         this.restaurantImage = response.data.imagePath
-        console.log(this.restaurant)
       }
     })
   }
@@ -53,7 +51,6 @@ export class RestaurantDetailComponent implements OnInit {
     this.restaurantService.getRestaurantMenusByRestaurantId(restaurantId).subscribe(response => {
       if (response.success) {
         this.restaurantMenuDetails = response.data;
-        console.log(this.restaurantMenuDetails)
       }
     })
   }

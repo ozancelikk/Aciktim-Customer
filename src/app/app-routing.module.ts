@@ -25,6 +25,7 @@ const routes: Routes = [
     {path:"",component:FeaturedRestaurantsComponent},
     {path:"",component:CategoriesComponent},
     {path:"",component:RestaurantsComponent},
+    {path:":id",component:RestaurantsComponent},
   ]},
   {path:"restaurant/:restaurantId",component:RestaurantComponent,children:[
     {path:"",component:RestaurantDetailComponent},
