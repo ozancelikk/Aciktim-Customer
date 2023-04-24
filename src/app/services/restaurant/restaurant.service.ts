@@ -43,7 +43,7 @@ export class RestaurantService {
     return this.httpClient.get<ResponseModel>(this.apiURL3 +"/Delete?id=" + id)
   }
 
-  getRestaurantsByCategoryId(categoryId:string):Observable<ListResponseModel<RestaurantDto>> {
+  getRestaurantsByCategoryId(...categoryId:string[]):Observable<ListResponseModel<RestaurantDto>> {
     return this.httpClient.get<ListResponseModel<RestaurantDto>>(this.apiURL + "/GetRestaurantsByCategoryId?categoryId=" + categoryId);
   }
 
