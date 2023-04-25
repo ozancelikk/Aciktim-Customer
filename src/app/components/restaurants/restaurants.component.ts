@@ -25,16 +25,21 @@ export class RestaurantsComponent implements OnInit {
   ngOnInit(): void {
     this.getAllRestaurants();
     this.getCategories();
-
   }
 
-  getAllRestaurants() {
+  getAllRestaurants(successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void) {
     this.restaurantService.getAllRestaurants().subscribe(response => {
       if (response.success) {
         this.restaurants = response.data;
+        if (successCallBack) {
+          successCallBack();
+        }
       }
+    }, errorResponse => {
+      errorCallBack(errorResponse.message);
     })
   }
+
   checkCheckBoxvalue(event: any) {
     this.val = event.target.value
     if (this.dizi.includes(event.target.value)) {
@@ -87,23 +92,28 @@ export class RestaurantsComponent implements OnInit {
 
 
   getByRate(elementId: number) {
-    switch (elementId) {
-      case elementId = 4:
-        this.restaurants = this.restaurants.filter(x => x.restaurantRate >= 4);
-        break;
-      case elementId = 3:
-        this.restaurants = this.restaurants.filter(x => x.restaurantRate >= 3);
-        break;
-      case elementId = 2:
-        this.restaurants = this.restaurants.filter(x => x.restaurantRate >= 2);
-        break;
-      case elementId = 1:
-        this.restaurants = this.restaurants.filter(x => x.restaurantRate >= 1);
-        break;
-      default:
-        this.getAllRestaurants();
-        break;
-    }
+    this.getAllRestaurants(() => {
+      switch (elementId) {
+        case 1:
+          this.restaurants = this.restaurants.filter(x => x.restaurantRate >= 1);
+          break;
+        case 2:
+          this.restaurants = this.restaurants.filter(x => x.restaurantRate >= 2);
+          break;
+        case 3:
+          this.restaurants = this.restaurants.filter(x => x.restaurantRate >= 3);
+          break;
+        case 4:
+          this.restaurants = this.restaurants.filter(x => x.restaurantRate >= 4);
+          break;
+        default:
+          this.getAllRestaurants();
+          break;
+      }
+    }, (errorMessage: string) => {
+      this.toastrService.error(errorMessage)
+    });
+
   }
 
   addFavoriteRestaurant(favoriteRestaurant: RestaurantDto) {

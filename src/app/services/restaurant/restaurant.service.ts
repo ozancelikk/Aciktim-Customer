@@ -3,9 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from 'src/app/models/listResponseModel';
 import { ResponseModel } from 'src/app/models/responseModel';
+import { AddCommentDto } from 'src/app/models/restaurant/addCommentDto';
 
 import { FavoriteRestaurantDto } from 'src/app/models/restaurant/favoriteRestaurantDto';
 import { Restaurant } from 'src/app/models/restaurant/restaurant';
+import { RestaurantComment } from 'src/app/models/restaurant/restaurantComment';
 import { RestaurantDto } from 'src/app/models/restaurant/restaurantDto';
 import { RestaurantMenu } from 'src/app/models/restaurant/restaurantMenu';
 import { SingleResponseModel } from 'src/app/models/singleResponseModel';
@@ -17,6 +19,7 @@ export class RestaurantService {
   apiURL:string = "https://localhost:44398/api/Restaurant";
   apiURL2:string = "https://localhost:44398/api/Menu";
   apiURL3:string = "https://localhost:44398/api/FavoriteRestaurant";
+  apiURL4:string = "https://localhost:44398/api/RestaurantComment";
   constructor(private httpClient:HttpClient) { }
   
 
@@ -45,6 +48,14 @@ export class RestaurantService {
 
   getRestaurantsByCategoryId(...categoryId:string[]):Observable<ListResponseModel<RestaurantDto>> {
     return this.httpClient.get<ListResponseModel<RestaurantDto>>(this.apiURL + "/GetRestaurantsByCategoryId?categoryId=" + categoryId);
+  }
+
+  getRestaurantCommentsByRestaurantId(restaurantId:string):Observable<ListResponseModel<RestaurantComment>> {
+    return this.httpClient.get<ListResponseModel<RestaurantComment>>(this.apiURL4 + "/GetCommentsByRestaurantId?restaurantId=" + restaurantId)
+  }
+
+  addComment(comment:AddCommentDto):Observable<ResponseModel>{
+    return this.httpClient.post<ResponseModel>(this.apiURL4 +"/add",comment);
   }
 
 }
