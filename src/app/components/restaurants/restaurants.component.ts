@@ -21,6 +21,7 @@ export class RestaurantsComponent implements OnInit {
   dizi: string[] = [];
   selectedOptionCategory: string;
   val: string;
+
   constructor(private restaurantService: RestaurantService, private toastrService: ToastrService, private categoryService: CategoryService) { }
   ngOnInit(): void {
     this.getAllRestaurants();
@@ -31,6 +32,9 @@ export class RestaurantsComponent implements OnInit {
     this.restaurantService.getAllRestaurants().subscribe(response => {
       if (response.success) {
         this.restaurants = response.data;
+        for (let i = 0; i < this.restaurants.length; i++) {
+          this.restaurants[i].restaurantRate = (Math.floor(this.restaurants[i].restaurantRate))
+        }
         if (successCallBack) {
           successCallBack();
         }
@@ -38,6 +42,11 @@ export class RestaurantsComponent implements OnInit {
     }, errorResponse => {
       errorCallBack(errorResponse.message);
     })
+  }
+
+  createArray(index:number):Array<number> {
+    let rate = new Array(index)
+    return rate
   }
 
   checkCheckBoxvalue(event: any) {

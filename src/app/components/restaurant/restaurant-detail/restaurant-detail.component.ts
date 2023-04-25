@@ -69,8 +69,8 @@ export class RestaurantDetailComponent implements OnInit {
       if (response.success) {
         this.restaurant = response.data;
         this.star = response.data.restaurantRate;
-        this.rate = new Array(this.restaurant.restaurantRate)
-        this.remainderRate = new Array(5 - this.restaurant.restaurantRate)
+        this.rate = new Array(Math.floor(this.restaurant.restaurantRate))
+        this.remainderRate = new Array(5 - Math.floor(this.restaurant.restaurantRate))
         this.restaurantImage = response.data.imagePath
       }
     })
@@ -142,7 +142,6 @@ export class RestaurantDetailComponent implements OnInit {
     this.restaurantService.getRestaurantCommentsByRestaurantId(this.id).subscribe(response => {
       if (response.success) {
         this.comments = response.data;
-        console.log(this.comments);
       }
     })
   }
