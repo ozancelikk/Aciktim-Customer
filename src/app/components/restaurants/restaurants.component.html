@@ -19,10 +19,8 @@
                 </div>
                 <div>
                   <small>{{restaurant.restaurantRate}}</small>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
+                  <i class="fa fa-star rating-color" *ngFor="let x of createArray(restaurant.restaurantRate)"></i>
+                  
                 </div>
               </div>
               <div class="row">
