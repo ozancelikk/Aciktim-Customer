@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { RestaurantComment } from 'src/app/models/restaurant/restaurantComment';
 import { RestaurantDto } from 'src/app/models/restaurant/restaurantDto';
 import { RestaurantMenu } from 'src/app/models/restaurant/restaurantMenu';
 import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
@@ -13,20 +15,53 @@ import { RestaurantService } from 'src/app/services/restaurant/restaurant.servic
 export class RestaurantDetailComponent implements OnInit {
   restaurant: RestaurantDto;
   star: number;
+  addCommentForm: FormGroup;
   rate = new Array(0)
   remainderRate = new Array(0)
   restaurantMenuDetails: RestaurantMenu[]
   filtered: string;
   restaurantId: string;
   restaurantImage: string;
+  comments: RestaurantComment[];
   id: any; // parametreden gelen restoran id
-  constructor(private restaurantService: RestaurantService, private activatedRoute: ActivatedRoute, private toastrService: ToastrService) { }
+  constructor(private restaurantService: RestaurantService, private activatedRoute: ActivatedRoute, private toastrService: ToastrService, private formBuilder: FormBuilder) { }
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.getRestaurantDetail(params["restaurantId"])
       this.getRestaurantMenusByRestaurantId(params["restaurantId"])
       this.id = this.activatedRoute.snapshot.paramMap.get('restaurantId');
+      this.getRestaurantCommentsByRestaurantId();
+      this.createAddForm();
     })
+  }
+
+  createAddForm() {
+    this.addCommentForm = this.formBuilder.group({
+      restaurantId: [this.id, Validators.required],
+      customerId: [localStorage.getItem('customerId'), Validators.required],
+      commentTitle: ["", Validators.required],
+      commentContent: ["", Validators.required],
+      commentDate: [new Date().toLocaleDateString(), Validators.required]
+    });
+  }
+
+  addComment() {
+    if (localStorage.getItem('customerId')) {
+      if (this.addCommentForm.valid) {
+        let model = Object.assign({}, this.addCommentForm.value)
+        this.restaurantService.addComment(model).subscribe(response => {
+          if (response.success) {
+            this.toastrService.success("Yorumunuz başarıyla eklendi!", "BAŞARILI");
+          }
+        }, error => this.toastrService.error(error.error))
+      }
+      else {
+        this.toastrService.info("Lütfen ilgili alanları doldurunuz!", "HATA")
+      }
+    }
+    else {
+      this.toastrService.error("Yorum yapmak için önce giriş yapınız!", "HATA")
+    }
   }
 
   getRestaurantDetail(restaurantId: string) {
@@ -43,8 +78,8 @@ export class RestaurantDetailComponent implements OnInit {
 
   getImagePath(restaurantDto: RestaurantDto): string {
     let url: string;
-    return restaurantDto.imagePath!=null ? "http://127.0.0.1:4200/Restaurant/" 
-    + restaurantDto.id + "/" + restaurantDto.imagePath: "http://127.0.0.1:4200/Restaurant/noImage.png";
+    return restaurantDto.imagePath != null ? "http://127.0.0.1:4200/Restaurant/"
+      + restaurantDto.id + "/" + restaurantDto.imagePath : "http://127.0.0.1:4200/Restaurant/noImage.png";
   }
 
   getRestaurantMenusByRestaurantId(restaurantId: string) {
@@ -56,15 +91,15 @@ export class RestaurantDetailComponent implements OnInit {
   }
 
   getMenusImagePath(restaurantDto: RestaurantMenu): string {
-    return restaurantDto.menuImage == null ? "http://127.0.0.1:4200/Restaurant/noImage.png" 
-    : "http://127.0.0.1:4200/Menu/" + restaurantDto.id + "/" + restaurantDto.menuImage
+    return restaurantDto.menuImage == null ? "http://127.0.0.1:4200/Restaurant/noImage.png"
+      : "http://127.0.0.1:4200/Menu/" + restaurantDto.id + "/" + restaurantDto.menuImage
 
   }
 
   addCart(menu: RestaurantMenu) {
     var newItem = {
       'menuTitle': menu.menuTitle,
-      'menuImage': menu.menuImage == null ?"http://127.0.0.1:4200/Menu/noImage.png" :"http://127.0.0.1:4200/Menu/" + menu.id + "/" + menu.menuImage,
+      'menuImage': menu.menuImage == null ? "http://127.0.0.1:4200/Menu/noImage.png" : "http://127.0.0.1:4200/Menu/" + menu.id + "/" + menu.menuImage,
       'menuPrice': menu.menuPrice,
       'id': menu.id,
       'menuDescription': menu.menuDescription,
@@ -101,6 +136,15 @@ export class RestaurantDetailComponent implements OnInit {
     else {
       this.toastrService.info("Sepetinizde zaten başka bir restoranın ürünü var!", "HATA")
     }
+  }
+
+  getRestaurantCommentsByRestaurantId() {
+    this.restaurantService.getRestaurantCommentsByRestaurantId(this.id).subscribe(response => {
+      if (response.success) {
+        this.comments = response.data;
+        console.log(this.comments);
+      }
+    })
   }
 
 }

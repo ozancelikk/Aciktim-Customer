@@ -1,16 +1,18 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
   crossorigin="anonymous" referrerpolicy="no-referrer" />
-<div class="container" *ngIf="restaurant">
+<div class="container" *ngIf="restaurant && comments">
   <img [src]="getImagePath(restaurant)" style="width: 100%;height: 35rem;object-fit: cover;" alt="">
   <div class="all">
     <div class="row mt-4">
       <div class="col-lg-6 col-md-12 col-sm-12">
         <div class="search">
-          <h2>{{restaurant.restaurantName}}</h2>
+          <h2>{{restaurant.restaurantName.toUpperCase()}}</h2>
           <div class="row">
             <div class="col-md-6">
-              <p><i class="fa-solid fa-house"></i> {{restaurant.restaurantAddress}}</p>
+              <p><i class="fa-solid fa-house"></i>
+                {{restaurant.restaurantAddress.charAt(0).toUpperCase() + restaurant.restaurantAddress.slice(1)}}
+              </p>
               <p><i class="fa-solid fa-clock"></i> 06.00 / 22.00</p>
 
               <p>Restoran Puanı:
@@ -42,11 +44,12 @@
       </div>
     </div>
     <div class="input-group mb-3 mt-3">
-      <input type="text" class="form-control" [(ngModel)]="filtered" placeholder="Restoran İçi Menü Arama..." aria-label="Username"
-        aria-describedby="basic-addon1">
+      <input type="text" class="form-control" [(ngModel)]="filtered" placeholder="Restoran İçi Menü Arama..."
+        aria-label="Username" aria-describedby="basic-addon1">
     </div>
     <div class="row mb-3">
-      <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12 item" *ngFor="let menu of restaurantMenuDetails|menuPipe:filtered" style="position: relative;">
+      <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12 item"
+        *ngFor="let menu of restaurantMenuDetails|menuPipe:filtered" style="position: relative;">
         <button class="btn addCart" (click)="addCart(menu)">
           <i class="fa-solid fa-plus"></i>
         </button>
@@ -54,13 +57,118 @@
           <img class="card-img-top" [src]="getMenusImagePath(menu)" style="height:17rem;width: 100%; max-height: 17rem;"
             alt="Card image cap">
           <div class="card-body">
-            <h4 class="card-title" style="font-weight: bold;">{{menu.menuTitle}}</h4>
+            <h4 class="card-title" style="font-weight: bold;">{{menu.menuTitle.charAt(0).toUpperCase() +
+              menu.menuTitle.slice(1)}}</h4>
             <div class="d-flex justify-content-between">
-              <p class="card-text">{{menu.menuDescription}}</p>
+              <p class="card-text">{{menu.menuDescription.charAt(0).toUpperCase() + menu.menuDescription.slice(1)}}</p>
               <p class="card-price">{{menu.menuPrice}} TL </p>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="mt-100 mb-100">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Restoran Yorumları</h2>
+          <hr>
+          <div class="alert alert-success" role="alert" *ngIf="comments.length == 0">
+            Bu restorana daha önce hiç yorum yapılmamış! 
+          </div>
+          <div class="card w-100" *ngIf="comments.length > 0">
+            <div class="comment-widgets m-b-20">
+              <div class="d-flex flex-row comment-row w-100" *ngFor="let comment of comments">
+                <div class="p-2"><span class="round"><img
+                      src="https://i2.wp.com/vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png?fit=512%2C512&ssl=1"
+                      alt="user" width="50"></span></div>
+                <div class="comment-text w-100">
+                  <h4>{{comment.customerName}}</h4>
+                  <div class="comment-footer mb-2">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <span class="date" style="font-weight: bold;">{{comment.commentTitle}}</span>
+                        <small>
+                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i>
+                        </small>
+                      </div>
+
+                      <span>Paylaşıldı {{comment.commentDate}}</span>
+                    </div>
+                  </div>
+                  <p class="m-b-5 m-t-10">
+                    {{comment.commentContent}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card  py-3 px-3" style="background-color: #f8f9fa;margin-top: 3rem;">
+            <div class="d-flex flex-start w-100">
+              <div class="form-outline w-100">
+                <h2>Yorum Yap</h2>
+                <hr>
+                <form [formGroup]="addCommentForm">
+                <div class="container d-flex justify-content-start mb-3">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="stars">
+                        
+                          <span style="color: black;">Puanınız : </span>
+                          <input class="star star-5" id="star-5" type="radio" name="star" />
+                          <label class="star star-5" for="star-5"></label>
+                          <input class="star star-4" id="star-4" type="radio" name="star" />
+                          <label class="star star-4" for="star-4"></label>
+                          <input class="star star-3" id="star-3" type="radio" name="star" />
+                          <label class="star star-3" for="star-3"></label>
+                          <input class="star star-2" id="star-2" type="radio" name="star" />
+                          <label class="star star-2" for="star-2"></label>
+                          <input class="star star-1" id="star-1" type="radio" name="star" />
+                          <label class="star star-1" for="star-1"></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="exampleInputEmail1">Yorum Başlığı</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Başlık..." formControlName="commentTitle">
+                </div>
+                <div class="form-group">
+                  <label>Yorum İçeriği</label>
+                  <textarea class="form-control" id="textAreaExample" rows="4" placeholder="İçerik..."
+                    style="background: #fff;" formControlName="commentContent"></textarea>
+                </div>
+                <div class="float-end mt-2 pt-1">
+                  <button type="button" class="btn btn-md" (click)="addComment()" style="background-color: #5D196A;color: white;margin-right: 10px;">Yorum Yap</button>
+                  <input type="reset"value="İptal" class="btn btn-md"style="background-color: #5D196A;color: white;margin-right: 10px;"  />
+                </div>
+              </form>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
+
+
+
+
+
+<!-- <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+  <div class="d-flex flex-start w-100">
+
+    <div class="form-outline w-100">
+      <textarea class="form-control" id="textAreaExample" rows="4" style="background: #fff;"></textarea>
+      <label class="form-label" for="textAreaExample">Message</label>
+    </div>
+  </div>
+  <div class="float-end mt-2 pt-1">
+    <button type="button" class="btn btn-primary btn-sm">Post comment</button>
+    <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+  </div>
+</div> -->
