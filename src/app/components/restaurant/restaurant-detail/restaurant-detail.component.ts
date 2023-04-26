@@ -24,6 +24,7 @@ export class RestaurantDetailComponent implements OnInit {
   restaurantImage: string;
   comments: RestaurantComment[];
   id: any; // parametreden gelen restoran id
+  restaurantRate = new Array(0);
   constructor(private restaurantService: RestaurantService, private activatedRoute: ActivatedRoute, private toastrService: ToastrService, private formBuilder: FormBuilder) { }
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -41,8 +42,14 @@ export class RestaurantDetailComponent implements OnInit {
       customerId: [localStorage.getItem('customerId'), Validators.required],
       commentTitle: ["", Validators.required],
       commentContent: ["", Validators.required],
-      commentDate: [new Date().toLocaleDateString(), Validators.required]
+      commentDate: [new Date().toLocaleDateString(), Validators.required],
+      restaurantRate:["",Validators.required],
     });
+  }
+
+  getRate(element:number) {
+    this.restaurantRate = new Array(element)
+    return this.restaurantRate
   }
 
   addComment() {
@@ -52,6 +59,7 @@ export class RestaurantDetailComponent implements OnInit {
         this.restaurantService.addComment(model).subscribe(response => {
           if (response.success) {
             this.toastrService.success("Yorumunuz başarıyla eklendi!", "BAŞARILI");
+            this.getRestaurantCommentsByRestaurantId();
           }
         }, error => this.toastrService.error(error.error))
       }

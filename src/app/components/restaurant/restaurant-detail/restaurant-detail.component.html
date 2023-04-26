@@ -73,7 +73,7 @@
           <h2>Restoran Yorumları</h2>
           <hr>
           <div class="alert alert-success" role="alert" *ngIf="comments.length == 0">
-            Bu restorana daha önce hiç yorum yapılmamış! 
+            Bu restorana daha önce hiç yorum yapılmamış!
           </div>
           <div class="card w-100" *ngIf="comments.length > 0">
             <div class="comment-widgets m-b-20">
@@ -82,22 +82,21 @@
                       src="https://i2.wp.com/vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png?fit=512%2C512&ssl=1"
                       alt="user" width="50"></span></div>
                 <div class="comment-text w-100">
-                  <h4>{{comment.customerName}}</h4>
+                  <h4 style="margin-bottom: .3rem;">{{comment.customerName}}</h4>
                   <div class="comment-footer mb-2">
                     <div class="d-flex justify-content-between">
                       <div>
-                        <span class="date" style="font-weight: bold;">{{comment.commentTitle}}</span>
                         <small>
-                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star stars" *ngFor="let x of getRate(comment.restaurantRate)"></i>
                         </small>
+                        <br>
+                        <span class="date" style="font-weight: bold;">Başlık : {{comment.commentTitle}}</span>
                       </div>
-
                       <span>Paylaşıldı {{comment.commentDate}}</span>
                     </div>
                   </div>
                   <p class="m-b-5 m-t-10">
-                    {{comment.commentContent}}
+                    <b> İçerik :</b> {{comment.commentContent}}
                   </p>
                 </div>
               </div>
@@ -109,44 +108,42 @@
                 <h2>Yorum Yap</h2>
                 <hr>
                 <form [formGroup]="addCommentForm">
-                <div class="container d-flex justify-content-start mb-3">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="stars">
-                        
+                  <div class="container d-flex justify-content-start mb-3">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="stars">
                           <span style="color: black;">Puanınız : </span>
-                          <input class="star star-5" id="star-5" type="radio" name="star" />
-                          <label class="star star-5" for="star-5"></label>
-                          <input class="star star-4" id="star-4" type="radio" name="star" />
-                          <label class="star star-4" for="star-4"></label>
-                          <input class="star star-3" id="star-3" type="radio" name="star" />
-                          <label class="star star-3" for="star-3"></label>
-                          <input class="star star-2" id="star-2" type="radio" name="star" />
-                          <label class="star star-2" for="star-2"></label>
-                          <input class="star star-1" id="star-1" type="radio" name="star" />
-                          <label class="star star-1" for="star-1"></label>
+                          <select style="width: 6rem;" formControlName="restaurantRate">
+                            <option value="5">5 </option>
+                            <option value="4">4 </option>
+                            <option value="3">3 </option>
+                            <option value="2">2 </option>
+                            <option value="1">1 </option>
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="form-group mb-3">
-                  <label for="exampleInputEmail1">Yorum Başlığı</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Başlık..." formControlName="commentTitle">
-                </div>
-                <div class="form-group">
-                  <label>Yorum İçeriği</label>
-                  <textarea class="form-control" id="textAreaExample" rows="4" placeholder="İçerik..."
-                    style="background: #fff;" formControlName="commentContent"></textarea>
-                </div>
-                <div class="float-end mt-2 pt-1">
-                  <button type="button" class="btn btn-md" (click)="addComment()" style="background-color: #5D196A;color: white;margin-right: 10px;">Yorum Yap</button>
-                  <input type="reset"value="İptal" class="btn btn-md"style="background-color: #5D196A;color: white;margin-right: 10px;"  />
-                </div>
-              </form>
+                  <div class="form-group mb-3">
+                    <label for="exampleInputEmail1">Yorum Başlığı</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      placeholder="Başlık..." formControlName="commentTitle">
+                  </div>
+                  <div class="form-group">
+                    <label>Yorum İçeriği</label>
+                    <textarea class="form-control" id="textAreaExample" rows="4" placeholder="İçerik..."
+                      style="background: #fff;" formControlName="commentContent"></textarea>
+                  </div>
+                  <div class="float-end mt-2 pt-1">
+                    <button type="button" class="btn btn-md" (click)="addComment()"
+                      style="background-color: #5D196A;color: white;margin-right: 10px;">Yorum Yap</button>
+                    <input type="reset" value="İptal" class="btn btn-md"
+                      style="background-color: #5D196A;color: white;margin-right: 10px;" />
+                  </div>
+                </form>
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>

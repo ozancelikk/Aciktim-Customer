@@ -25,6 +25,7 @@ export class CartComponent implements OnInit {
   createOrderForm: FormGroup;
   customerAddress: CustomerAddress[];
   restaurantName: string;
+  restaurantId:string;
   constructor(private authService: AuthService, private orderService: OrderService, private customerService: CustomerService, private toastrService: ToastrService,
     private router: Router, private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void {
@@ -32,6 +33,7 @@ export class CartComponent implements OnInit {
     this.getCustomerId();
     this.getCustomerDetailsByCustomerId();
     this.getCustomerAddress();
+    this.getRestaurantId();
   }
 
   getItemsInCart() {
@@ -44,6 +46,11 @@ export class CartComponent implements OnInit {
         this.customerAddress = response.data
       }
     })
+  }
+
+
+  getRestaurantId() {
+    localStorage.getItem('menus') ? this.restaurantId = this.itemsInCart[0].restaurantId : null
   }
 
 
@@ -61,11 +68,12 @@ export class CartComponent implements OnInit {
         lastName: [this.customer.lastName, Validators.required],
         address: [this.selectedOption, Validators.required],
         phoneNumber: [this.customer.phoneNumber, Validators.required],
-        orderStatus: ["Aktif", Validators.required],
+        orderStatus: ["Alındı", Validators.required],
         estimatedTime: ["30 Dk", Validators.required],
         restaurantName: [restaurantName, Validators.required],
         orderDate: [new Date().toLocaleString().replace(',', ''), Validators.required],
         menus: this.formBuilder.array([]),
+        restaurantId:[this.restaurantId,Validators.required]
       });
       for (let i = 0; i < this.itemsInCart.length; i++) {
         const creds = this.createOrderForm.controls.menus as FormArray;
@@ -81,6 +89,7 @@ export class CartComponent implements OnInit {
       }
       let model = Object.assign({}, this.createOrderForm.value);
       if (this.createOrderForm.valid) {
+        
         this.orderService.add(model).subscribe((response) => {
           if (response.success) {
             this.toastrService.success("Siparişiniz başarıyla alındı", "BAŞARILI");
@@ -92,6 +101,7 @@ export class CartComponent implements OnInit {
         });
       }
       else {
+        console.log(model)
         this.toastrService.info("Lütfen bilgileri eksiksiz şekilde doldurun", "HATA");
 
       }

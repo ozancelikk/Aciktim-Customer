@@ -27,4 +27,9 @@ export class OrderService {
   }
 
 
+  getActiveOrderDetailsByCustomerIdYeni(customerId:string):Observable<ListResponseModel<Order>> {
+    return this.httpClient.get<ListResponseModel<Order>>(this.apiUrl + "/GetActiveOrdersByCustomerId?customerId=" + customerId );
+  }
+
+
 }
