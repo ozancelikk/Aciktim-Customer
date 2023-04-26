@@ -1,4 +1,4 @@
-<div class="all" id="restoranlar" *ngIf="restaurants">
+<div class="all" id="restoranlar" *ngIf="restaurants && favoriteRestaurants">
   <div class="row">
     <div class="col-lg-9">
       <div class="row x">
@@ -9,18 +9,19 @@
             <img [src]="getImagePath(restaurant)" style="height: 180px;object-fit: cover;" class="card-img-top"
               alt="...">
             <div class="card-body">
-              <button class=" like_button" (click)="addFavoriteRestaurant(restaurant)"
+              
+              <button class=" like_button" (click)="addFavoriteRestaurant(restaurant)" *ngIf="ifIsitIn(restaurant)"
                 style="padding: 0px;border: none;background-color: transparent;">
                 <i class="fa-regular fa-heart"></i>
               </button>
+              <i class="fa-solid fa-heart liked" (click)="deleteFavoriteRestaurant(restaurant.id)" *ngIf="!ifIsitIn(restaurant)"></i>
               <div class="header d-flex justify-content-between">
                 <div class="card-title restaurant_name" style="font-weight: bold;">
                   <span style="font-size: 13px;">{{restaurant.restaurantName}}</span>
                 </div>
                 <div>
-                  <small>{{restaurant.restaurantRate}}</small>
                   <i class="fa fa-star rating-color" *ngFor="let x of createArray(restaurant.restaurantRate)"></i>
-                  
+                  <i class="fa-solid fa-star remainderRateColor" *ngFor="let x of remainderRate"></i> 
                 </div>
               </div>
               <div class="row">

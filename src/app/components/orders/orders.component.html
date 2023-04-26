@@ -59,15 +59,13 @@
                             {{order.orderDescription}}</div>
                         </div>
                       </div>
+                      <h2 style="letter-spacing: 0px;">Sipariş Takip</h2>
                     </div>
-
-                    <ul id="progressbar-2" class="d-flex justify-content-between mx-0 mt-0 mb-5 px-0 pt-0 pb-2">
-                      <li class="step0 active text-center" id="step1"></li>
-                      <li class="step0 active text-center" id="step2"></li>
-                      <li class="step0 active text-center" id="step3"></li>
-                      <li class="step0 text-muted text-end" id="step4"></li>
-                    </ul>
-
+                    <div style="position: relative;">
+                      <div [class]="getClass(order)" class="hero" >
+                      </div>
+                      </div>
+                    <br>
                     <div class="d-flex justify-content-between">
                       <div class="d-lg-flex align-items-center">
                         <i class="fas fa-clipboard-list fa-2x me-lg-3 mb-3 mb-lg-0"></i>
@@ -90,17 +88,8 @@
                           <p class="fw-bold mb-0">Yola Çıktı</p>
                         </div>
                       </div>
-                      <div class="d-lg-flex align-items-center">
-                        <i class="fas fa-home fa-2x me-lg-3 mb-3 mb-lg-0"></i>
-                        <div>
-                          <p class="fw-bold mb-1">Teslim</p>
-                          <p class="fw-bold mb-0">Edildi</p>
-                        </div>
-                      </div>
                     </div>
-
                   </div>
-
                 </div>
               </div>
             </div>

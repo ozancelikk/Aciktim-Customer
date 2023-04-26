@@ -4,4 +4,5 @@ export interface RestaurantComment {
     commentContent:string;
     commentTitle:string;
     commentDate:string;
+    restaurantRate:number;
 }

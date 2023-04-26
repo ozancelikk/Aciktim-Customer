@@ -15,8 +15,8 @@ export class OrdersComponent implements OnInit {
   customerId: any;
   competedOrders: Order[]
   menus: [];
-  filter:string;
-  activeOrders : Order[]
+  filter: string;
+  activeOrders: Order[]
   constructor(private orderService: OrderService, private toastrService: ToastrService) { }
   ngOnInit(): void {
     this.getCustomerId()
@@ -36,12 +36,36 @@ export class OrdersComponent implements OnInit {
       }
     })
   }
+  // getActiveOrderDetailsByCustomerId() {
+  //   this.orderService.getActiveOrderDetailsByCustomerId(this.customerId).subscribe(response=>{
+  //     if (response.success) {
+  //       this.activeOrders = response.data;
+  //     }
+  //   })
+  // }
+
   getActiveOrderDetailsByCustomerId() {
-    this.orderService.getActiveOrderDetailsByCustomerId(this.customerId).subscribe(response=>{
+    this.orderService.getActiveOrderDetailsByCustomerIdYeni(this.customerId).subscribe(response => {
       if (response.success) {
         this.activeOrders = response.data;
+        console.log(this.activeOrders)
       }
     })
+  }
+
+
+  getClass(order: Order) {
+    switch (order.orderStatus) {
+      case "Alındı":
+        return "alindi"
+      case "Kuryede":
+        return "kuryede"
+      case "Hazırlanıyor":
+        return "hazirlaniyor"
+      default:
+        break;
+    }
+    return ""
   }
 
 }

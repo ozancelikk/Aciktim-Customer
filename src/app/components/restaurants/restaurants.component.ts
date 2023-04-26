@@ -13,19 +13,20 @@ import { RestaurantService } from 'src/app/services/restaurant/restaurant.servic
   styleUrls: ['./restaurants.component.css']
 })
 
-//FRONTENDDE OLANI BİR DAHA EKLIYOR ONU DÜZELT ! 
 export class RestaurantsComponent implements OnInit {
   restaurants: RestaurantDto[];
   categories: CategoryDto[]
-  deneme: RestaurantDto[]
   dizi: string[] = [];
   selectedOptionCategory: string;
   val: string;
+  favoriteRestaurants: FavoriteRestaurantDto[]
+  remainderRate = new Array(0)
 
   constructor(private restaurantService: RestaurantService, private toastrService: ToastrService, private categoryService: CategoryService) { }
   ngOnInit(): void {
     this.getAllRestaurants();
     this.getCategories();
+    this.getFavoriteRestaurantsByCustomerId();
   }
 
   getAllRestaurants(successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void) {
@@ -34,7 +35,9 @@ export class RestaurantsComponent implements OnInit {
         this.restaurants = response.data;
         for (let i = 0; i < this.restaurants.length; i++) {
           this.restaurants[i].restaurantRate = (Math.floor(this.restaurants[i].restaurantRate))
+          this.remainderRate = new Array(5 - Math.floor(this.restaurants[i].restaurantRate))
         }
+
         if (successCallBack) {
           successCallBack();
         }
@@ -43,8 +46,7 @@ export class RestaurantsComponent implements OnInit {
       errorCallBack(errorResponse.message);
     })
   }
-
-  createArray(index:number):Array<number> {
+  createArray(index: number) {
     let rate = new Array(index)
     return rate
   }
@@ -70,6 +72,9 @@ export class RestaurantsComponent implements OnInit {
     this.restaurantService.getRestaurantsByCategoryId(val).subscribe(response => {
       if (response.success) {
         val == "" ? this.getAllRestaurants() : this.restaurants = response.data;
+        for (let i = 0; i < this.restaurants.length; i++) {
+          this.restaurants[i].restaurantRate = (Math.floor(this.restaurants[i].restaurantRate))
+        }
       }
     })
   }
@@ -124,7 +129,6 @@ export class RestaurantsComponent implements OnInit {
     });
 
   }
-
   addFavoriteRestaurant(favoriteRestaurant: RestaurantDto) {
     let model = Object.assign({
       customerId: localStorage.getItem('customerId'),
@@ -133,10 +137,26 @@ export class RestaurantsComponent implements OnInit {
     this.restaurantService.addFavoriteService(model).subscribe(response => {
       if (response.success) {
         this.toastrService.success("Restoran favori listesine başarıyla eklendi ! ", "BAŞARILI");
+        this.getFavoriteRestaurantsByCustomerId();
+        this.ifIsitIn(favoriteRestaurant)
       }
     }, error => this.toastrService.error(error.error))
-
   }
+
+
+  deleteFavoriteRestaurant(id: string) {
+    this.restaurantService.deleteFavoriteRestaurant(id).subscribe(response => {
+      if (response.success) {
+        this.toastrService.success("Restoran başarıyla favorilerden kaldırıldı ! ", "BAŞARILI");
+        this.getFavoriteRestaurantsByCustomerId()
+      }
+    })
+  }
+
+
+
+
+
 
   getImagePath(restaurantDto: RestaurantDto): string {
     let url: string;
@@ -156,6 +176,23 @@ export class RestaurantsComponent implements OnInit {
         this.categories = response.data;
       }
     })
+  }
+
+  getFavoriteRestaurantsByCustomerId() {
+    this.restaurantService.getFavoriteRestaurantsByCustomerId(localStorage.getItem('customerId')).subscribe(response => {
+      if (response.success) {
+        this.favoriteRestaurants = response.data;
+
+      }
+    })
+  }
+
+  ifIsitIn(restaurant: RestaurantDto) {
+    for (let i = 0; i < this.favoriteRestaurants.length; i++) {
+      if (restaurant.id == this.favoriteRestaurants[i].id)
+        return false;
+    }
+    return true;
   }
 
 }

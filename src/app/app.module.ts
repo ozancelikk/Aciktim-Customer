@@ -31,7 +31,6 @@ import { RestaurantPipePipe } from './pipes/restaurant-pipe.pipe';
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
