@@ -19,7 +19,7 @@ export class OrderService {
   }
 
   getCompletedOrderDetailsByCustomerId(customerId:string):Observable<ListResponseModel<Order>>{
-    return this.httpClient.get<ListResponseModel<Order>>(this.apiUrl +"/GetCompletedOrdersDetailsByCustomerId?customerId==" + customerId);
+    return this.httpClient.get<ListResponseModel<Order>>(this.apiUrl +"/GetCompletedOrdersDetailsByCustomerId?customerId=" + customerId);
   }
 
   getActiveOrderDetailsByCustomerId(customerId:string):Observable<ListResponseModel<Order>> {

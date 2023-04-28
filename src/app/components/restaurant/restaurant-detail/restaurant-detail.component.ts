@@ -133,10 +133,12 @@ export class RestaurantDetailComponent implements OnInit {
         if (productList[i].id == menu.id) {
           productList[i].quantity += 1;
           productAlreadyExists = true;
+          this.toastrService.success("Ürün başarıyla sepete eklendi!","BAŞARILI");
           break;
         }
       }
       if (productAlreadyExists == false) {
+        this.toastrService.success("Ürün başarıyla sepete eklendi!","BAŞARILI");
         productList.push(newItem);
       }
       localStorage.setItem("menus", JSON.stringify(productList));
@@ -150,6 +152,7 @@ export class RestaurantDetailComponent implements OnInit {
     this.restaurantService.getRestaurantCommentsByRestaurantId(this.id).subscribe(response => {
       if (response.success) {
         this.comments = response.data;
+        this.comments = this.comments.reverse();
       }
     })
   }

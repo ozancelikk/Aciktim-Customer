@@ -11,7 +11,6 @@ import { OrderService } from 'src/app/services/order/order.service';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-  itemsInCart: RestaurantMenu[] = []
   customerId: any;
   competedOrders: Order[]
   menus: [];
@@ -36,13 +35,6 @@ export class OrdersComponent implements OnInit {
       }
     })
   }
-  // getActiveOrderDetailsByCustomerId() {
-  //   this.orderService.getActiveOrderDetailsByCustomerId(this.customerId).subscribe(response=>{
-  //     if (response.success) {
-  //       this.activeOrders = response.data;
-  //     }
-  //   })
-  // }
 
   getActiveOrderDetailsByCustomerId() {
     this.orderService.getActiveOrderDetailsByCustomerIdYeni(this.customerId).subscribe(response => {
