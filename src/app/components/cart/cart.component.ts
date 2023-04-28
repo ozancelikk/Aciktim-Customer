@@ -25,7 +25,7 @@ export class CartComponent implements OnInit {
   createOrderForm: FormGroup;
   customerAddress: CustomerAddress[];
   restaurantName: string;
-  restaurantId:string;
+  restaurantId: string;
   constructor(private authService: AuthService, private orderService: OrderService, private customerService: CustomerService, private toastrService: ToastrService,
     private router: Router, private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void {
@@ -50,59 +50,61 @@ export class CartComponent implements OnInit {
 
 
   getRestaurantId() {
-    localStorage.getItem('menus') ? this.restaurantId = this.itemsInCart[0].restaurantId : null
+    this.itemsInCart.length !==0 ? this.restaurantId = this.itemsInCart[0].restaurantId : "asd"
+   
   }
-
-
 
   createOrder() {
     if (this.itemsInCart.length == 0) {
       this.toastrService.info("Sepetinizde herhangi bir ürün bulunmamaktadır!", "HATA")
     }
     else {
-      let restaurantName = this.itemsInCart[0].restaurantName
-      this.createOrderForm = this.formBuilder.group({
-        customerId: [this.customerId, Validators.required],
-        orderDescription: [this.description],
-        firstName: [this.customer.firstName, Validators.required],
-        lastName: [this.customer.lastName, Validators.required],
-        address: [this.selectedOption, Validators.required],
-        phoneNumber: [this.customer.phoneNumber, Validators.required],
-        orderStatus: ["Alındı", Validators.required],
-        estimatedTime: ["30 Dk", Validators.required],
-        restaurantName: [restaurantName, Validators.required],
-        orderDate: [new Date().toLocaleString().replace(',', ''), Validators.required],
-        menus: this.formBuilder.array([]),
-        restaurantId:[this.restaurantId,Validators.required]
-      });
-      for (let i = 0; i < this.itemsInCart.length; i++) {
-        const creds = this.createOrderForm.controls.menus as FormArray;
-        creds.push(
-          this.formBuilder.group({
-            orderPrice: this.itemsInCart[i].menuPrice,
-            restaurantId: this.itemsInCart[i].restaurantId,
-            menuName: this.itemsInCart[i].menuTitle,
-            quantity: this.itemsInCart[i].quantity,
-            menuImage: this.itemsInCart[i].menuImage
-          })
-        );
-      }
-      let model = Object.assign({}, this.createOrderForm.value);
-      if (this.createOrderForm.valid) {
-        
-        this.orderService.add(model).subscribe((response) => {
-          if (response.success) {
-            this.toastrService.success("Siparişiniz başarıyla alındı", "BAŞARILI");
-            setTimeout(() => {
-              localStorage.removeItem('menus');
-              this.router.navigate(["/orders"])
-            }, 1000)
-          }
-        });
+      if (this.customer.nationalityId == null) {
+        this.toastrService.info("Profil bilgilerinizi güncellemeden sipariş veremezsiniz.", "HATA");
       }
       else {
-        console.log(model)
-        this.toastrService.info("Lütfen bilgileri eksiksiz şekilde doldurun", "HATA");
+        let restaurantName = this.itemsInCart[0].restaurantName
+        this.createOrderForm = this.formBuilder.group({
+          customerId: [this.customerId, Validators.required],
+          orderDescription: [this.description],
+          firstName: [this.customer.firstName, Validators.required],
+          lastName: [this.customer.lastName, Validators.required],
+          address: [this.selectedOption, Validators.required],
+          phoneNumber: [this.customer.phoneNumber, Validators.required],
+          orderStatus: ["Alındı", Validators.required],
+          estimatedTime: ["30 Dk", Validators.required],
+          restaurantName: [restaurantName, Validators.required],
+          orderDate: [new Date().toLocaleString().replace(',', ''), Validators.required],
+          menus: this.formBuilder.array([]),
+          restaurantId: [this.restaurantId, Validators.required]
+        });
+        for (let i = 0; i < this.itemsInCart.length; i++) {
+          const creds = this.createOrderForm.controls.menus as FormArray;
+          creds.push(
+            this.formBuilder.group({
+              orderPrice: this.itemsInCart[i].menuPrice,
+              restaurantId: this.itemsInCart[i].restaurantId,
+              menuName: this.itemsInCart[i].menuTitle,
+              quantity: this.itemsInCart[i].quantity,
+              menuImage: this.itemsInCart[i].menuImage
+            })
+          );
+        }
+        let model = Object.assign({}, this.createOrderForm.value);
+        if (this.createOrderForm.valid) {
+          this.orderService.add(model).subscribe((response) => {
+            if (response.success) {
+              this.toastrService.success("Siparişiniz başarıyla alındı", "BAŞARILI");
+              setTimeout(() => {
+                localStorage.removeItem('menus');
+                this.router.navigate(["/orders"])
+              }, 1000)
+            }
+          });
+        }
+        else {
+          this.toastrService.info("Lütfen bilgileri eksiksiz şekilde doldurun", "HATA");
+        }
 
       }
 
@@ -148,13 +150,15 @@ export class CartComponent implements OnInit {
   decrease(restaurantDto: RestaurantMenu) {
     if (restaurantDto.quantity >= 0) {
       var productListString = localStorage.getItem("menus");
-      var productList = productListString ? JSON.parse(productListString) : []; //eski liste
+      var productList = productListString ? JSON.parse(productListString) : []; 
       for (let i = 0; i < productList.length; i++) {
         if (productList[i].id == restaurantDto.id) {
           if (productList[i].quantity > 1) { // Check if quantity is greater than 1
             productList[i].quantity--; // Decrease quantity by 1
-          } else {
+          }else {
             productList.splice(i, 1);
+            localStorage.removeItem('menus')
+            this.toastrService.success("Ürün başarıyla sepetten kaldırıldı","BAŞARILI")
           }
           localStorage.setItem('menus', JSON.stringify(productList));
           this.getItemsInCart();

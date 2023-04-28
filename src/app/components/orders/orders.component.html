@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
   crossorigin="anonymous" referrerpolicy="no-referrer" />
-<div class="container">
+<div class="container" *ngIf="competedOrders">
   <div class="row mt-3">
     <div class="col-lg-6 border-right" *ngIf="activeOrders">
       <h4 style="font-weight: bold; color: red;">Aktif Siparişlerim</h4>
@@ -107,6 +107,9 @@
         Ara</label>
       <input type="email" [(ngModel)]="filter" class="form-control mb-3" id="exampleFormControlInput1"
         placeholder="Restoran Adı">
+        <div class="alert alert-danger" role="alert" *ngIf="competedOrders.length == 0">
+          Geçmiş siparişiniz bulunmamaktadır. Sipariş vermek için <a href="http://localhost:4200/#restoranlar"><u style="cursor: pointer;">tıklayın</u></a>
+        </div>
       <div class="container-fluid d-flex justify-content-center" style="margin-top: 0px;"  *ngFor="let order of competedOrders |restaurantPipe:filter" class="mb-4">
         <div class=" card-1">
           <div class="card-body">
