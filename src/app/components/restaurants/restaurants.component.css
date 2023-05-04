@@ -72,10 +72,17 @@
 
   @media (max-width: 1400px) {
     .card {
-        width: 13rem !important;   
+        width: 13.1rem !important;   
     } 
+    .min{
+        font-size: 8pt !important;
+
+    }
     .x {
         margin-bottom: 20px;
+    }
+    .btn{
+        padding: 7px;
     }
     .like_button {
         top: 4px;

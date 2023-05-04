@@ -3,12 +3,12 @@
     <div class="col-lg-9">
       <div class="row x">
         <h3 id="restaurants" style="font-weight: bold;">Restaurantlar</h3>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12" style="height: 22rem;"
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12 " style="height: 22rem; margin-bottom: 4rem;"
           *ngFor="let restaurant of restaurants">
-          <div class="card" style="width: 15rem;height: auto;">
+          <div class="card mb-4" style="width: 15rem;height: auto;">
             <img [src]="getImagePath(restaurant)" style="height: 180px;object-fit: cover;" class="card-img-top"
               alt="...">
-            <div class="card-body">
+            <div class="card-body ">
               
               <button class=" like_button" (click)="addFavoriteRestaurant(restaurant)" *ngIf="ifIsitIn(restaurant)"
                 style="padding: 0px;border: none;background-color: transparent;">
@@ -19,15 +19,18 @@
                 <div class="card-title restaurant_name" style="font-weight: bold;">
                   <span style="font-size: 13px;">{{restaurant.restaurantName}}</span>
                 </div>
-                <div>
+                <div *ngIf="restaurant.restaurantRate!=0">
                   <i class="fa fa-star rating-color" *ngFor="let x of createArray(restaurant.restaurantRate)"></i>
-                  <i class="fa-solid fa-star remainderRateColor" *ngFor="let x of remainderRate"></i> 
+                  <i class="fa-solid fa-star remainderRateColor" *ngFor="let x of createArray2(restaurant.restaurantRate)"></i> 
+                </div>
+                <div *ngIf="restaurant.restaurantRate==0" style="font-size: 8pt; font-weight: bold; color: #5D196A;">
+                    Puanlandırma Yapılmamıştır
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-6" style="font-size: 13px;">{{restaurant.restaurantAddress}}</div>
                 <div class="col-lg-6">
-                  <span style="font-size: 13px;">
+                  <span class="min" style="font-size: 13px;">
                     Min Sepet Tutarı : {{restaurant.minCartPrice}}TL
                   </span>
                 </div>

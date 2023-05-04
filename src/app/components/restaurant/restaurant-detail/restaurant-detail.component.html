@@ -15,11 +15,11 @@
               </p>
               <p><i class="fa-solid fa-clock"></i> 06.00 / 22.00</p>
 
-              <p>Restoran Puanı:
+              <p *ngIf="restaurant.restaurantRate!=0">Restoran Puanı:
                 <i class="fa-solid fa-star stars" *ngFor="let x of rate"></i>
                 <i class="fa-solid fa-star remainderRateColor" *ngFor="let x of remainderRate"></i>
-
               </p>
+              <p *ngIf="restaurant.restaurantRate==0" style="color: #5D196A; font-weight: bold;">Puanlandırma Yapılmamıştır</p>
             </div>
             <div class="col-md-6">
               <p><i class="fa-solid fa-envelope"></i> {{restaurant.mailAddress}}</p>

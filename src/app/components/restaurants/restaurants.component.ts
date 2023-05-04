@@ -35,9 +35,9 @@ export class RestaurantsComponent implements OnInit {
         this.restaurants = response.data;
         for (let i = 0; i < this.restaurants.length; i++) {
           this.restaurants[i].restaurantRate = (Math.floor(this.restaurants[i].restaurantRate))
-          this.remainderRate = new Array(5 - Math.floor(this.restaurants[i].restaurantRate))
-        }
 
+        }
+        console.log(this.remainderRate)
         if (successCallBack) {
           successCallBack();
         }
@@ -48,6 +48,10 @@ export class RestaurantsComponent implements OnInit {
   }
   createArray(index: number) {
     let rate = new Array(index)
+    return rate
+  }
+  createArray2(index:number){
+    let rate = new Array(5-index)
     return rate
   }
 
