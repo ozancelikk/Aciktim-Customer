@@ -147,7 +147,6 @@ export class RestaurantsComponent implements OnInit {
     }, error => this.toastrService.error(error.error))
   }
 
-
   deleteFavoriteRestaurant(id: string) {
     this.restaurantService.deleteFavoriteRestaurant(id).subscribe(response => {
       if (response.success) {
@@ -156,12 +155,6 @@ export class RestaurantsComponent implements OnInit {
       }
     })
   }
-
-
-
-
-
-
   getImagePath(restaurantDto: RestaurantDto): string {
     let url: string;
     if (restaurantDto.imagePath == null) {
