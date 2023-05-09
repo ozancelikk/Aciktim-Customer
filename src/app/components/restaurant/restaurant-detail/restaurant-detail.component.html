@@ -13,7 +13,7 @@
               <p><i class="fa-solid fa-house"></i>
                 {{restaurant.restaurantAddress.charAt(0).toUpperCase() + restaurant.restaurantAddress.slice(1)}}
               </p>
-              <p><i class="fa-solid fa-clock"></i> 06.00 / 22.00</p>
+              <p><i class="fa-solid fa-clock"></i> {{restaurant.openingTime}} / {{restaurant.closingTime}}</p>
 
               <p *ngIf="restaurant.restaurantRate!=0">Restoran Puanı:
                 <i class="fa-solid fa-star stars" *ngFor="let x of rate"></i>
@@ -47,7 +47,7 @@
       <input type="text" class="form-control" [(ngModel)]="filtered" placeholder="Restoran İçi Menü Arama..."
         aria-label="Username" aria-describedby="basic-addon1">
     </div>
-    <div class="row mb-3">
+    <div class="row mb-3" *ngIf="status&&restaurantStatus">
       <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12 item"
         *ngFor="let menu of restaurantMenuDetails|menuPipe:filtered" style="position: relative;">
         <button class="btn addCart" (click)="addCart(menu)">
@@ -66,6 +66,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="alert alert-primary" role="alert" *ngIf="!status &&!restaurantStatus" style="height: 10rem; margin: 0.2rem;">
+      Restoran Şuan Çalışma Saatleri Dışındadır!
     </div>
     <div class="mt-100 mb-100">
       <div class="row">
@@ -150,6 +153,9 @@
     </div>
   </div>
 </div>
+
+
+
 
 
 
