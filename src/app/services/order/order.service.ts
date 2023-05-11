@@ -25,10 +25,11 @@ export class OrderService {
   getActiveOrderDetailsByCustomerId(customerId:string):Observable<ListResponseModel<Order>> {
     return this.httpClient.get<ListResponseModel<Order>>(this.apiUrl + "/GetActiveOrderDetailsByCustomerId?customerId=" + customerId );
   }
-
-
   getActiveOrderDetailsByCustomerIdYeni(customerId:string):Observable<ListResponseModel<Order>> {
     return this.httpClient.get<ListResponseModel<Order>>(this.apiUrl + "/GetActiveOrdersByCustomerId?customerId=" + customerId );
+  }
+  getOrdersByRestaurantAndCustomerId(customerId:string,restaurantId:string):Observable<ListResponseModel<Order>>{
+    return this.httpClient.get<ListResponseModel<Order>>(this.apiUrl+"/GetOrdersByRestaurantAndCustomerId?customerId="+customerId+"&restaurantId="+restaurantId)
   }
 
 

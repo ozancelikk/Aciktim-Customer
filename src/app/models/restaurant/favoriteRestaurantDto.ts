@@ -12,4 +12,6 @@ export interface FavoriteRestaurantDto {
     categoryId:string;
     imagePath:string;
     id:string;
+    restaurantStatus:boolean
+    status:boolean
 }

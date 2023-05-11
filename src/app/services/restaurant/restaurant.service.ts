@@ -53,6 +53,9 @@ export class RestaurantService {
   getRestaurantCommentsByRestaurantId(restaurantId:string):Observable<ListResponseModel<RestaurantComment>> {
     return this.httpClient.get<ListResponseModel<RestaurantComment>>(this.apiURL4 + "/GetCommentsByRestaurantId?restaurantId=" + restaurantId)
   }
+  getRestaurantCommentsByCustomerId(customerId:string,restaurantId:string):Observable<ListResponseModel<RestaurantComment>> {
+    return this.httpClient.get<ListResponseModel<RestaurantComment>>(this.apiURL4 + "/GetCommentsByCustomerId?customerId="+customerId+"&restaurantId=" + restaurantId)
+  }
 
   addComment(comment:AddCommentDto):Observable<ResponseModel>{
     return this.httpClient.post<ResponseModel>(this.apiURL4 +"/add",comment);

@@ -129,3 +129,7 @@
         left:450px;
     }
   }
+.color{
+    filter: grayscale(100%);
+    color: gray;
+  }

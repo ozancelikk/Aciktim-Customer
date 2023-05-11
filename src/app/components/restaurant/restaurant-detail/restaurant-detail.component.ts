@@ -7,7 +7,10 @@ import { ToastrService } from 'ngx-toastr';
 import { RestaurantComment } from 'src/app/models/restaurant/restaurantComment';
 import { RestaurantDto } from 'src/app/models/restaurant/restaurantDto';
 import { RestaurantMenu } from 'src/app/models/restaurant/restaurantMenu';
+import { OrderService } from 'src/app/services/order/order.service';
 import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
+import { OrdersComponent } from '../../orders/orders.component';
+import { Order } from 'src/app/models/order/order';
 
 @Component({
   selector: 'app-restaurant-detail',
@@ -25,6 +28,9 @@ export class RestaurantDetailComponent implements OnInit {
   restaurantStatus:boolean=true;
   restaurantId: string;
   restaurantImage: string;
+  customerId:any
+  restaurantCommentsByCustomerId:RestaurantComment[]
+  restaurantOrdersByCustomerAndRestaurantId:Order[]
   
   comments: RestaurantComment[];
   status:boolean=true
@@ -34,16 +40,20 @@ export class RestaurantDetailComponent implements OnInit {
     private restaurantService: RestaurantService,
     private activatedRoute: ActivatedRoute,
     private toastrService: ToastrService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private orderService:OrderService,
   ) {}
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
+      this.getCustomerId()
       this.getRestaurantDetail(params['restaurantId']);
       this.getRestaurantMenusByRestaurantId(params['restaurantId']);
       this.id = this.activatedRoute.snapshot.paramMap.get('restaurantId');
       this.getRestaurantCommentsByRestaurantId();
       this.createAddForm();
       this.asd();
+      this.getRestaurantcommentsByCustomerId(this.customerId,this.id)
+      this.getRestaurantOrdersByCustomerAndRestaurantId(this.customerId,this.id)
     });
   }
 
@@ -55,7 +65,13 @@ export class RestaurantDetailComponent implements OnInit {
       commentContent: ['', Validators.required],
       commentDate: [new Date().toLocaleDateString(), Validators.required],
       restaurantRate: ['', Validators.required],
+      answer:[""],
+      answerDate:[''],
+      id:[""]
     });
+  }
+  getCustomerId(){
+    this.customerId=localStorage.getItem('customerId')
   }
 
   getRate(element: number) {
@@ -64,23 +80,30 @@ export class RestaurantDetailComponent implements OnInit {
   }
   addComment() {
     if (localStorage.getItem('customerId')) {
-      if (this.addCommentForm.valid) {
-        let model = Object.assign({}, this.addCommentForm.value);
-        this.restaurantService.addComment(model).subscribe(
-          (response) => {
-            if (response.success) {
-              this.toastrService.success(
-                'Yorumunuz başarıyla eklendi!',
-                'BAŞARILI'
-              );
-              this.getRestaurantCommentsByRestaurantId();
-            }
-          },
-          (error) => this.toastrService.error(error.error)
-        );
-      } else {
-        this.toastrService.info('Lütfen ilgili alanları doldurunuz!', 'HATA');
+      if (this.restaurantCommentsByCustomerId.length< this.restaurantOrdersByCustomerAndRestaurantId.length) {
+        if (this.addCommentForm.valid) {
+          let model = Object.assign({}, this.addCommentForm.value);
+          console.log(model);
+          
+          this.restaurantService.addComment(model).subscribe(
+            (response) => {
+              if (response.success) {
+                this.toastrService.success(
+                  'Yorumunuz başarıyla eklendi!',
+                  'BAŞARILI'
+                );
+                this.getRestaurantCommentsByRestaurantId();
+              }
+            },
+            (error) => this.toastrService.error(error.error)
+          );
+        } else {
+          this.toastrService.info('Lütfen ilgili alanları doldurunuz!', 'HATA');
+        }
+      }else{
+        this.toastrService.error("Verdiğiniz Sipariş Sayısı Kadar Yorum Yapabilirsiniz.","HATA")
       }
+      
     } else {
       this.toastrService.error('Yorum yapmak için önce giriş yapınız!', 'HATA');
     }
@@ -231,5 +254,18 @@ export class RestaurantDetailComponent implements OnInit {
           this.comments = this.comments.reverse();
         }
       });
+  } 
+  getRestaurantcommentsByCustomerId(customerId:string,restaurantId:string){
+    this.restaurantService.getRestaurantCommentsByCustomerId(customerId,restaurantId).subscribe(response=>{
+      response.success ? this.restaurantCommentsByCustomerId=response.data :this.toastrService.error("Bir Hata Meydana Geldi","HATA")
+      console.log(this.restaurantCommentsByCustomerId);
+      
+    })
+  }
+  getRestaurantOrdersByCustomerAndRestaurantId(customerId:string,restaurantId:string){
+    this.orderService.getOrdersByRestaurantAndCustomerId(customerId,restaurantId).subscribe(response=>{
+      response.success ? this.restaurantOrdersByCustomerAndRestaurantId=response.data :this.toastrService.error("Bir Hata Meydana Geldi","HATA")
+      console.log(this.restaurantOrdersByCustomerAndRestaurantId);
+    })
   }
 }

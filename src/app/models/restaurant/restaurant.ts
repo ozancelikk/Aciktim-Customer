@@ -7,5 +7,6 @@ export interface Restaurant {
     categoryId:string;
     restaurantImage:string;
     phoneNumber:string;
+    status:boolean
     restaurantStatus:boolean
 }
