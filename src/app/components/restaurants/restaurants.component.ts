@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryDto } from 'src/app/models/category/categoryDto';
 import { FavoriteRestaurantDto } from 'src/app/models/restaurant/favoriteRestaurantDto';
@@ -15,14 +16,14 @@ import { RestaurantService } from 'src/app/services/restaurant/restaurant.servic
 
 export class RestaurantsComponent implements OnInit {
   restaurants: RestaurantDto[];
-  categories: CategoryDto[]
+  categories: CategoryDto[];
   dizi: string[] = [];
   selectedOptionCategory: string;
   val: string;
   favoriteRestaurants: FavoriteRestaurantDto[]
   remainderRate = new Array(0)
 
-  constructor(private restaurantService: RestaurantService, private toastrService: ToastrService, private categoryService: CategoryService) { }
+  constructor(private restaurantService: RestaurantService, private toastrService: ToastrService, private categoryService: CategoryService,private router:Router) { }
   ngOnInit(): void {
     this.getAllRestaurants();
     this.getCategories();
@@ -33,6 +34,8 @@ export class RestaurantsComponent implements OnInit {
     this.restaurantService.getAllRestaurants().subscribe(response => {
       if (response.success) {
         this.restaurants = response.data;
+        console.log(this.restaurants);
+        
         for (let i = 0; i < this.restaurants.length; i++) {
           this.restaurants[i].restaurantRate = (Math.floor(this.restaurants[i].restaurantRate))
 
@@ -138,6 +141,8 @@ export class RestaurantsComponent implements OnInit {
       customerId: localStorage.getItem('customerId'),
       restaurantId: favoriteRestaurant.id
     }, favoriteRestaurant)
+    console.log(model);
+    
     this.restaurantService.addFavoriteService(model).subscribe(response => {
       if (response.success) {
         this.toastrService.success("Restoran favori listesine başarıyla eklendi ! ", "BAŞARILI");
@@ -190,6 +195,23 @@ export class RestaurantsComponent implements OnInit {
         return false;
     }
     return true;
+  }
+
+  route(restaurant:RestaurantDto){
+    if (restaurant.restaurantStatus==false) {
+      this.toastrService.error("Restoran Şuanda Kapalıdır!","HATA");
+    }
+    else{
+      this.router.navigate([`/restaurant/${restaurant.id}`])
+    }
+  }
+
+  restaurantPassiveColor(restaurant:RestaurantDto){
+    if (restaurant.restaurantStatus==false) {
+      return "color"
+    }else{
+      return "";
+    }
   }
 
 }

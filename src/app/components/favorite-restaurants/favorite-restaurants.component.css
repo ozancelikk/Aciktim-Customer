@@ -6,11 +6,16 @@
     left: 385px;
     top: 10px;
     font-size: 25px;
-    color: black;
+    color: #5D196A;
+    z-index: 999;
 }
 .delete:hover {
     color: red;
     transition: .4s;
+}
+.color{
+  filter: grayscale(100%);
+  color: gray;
 }
 
 @media (max-width: 1400px) {

@@ -11,5 +11,5 @@ export interface RestaurantDto {
     imagePath:string;
     phoneNumber:string;
     restaurantStatus:boolean
- 
+    status:boolean
 }
