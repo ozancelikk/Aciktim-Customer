@@ -35,7 +35,6 @@ export class RestaurantsComponent implements OnInit {
       if (response.success) {
         this.restaurants = response.data;
         console.log(this.restaurants);
-        
         for (let i = 0; i < this.restaurants.length; i++) {
           this.restaurants[i].restaurantRate = (Math.floor(this.restaurants[i].restaurantRate))
 

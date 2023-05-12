@@ -4,7 +4,7 @@
 <div class="container" *ngIf="restaurant && comments">
   <img [src]="getImagePath(restaurant)" style="width: 100%;height: 35rem;object-fit: cover;" alt="">
   <div class="all">
-    <div class="row mt-4">
+    <!-- <div class="row mt-4">
       <div class="col-lg-6 col-md-12 col-sm-12">
         <div class="search">
           <h2>{{restaurant.restaurantName.toUpperCase()}}</h2>
@@ -42,6 +42,33 @@
           </ul>
         </div>
       </div>
+    </div> -->
+    <div class="row mt-4">
+      <div class="col-lg-6 col-md-12 col-sm-12">
+        <div class="search">
+          <h2>{{restaurant.restaurantName.toUpperCase()}}</h2>
+            <div class="col-md-6">
+              <p><i class="fa-solid fa-house"></i>
+                {{restaurant.restaurantAddress.charAt(0).toUpperCase() + restaurant.restaurantAddress.slice(1)}}
+              </p>
+              <p><i class="fa-solid fa-clock"></i> {{restaurant.openingTime}} / {{restaurant.closingTime}}</p>
+
+              <p *ngIf="restaurant.restaurantRate!=0 ">Restoran Puanı:
+                <i class="fa-solid fa-star stars " *ngFor="let x of remainderRate"></i>
+                <i class="fa-solid fa-star  remainderRateColor" *ngFor="let x of rate"></i>
+                
+              </p>
+              <p *ngIf="restaurant.restaurantRate==0" style="color: #5e196b; font-weight: bold;">Henüz Puanlanlama Yaplımamıştır</p>
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mt-5">
+        <div>
+          <p><i class="fa-solid fa-envelope"></i> {{restaurant.mailAddress}}</p>
+          <p><i class="fa-solid fa-phone"></i> {{restaurant.phoneNumber}}</p>
+        </div>
+      </div>
+      
     </div>
     <div class="input-group mb-3 mt-3">
       <input type="text" class="form-control" [(ngModel)]="filtered" placeholder="Restoran İçi Menü Arama..."

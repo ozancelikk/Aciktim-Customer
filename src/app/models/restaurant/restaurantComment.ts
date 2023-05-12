@@ -5,4 +5,5 @@ export interface RestaurantComment {
     commentTitle:string;
     commentDate:string;
     restaurantRate:number;
+    status:boolean;
 }
