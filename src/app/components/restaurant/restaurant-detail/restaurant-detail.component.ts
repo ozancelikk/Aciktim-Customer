@@ -67,7 +67,7 @@ export class RestaurantDetailComponent implements OnInit {
       restaurantRate: ['', Validators.required],
       answer:[""],
       answerDate:[''],
-      id:[""]
+      id:[""],
     });
   }
   getCustomerId(){
@@ -84,7 +84,6 @@ export class RestaurantDetailComponent implements OnInit {
         if (this.addCommentForm.valid) {
           let model = Object.assign({}, this.addCommentForm.value);
           console.log(model);
-          
           this.restaurantService.addComment(model).subscribe(
             (response) => {
               if (response.success) {

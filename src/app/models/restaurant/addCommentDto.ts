@@ -4,4 +4,5 @@ export interface AddCommentDto {
     commentDate:string;
     commentTitle:String;
     commentContent:string;
+    status:boolean;
 }
