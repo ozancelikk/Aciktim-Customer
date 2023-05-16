@@ -22,9 +22,11 @@
                           <div class="media">
                             <div class="d-flex justify-content-between">
                               <div class="sq align-self-center ">
-                                <p style="font-weight: bold;">Restoran : {{order.restaurantName}}</p>
+                                  <p class="restaurant mb-3" routerLink="/restaurant/{{order.restaurantId}}"
+                                    style="font-weight: bold;font-size: 18px;"><u>Restoran : {{order.restaurantName.charAt(0).toUpperCase() + order.restaurantName.slice(1)}}</u> 
+                                  </p>
                                 <p style="font-weight: bold;">Sipariş No : {{order.id}}</p>
-                                <p style="font-weight: bold;">Siarpiş Tarihi : {{order.orderDate}}</p>
+                                <p style="font-weight: bold;">Sipariş Tarihi : {{order.orderDate}}</p>
                               </div>
                               <div style="width: 200px;margin-top: auto;margin-bottom: auto;">
                                 <span style="font-weight: bold;">Teslim Edilen Adres: </span>
@@ -55,16 +57,17 @@
                               </tr>
                             </tbody>
                           </table>
-                          <div class="mb-3 d-flex" style="flex-direction: row-reverse;font-weight: bold;"> Sipariş Açıklaması :
+                          <div class="mb-3 d-flex" style="flex-direction: row-reverse;font-weight: bold;"> Sipariş
+                            Açıklaması :
                             {{order.orderDescription}}</div>
                         </div>
                       </div>
                       <h2 style="letter-spacing: 0px;">Sipariş Takip</h2>
                     </div>
                     <div style="position: relative;">
-                      <div [class]="getClass(order)" class="hero" >
+                      <div [class]="getClass(order)" class="hero">
                       </div>
-                      </div>
+                    </div>
                     <br>
                     <div class="d-flex justify-content-between">
                       <div class="d-lg-flex align-items-center">
@@ -107,62 +110,65 @@
         Ara</label>
       <input type="email" [(ngModel)]="filter" class="form-control mb-3" id="exampleFormControlInput1"
         placeholder="Restoran Adı">
-        <div class="alert alert-danger" role="alert" *ngIf="competedOrders.length == 0">
-          Geçmiş siparişiniz bulunmamaktadır. Sipariş vermek için <a href="http://localhost:4200/#restoranlar"><u style="cursor: pointer;">tıklayın</u></a>
-        </div>
-      <div class="container-fluid d-flex justify-content-center" style="margin-top: 0px;"  *ngFor="let order of competedOrders |restaurantPipe:filter" class="mb-4">
+      <div class="alert alert-danger" role="alert" *ngIf="competedOrders.length == 0">
+        Geçmiş siparişiniz bulunmamaktadır. Sipariş vermek için <a href="http://localhost:4200/#restoranlar"><u
+            style="cursor: pointer;">tıklayın</u></a>
+      </div>
+      <div class="container-fluid d-flex justify-content-center" style="margin-top: 0px;"
+        *ngFor="let order of competedOrders |restaurantPipe:filter" class="mb-4">
         <div class=" card-1">
           <div class="card-body">
             <div class="row">
               <div>
-              <div class="col">
-                <div class="card border_bottom_none">
-                  <div class="card-body">
-                    <div class="media">
-                      <div class="d-flex justify-content-between">
-                        <div class="sq align-self-center ">
-                          <p style="font-weight: bold;">Restoran : {{order.restaurantName}}</p>
-                          <p style="font-weight: bold;">Sipariş No : {{order.id}}</p>
-                          <p style="font-weight: bold;">Sipariş Tarihi: {{order.orderDate}}</p>
+                <div class="col">
+                  <div class="card border_bottom_none">
+                    <div class="card-body">
+                      <div class="media">
+                        <div class="d-flex justify-content-between">
+                          <div class="sq align-self-center ">
+                            <p style="font-weight: bold;font-size: 18px;" routerLink="/restaurant/{{order.restaurantId}}" class="restaurant mb-3"><u>Restoran : {{order.restaurantName.charAt(0).toUpperCase() + order.restaurantName.slice(1)}}</u> </p>
+                            <p style="font-weight: bold;">Sipariş No : {{order.id}}</p>
+                            <p style="font-weight: bold;">Sipariş Tarihi: {{order.orderDate}}</p>
+                          </div>
+                          <div>
+                            <span style="font-weight: bold;">Teslim Edilen Adres: </span>
+                            {{order.address}}
+                          </div>
                         </div>
-                        <div>
-                          <span style="font-weight: bold;">Teslim Edilen Adres: </span>
-                          {{order.address}}
-                        </div>
+                        <br>
+                        <h3 style="font-weight: bold;">Sipariş İçeriği</h3>
                       </div>
-                      <br>
-                      <h3 style="font-weight: bold;">Sipariş İçeriği</h3>
+                      <hr class="my-3 ">
                     </div>
-                    <hr class="my-3 ">
                   </div>
                 </div>
-              </div>
-              <div>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Menü Resmi</th>
-                      <th scope="col">Menü İsmi</th>
-                      <th scope="col">Menü Fiyatı</th>
-                      <th scope="col">Adet</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let menu of order.menus">
-                      <th>
-                        <img [src]="menu.menuImage" alt="" width="70" height="70">
-                      </th>
-                      <td>{{menu.menuName}}</td>
-                      <td>{{menu.orderPrice}}</td>
-                      <td>{{menu.quantity}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div class="mb-3 d-flex" style="flex-direction: row-reverse; margin-right: 2rem;"> Sipariş Açıklaması :
-                  {{order.orderDescription}}</div>
+                <div>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Menü Resmi</th>
+                        <th scope="col">Menü İsmi</th>
+                        <th scope="col">Menü Fiyatı</th>
+                        <th scope="col">Adet</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let menu of order.menus">
+                        <th>
+                          <img [src]="menu.menuImage" alt="" width="70" height="70">
+                        </th>
+                        <td>{{menu.menuName}}</td>
+                        <td>{{menu.orderPrice}}</td>
+                        <td>{{menu.quantity}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="mb-3 d-flex" style="flex-direction: row-reverse; margin-right: 2rem;"> Sipariş Açıklaması
+                    :
+                    {{order.orderDescription}}</div>
+                </div>
               </div>
             </div>
-          </div>
           </div>
         </div>
       </div>
