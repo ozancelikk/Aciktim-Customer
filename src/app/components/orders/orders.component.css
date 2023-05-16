@@ -75,42 +75,18 @@
   position: relative;
 }
 
-/*#progressbar-2 #Alındı:before {
-  content: '\f058';
-  font-family: "Font Awesome 5 Free";
-  color: #fff;
-  width: 37px;
-  margin-left: 0px;
-  padding-left: 0px;
+.restaurant:hover {
+  background-color: #5D196A;
+  color: white;
+  padding: 1rem;
+  transition: .4s all;
+  border-radius: 10px;
+  cursor: pointer;
 }
-
-#progressbar-2 #Hazırlanıyor:before {
-  content: '\f058';
-  font-family: "Font Awesome 5 Free";
-  color: #fff;
-  width: 37px;
-}
-
-#progressbar-2 #Kuryede:before {
-  content: '\f058';
-  font-family: "Font Awesome 5 Free";
-  color: #fff;
-  width: 37px;
-  margin-right: 0;
-  text-align: center;
-}
-
-#progressbar-2 #step4:before {
-  content: '\f111';
-  font-family: "Font Awesome 5 Free";
-  color: #fff;
-  width: 37px;
-  margin-right: 0;
-  text-align: center;
-}*/
 .activex {
     box-shadow: 2px 2px 10px 0px #5D196A;
 }
+
 
 #progressbar-2 li:before {
   line-height: 37px;

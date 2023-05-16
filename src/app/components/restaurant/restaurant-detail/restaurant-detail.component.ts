@@ -25,15 +25,15 @@ export class RestaurantDetailComponent implements OnInit {
   remainderRate = new Array(0);
   restaurantMenuDetails: RestaurantMenu[];
   filtered: string;
-  restaurantStatus:boolean=true;
+  restaurantStatus: boolean = true;
   restaurantId: string;
   restaurantImage: string;
-  customerId:any
-  restaurantCommentsByCustomerId:RestaurantComment[]
-  restaurantOrdersByCustomerAndRestaurantId:Order[]
-  
+  customerId: any
+  restaurantCommentsByCustomerId: RestaurantComment[]
+  restaurantOrdersByCustomerAndRestaurantId: Order[]
+
   comments: RestaurantComment[];
-  status:boolean=true
+  status: boolean = true
   id: any; // parametreden gelen restoran id
   restaurantRate = new Array(0);
   constructor(
@@ -41,8 +41,8 @@ export class RestaurantDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private toastrService: ToastrService,
     private formBuilder: FormBuilder,
-    private orderService:OrderService,
-  ) {}
+    private orderService: OrderService,
+  ) { }
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.getCustomerId()
@@ -52,8 +52,8 @@ export class RestaurantDetailComponent implements OnInit {
       this.getRestaurantCommentsByRestaurantId();
       this.createAddForm();
       this.asd();
-      this.getRestaurantcommentsByCustomerId(this.customerId,this.id)
-      this.getRestaurantOrdersByCustomerAndRestaurantId(this.customerId,this.id)
+      this.getRestaurantcommentsByCustomerId(this.customerId, this.id)
+      this.getRestaurantOrdersByCustomerAndRestaurantId(this.customerId, this.id)
     });
   }
 
@@ -65,13 +65,13 @@ export class RestaurantDetailComponent implements OnInit {
       commentContent: ['', Validators.required],
       commentDate: [new Date().toLocaleDateString(), Validators.required],
       restaurantRate: ['', Validators.required],
-      answer:[""],
-      answerDate:[''],
-      id:[""],
+      answer: [""],
+      answerDate: [''],
+      id: [""],
     });
   }
-  getCustomerId(){
-    this.customerId=localStorage.getItem('customerId')
+  getCustomerId() {
+    this.customerId = localStorage.getItem('customerId')
   }
 
   getRate(element: number) {
@@ -80,7 +80,7 @@ export class RestaurantDetailComponent implements OnInit {
   }
   addComment() {
     if (localStorage.getItem('customerId')) {
-      if (this.restaurantCommentsByCustomerId.length< this.restaurantOrdersByCustomerAndRestaurantId.length) {
+      if (this.restaurantCommentsByCustomerId.length <= this.restaurantOrdersByCustomerAndRestaurantId.length) {
         if (this.addCommentForm.valid) {
           let model = Object.assign({}, this.addCommentForm.value);
           console.log(model);
@@ -91,7 +91,9 @@ export class RestaurantDetailComponent implements OnInit {
                   'Yorumunuz başarıyla eklendi!',
                   'BAŞARILI'
                 );
-                this.getRestaurantCommentsByRestaurantId();
+               this.getRestaurantCommentsByRestaurantId();
+               this.getRestaurantOrdersByCustomerAndRestaurantId(this.customerId,this.id);
+               this.getRestaurantcommentsByCustomerId(this.customerId,this.id);
               }
             },
             (error) => this.toastrService.error(error.error)
@@ -99,10 +101,10 @@ export class RestaurantDetailComponent implements OnInit {
         } else {
           this.toastrService.info('Lütfen ilgili alanları doldurunuz!', 'HATA');
         }
-      }else{
-        this.toastrService.error("Verdiğiniz Sipariş Sayısı Kadar Yorum Yapabilirsiniz.","HATA")
+      } else {
+        this.toastrService.error("Verdiğiniz Sipariş Sayısı Kadar Yorum Yapabilirsiniz.", "HATA")
       }
-      
+
     } else {
       this.toastrService.error('Yorum yapmak için önce giriş yapınız!', 'HATA');
     }
@@ -114,7 +116,7 @@ export class RestaurantDetailComponent implements OnInit {
       .subscribe((response) => {
         if (response.success) {
           this.restaurant = response.data;
-          this.restaurantStatus=this.restaurant.restaurantStatus;
+          this.restaurantStatus = this.restaurant.restaurantStatus;
           this.star = response.data.restaurantRate;
           this.rate = new Array(Math.floor(this.restaurant.restaurantRate));
           this.remainderRate = new Array(
@@ -127,7 +129,7 @@ export class RestaurantDetailComponent implements OnInit {
         }
       });
   }
-    
+
   asd() {
     this.getRestaurantDetail(this.id, () => {
       const now = new Date();
@@ -138,24 +140,24 @@ export class RestaurantDetailComponent implements OnInit {
       console.log(this.restaurantStatus);
       if (this.restaurant.openingTime < this.restaurant.closingTime) {
         // Kapanış saati, aynı günün içinde
-        if (hourMinute >= this.restaurant.openingTime && hourMinute < this.restaurant.closingTime&&this.restaurant.restaurantStatus==true){
-          this.status=true
-          this.restaurantStatus=true
+        if (hourMinute >= this.restaurant.openingTime && hourMinute < this.restaurant.closingTime && this.restaurant.restaurantStatus == true) {
+          this.status = true
+          this.restaurantStatus = true
         } else {
-          this.status=false
-          this.restaurantStatus=false
+          this.status = false
+          this.restaurantStatus = false
         }
-      }else if(this.restaurant.restaurantStatus==false){
-        this.status=false
-        this.restaurantStatus=false
+      } else if (this.restaurant.restaurantStatus == false) {
+        this.status = false
+        this.restaurantStatus = false
       } else {
         // Kapanış saati, bir sonraki günün başlangıcını ifade ediyor
-        if (hourMinute >= this.restaurant.openingTime || hourMinute < this.restaurant.closingTime||this.restaurant.restaurantStatus==true) {
-          this.status=true
-          this.restaurantStatus=true
+        if (hourMinute >= this.restaurant.openingTime || hourMinute < this.restaurant.closingTime || this.restaurant.restaurantStatus == true) {
+          this.status = true
+          this.restaurantStatus = true
         } else {
-          this.status=false
-          this.restaurantStatus=false
+          this.status = false
+          this.restaurantStatus = false
         }
       }
     });
@@ -164,9 +166,9 @@ export class RestaurantDetailComponent implements OnInit {
     let url: string;
     return restaurantDto.imagePath != null
       ? 'http://127.0.0.1:4200/Restaurant/' +
-          restaurantDto.id +
-          '/' +
-          restaurantDto.imagePath
+      restaurantDto.id +
+      '/' +
+      restaurantDto.imagePath
       : 'http://127.0.0.1:4200/Restaurant/noImage.png';
   }
 
@@ -184,9 +186,9 @@ export class RestaurantDetailComponent implements OnInit {
     return restaurantDto.menuImage == null
       ? 'http://127.0.0.1:4200/Restaurant/noImage.png'
       : 'http://127.0.0.1:4200/Menu/' +
-          restaurantDto.id +
-          '/' +
-          restaurantDto.menuImage;
+      restaurantDto.id +
+      '/' +
+      restaurantDto.menuImage;
   }
 
   addCart(menu: RestaurantMenu) {
@@ -253,17 +255,17 @@ export class RestaurantDetailComponent implements OnInit {
           this.comments = this.comments.reverse();
         }
       });
-  } 
-  getRestaurantcommentsByCustomerId(customerId:string,restaurantId:string){
-    this.restaurantService.getRestaurantCommentsByCustomerId(customerId,restaurantId).subscribe(response=>{
-      response.success ? this.restaurantCommentsByCustomerId=response.data :this.toastrService.error("Bir Hata Meydana Geldi","HATA")
+  }
+  getRestaurantcommentsByCustomerId(customerId: string, restaurantId: string) {
+    this.restaurantService.getRestaurantCommentsByCustomerId(customerId, restaurantId).subscribe(response => {
+      response.success ? this.restaurantCommentsByCustomerId = response.data : this.toastrService.error("Bir Hata Meydana Geldi", "HATA")
       console.log(this.restaurantCommentsByCustomerId);
-      
+
     })
   }
-  getRestaurantOrdersByCustomerAndRestaurantId(customerId:string,restaurantId:string){
-    this.orderService.getOrdersByRestaurantAndCustomerId(customerId,restaurantId).subscribe(response=>{
-      response.success ? this.restaurantOrdersByCustomerAndRestaurantId=response.data :this.toastrService.error("Bir Hata Meydana Geldi","HATA")
+  getRestaurantOrdersByCustomerAndRestaurantId(customerId: string, restaurantId: string) {
+    this.orderService.getOrdersByRestaurantAndCustomerId(customerId, restaurantId).subscribe(response => {
+      response.success ? this.restaurantOrdersByCustomerAndRestaurantId = response.data : this.toastrService.error("Bir Hata Meydana Geldi", "HATA")
       console.log(this.restaurantOrdersByCustomerAndRestaurantId);
     })
   }
