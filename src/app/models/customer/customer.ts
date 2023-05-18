@@ -7,4 +7,5 @@ export interface Customer{
     phoneNumber:string
     mailAddress:string
     registerDate:string
+    status:boolean
 }

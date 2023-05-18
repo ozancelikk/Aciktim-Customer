@@ -6,4 +6,5 @@ export interface CustomerDto{
     phoneNumber:string
     mailAddress:string
     registerDate:string
+    status:boolean
 }

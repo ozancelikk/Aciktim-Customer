@@ -49,6 +49,8 @@ export class AuthService {
   changePassword(changePassword:ChangePassword):Observable<ResponseModel>{
     return this.httpClient.post<ResponseModel>(this.apiURL +"/ChangePassword",changePassword);
   }
-
+  checkIfPrivateKeyIsTrue(key:string,mail:string):Observable<ResponseModel>{
+    return this.httpClient.get<ResponseModel>(this.apiURL +"/CheckIfPrivateKeyIsTrue?key="+key+"&mail="+mail);
+  }
   
 }

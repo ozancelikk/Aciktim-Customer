@@ -17,6 +17,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { FavoriteRestaurantsComponent } from './components/favorite-restaurants/favorite-restaurants.component';
 
 import { AuthGuardGuard } from './guards/auth-guard.guard';
+import { CheckIfPrivateKeyComponent } from './components/auth/check-if-private-key/check-if-private-key.component';
 
 
 const routes: Routes = [
@@ -32,12 +33,14 @@ const routes: Routes = [
   ]},
   {path:"auth/login",component:LoginComponent},
   {path:"auth/register",component:RegisterComponent},
+  {path:"auth/register/confirm/:email",component:CheckIfPrivateKeyComponent},
   {path:"account",component:AccountComponent ,canActivate:[AuthGuardGuard]},
   {path:"orders",component:OrdersComponent ,canActivate:[AuthGuardGuard]},
 
   {path:"support",component:SupportComponent},
   {path:"cart",component:CartComponent ,canActivate:[AuthGuardGuard]},
   {path:"favoriteRestaurants",component:FavoriteRestaurantsComponent ,canActivate:[AuthGuardGuard]},
+ 
 
 ];
 
