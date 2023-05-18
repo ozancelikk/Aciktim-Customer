@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
             localStorage.setItem("registerToken", response.data.token);
             this.toastrService.info("E-Mailinize doğrulama linki gönderilmiştir.", "Kayıt Başarılı")
             setTimeout(() => {
-              this.router.navigate(["auth/login"]);
+              this.router.navigate([`auth/register/confirm/${model.email}`]);
             }, 2700)
 
           }, errResponse => {

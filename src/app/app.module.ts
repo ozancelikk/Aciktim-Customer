@@ -27,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MenuPipePipe } from './pipes/menu-pipe.pipe';
 import { RestaurantPipePipe } from './pipes/restaurant-pipe.pipe';
+import { CheckIfPrivateKeyComponent } from './components/auth/check-if-private-key/check-if-private-key.component';
 
 
 
@@ -52,6 +53,7 @@ import { RestaurantPipePipe } from './pipes/restaurant-pipe.pipe';
     FavoriteRestaurantsComponent,
     MenuPipePipe,
     RestaurantPipePipe,
+    CheckIfPrivateKeyComponent,
 
   ],
   imports: [
