@@ -34,12 +34,10 @@ export class RestaurantsComponent implements OnInit {
     this.restaurantService.getAllRestaurants().subscribe(response => {
       if (response.success) {
         this.restaurants = response.data;
-        console.log(this.restaurants);
         for (let i = 0; i < this.restaurants.length; i++) {
           this.restaurants[i].restaurantRate = (Math.floor(this.restaurants[i].restaurantRate))
 
         }
-        console.log(this.remainderRate)
         if (successCallBack) {
           successCallBack();
         }
@@ -140,7 +138,6 @@ export class RestaurantsComponent implements OnInit {
       customerId: localStorage.getItem('customerId'),
       restaurantId: favoriteRestaurant.id
     }, favoriteRestaurant)
-    console.log(model);
     
     this.restaurantService.addFavoriteService(model).subscribe(response => {
       if (response.success) {

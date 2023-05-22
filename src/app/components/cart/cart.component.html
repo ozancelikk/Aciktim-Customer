@@ -85,7 +85,7 @@
                 <div class="col-lg-12">
                   <h3 style="font-weight: bold;">Kayıtlı Adreslerim</h3>
                   <select class="form-select"  [(ngModel)]="selectedOption" aria-label="Default select example">
-                    <option  *ngFor="let adres of customerAddress" [value]="adres.address">{{adres.address}}</option>
+                    <option  *ngFor="let adres of customerAddress" [value]="adres.city + ' ' +adres.county + ' ' + adres.neighbourHood + ' ' + adres. street+ ' No: ' + adres.apartmentNumber+ ' D: ' +adres.doorNumber+ ' ' +adres.address">{{adres.address}}</option>
                   </select>
                 </div>
               </div>
