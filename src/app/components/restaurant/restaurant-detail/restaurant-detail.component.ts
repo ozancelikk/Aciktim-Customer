@@ -83,7 +83,6 @@ export class RestaurantDetailComponent implements OnInit {
       if (this.restaurantCommentsByCustomerId.length <= this.restaurantOrdersByCustomerAndRestaurantId.length) {
         if (this.addCommentForm.valid) {
           let model = Object.assign({}, this.addCommentForm.value);
-          console.log(model);
           this.restaurantService.addComment(model).subscribe(
             (response) => {
               if (response.success) {
@@ -135,9 +134,6 @@ export class RestaurantDetailComponent implements OnInit {
       const now = new Date();
       const datePipe = new DatePipe('en-US');
       const hourMinute = datePipe.transform(now, 'HH:mm');
-      console.log(hourMinute);
-      console.log(this.restaurant.openingTime);
-      console.log(this.restaurantStatus);
       if (this.restaurant.openingTime < this.restaurant.closingTime) {
         // Kapanış saati, aynı günün içinde
         if (hourMinute >= this.restaurant.openingTime && hourMinute < this.restaurant.closingTime && this.restaurant.restaurantStatus == true) {
@@ -259,14 +255,12 @@ export class RestaurantDetailComponent implements OnInit {
   getRestaurantcommentsByCustomerId(customerId: string, restaurantId: string) {
     this.restaurantService.getRestaurantCommentsByCustomerId(customerId, restaurantId).subscribe(response => {
       response.success ? this.restaurantCommentsByCustomerId = response.data : this.toastrService.error("Bir Hata Meydana Geldi", "HATA")
-      console.log(this.restaurantCommentsByCustomerId);
 
     })
   }
   getRestaurantOrdersByCustomerAndRestaurantId(customerId: string, restaurantId: string) {
     this.orderService.getOrdersByRestaurantAndCustomerId(customerId, restaurantId).subscribe(response => {
       response.success ? this.restaurantOrdersByCustomerAndRestaurantId = response.data : this.toastrService.error("Bir Hata Meydana Geldi", "HATA")
-      console.log(this.restaurantOrdersByCustomerAndRestaurantId);
     })
   }
 }
